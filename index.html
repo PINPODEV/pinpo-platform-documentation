@@ -11,11 +11,15 @@
     />
   </head>
   <body>
-    <elements-api
-      apiDescriptionUrl="https://raw.githubusercontent.com/PINPODEV/pinpo-platform/api-v2/api.yml?token=GHSAT0AAAAAACGCD6Y7C3PVG2R7FNPIVLWUZGTKWJQ"
-      router="hash"
-      hideTryIt="true"
-      logo="https://images.crunchbase.com/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/soq8aq5dcxizntfju9lm"
-    />
+    <elements-api id="docs" router="hash" layout="sidebar"></elements-api>
+    <script>
+      (async () => {
+        const docs = document.getElementById('docs');
+        const text = await fetch(
+          'https://raw.githubusercontent.com/PINPODEV/pinpo-platform/api-v2-input/api.yml?token=GHSAT0AAAAAACGCD6Y7AULVHOFBTWS2KTJKZGTNMVQ'
+        ).then((res) => res.text());
+        docs.apiDescriptionDocument = text;
+      })();
+    </script>
   </body>
 </html>
