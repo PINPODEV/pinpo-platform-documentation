@@ -1,0 +1,137 @@
+openapi: 3.1.0
+info:
+  title: PINPO - OpenAPI 3.1
+  description: Pinpo is an automated lead qualification platform
+  contact:
+    email: integration@pinpo.fr
+  version: 1.0.11
+externalDocs:
+  description: Find out more about PINPO
+  url: https://www.pinpo.com/
+servers:
+  - url: https://api.pinpo.com/v1
+tags:
+  - name: lead
+    description: Everything about your leads
+paths:
+  /lead:
+    post:
+      tags:
+        - lead
+      summary: Add a new lead to qualify
+      description: Add a new lead to qualify
+      operationId: importLead
+      requestBody:
+        description: Import a new lead in PINPO
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Lead'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+        '405':
+          description: Invalid input
+components:
+  schemas:
+    Lead:
+      required:
+        - contact
+      type: object
+      properties:
+        id:
+          type: string
+          example: 10oijoijpoj
+        contact:
+          $ref: '#/components/schemas/Contact'
+        providerName:
+          type: string
+          example: Facebook leads
+        scenarioSelection:
+          type: string
+          example: leads_entrants
+        product:
+          $ref: '#/components/schemas/Product'
+        salesMan:
+          $ref: '#/components/schemas/SalesMan'
+        scriptData:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomData'
+        statsData:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomData'
+    Contact:
+      type: object
+      required:
+        - phone
+      properties:
+        firstName:
+          type: string
+          example: John
+        lastName:
+          type: string
+          example: Doe
+        phone:
+          type: string
+          example: 33606060606
+        mail:
+          type: string
+          example: john.doe@pinpo.fr
+        externalId:
+          type: string
+          example: jiu7897987GUYGhh
+    SalesMan:
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: John
+        lastName:
+          type: string
+          example: Doe
+        phone:
+          type: string
+          example: 33606060606
+        mail:
+          type: string
+          example: john.doe@pinpo.fr
+        externalId:
+          type: string
+          example: jiu7897987GUYGhh
+        iCalUrl:
+           type: string
+           example: https://joiuezhfiuhIcal.fr
+    Product:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Programme des oliviers
+        category:
+          type: string
+          example: new
+        externalId:
+          type: string
+          example: huih89hhgh
+    CustomData:
+      type: object
+      required:
+        - name
+        - value
+      properties:
+        name:
+          type: string
+          example: departement
+        value:
+          type: string
+          example: Ardèche
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: api_key
+      in: header
+security:
+  - ApiKeyAuth: []
