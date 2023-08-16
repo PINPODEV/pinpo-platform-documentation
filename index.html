@@ -16,7 +16,7 @@
       (async () => {
         const docs = document.getElementById('docs');
         const text = await fetch(
-          'https://raw.githubusercontent.com/PINPODEV/pinpo-platform/api-v2-input/api.yml?token=GHSAT0AAAAAACGCD6Y7VL3P3W4ULGPTRGOAZGVBXCQ'
+          'https://raw.githubusercontent.com/PINPODEV/pinpo-platform-documentation/main/api.yml'
         ).then((res) => res.text());
         docs.apiDescriptionDocument = text;
       })();
