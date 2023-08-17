@@ -13,6 +13,8 @@ servers:
 tags:
   - name: lead
     description: Everything about your leads
+  - name: webhook
+    description: Everything about subscribing to events
 paths:
   /lead:
     post:
@@ -33,6 +35,158 @@ paths:
           description: Successful operation
         '405':
           description: Invalid input
+    get:
+      tags:
+        - lead
+      summary: get lead informations
+      description: ''
+      operationId: getLead
+      parameters:
+        - name: idLead
+          in: query
+          description: The PINPO lead id
+          required: false
+          schema:
+            type: string
+        - name: externalId
+          in: query
+          description: The External lead id
+          required: false
+          schema:
+            type: string
+        - name: leadPhone
+          in: query
+          description: The lead phone
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnrichedLead'
+  /leads:
+    get:
+      tags:
+        - lead
+      summary: search leads
+      description: ''
+      operationId: searchLeads
+      parameters:
+        - name: minDate
+          in: query
+          description: "minimum date last activity to retrieve, by default date of now - 1 day"
+          required: false
+          #default: 1688203458
+          schema:
+            type: number
+        - name: maxDate
+          in: query
+          description: "max date last activity to retrieve, by default now"
+          required: false
+          #default: 1688203458
+          schema:
+            type: number
+        - name: temperature
+          in: query
+          description: "filtered temperature"
+          required: false
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Temperature'
+        # deal with form response filter
+          
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/EnrichedLead'
+  
+  /subscribe:
+    post:
+      tags:
+        - webhook
+      summary: Subscribe to an event
+      description: Subscribe to an event
+      operationId: subscribe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscribeData'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SubscribeData'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SubscribeData'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                description: idEvent
+                example: oihjbiyg98098
+        '405':
+          description: Invalid input
+  /subscriptions:
+    get:
+      tags:
+        - webhook
+      summary: Get all subscription
+      description: Retrieve all subcription linked to your account
+      operationId: getSubscription
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Subscription'
+      
+  /unsubscribe/{idSubcription}:
+    post:
+      tags:
+        - webhook
+      summary: Unsubscribe to an event
+      description: Unsubscribe to an event
+      operationId: unsubscribe
+      parameters:
+        - name: idSubcription
+          in: path
+          description: The idSubcription ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+        '405':
+          description: Invalid input
+webhooks:
+    EnrichedLead:
+      post:
+        x-internal: true
+        requestBody:
+          description: Information about lead qualification
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnrichedLead'
+        responses:
+          "200":
+            description: Return a 200 status to indicate that the data was received successfully        
 components:
   schemas:
     Lead:
@@ -128,6 +282,247 @@ components:
         value:
           type: string
           example: Ardèche
+    Report:
+      type: object
+      properties: 
+          qualificationForm:
+            type: array
+            items:
+              $ref: '#/components/schemas/QualificationItem'
+          qualificationFormDisplay:
+            type: string
+            example: "Interest in a lead engagement and qualification solution : Oui (Note pour la question: Interest in a lead engagement and qualification solution)\nInterest for a meeting : Oui (Note pour la question: Interest for a meeting)\nMeeting Typology : Phone (Note pour la question: Meeting Typology)\nProject Timeline : Short-term project (Note pour la question: Project Timeline)\nMore details about leads project : Réponse à la question: More details about leads project (Note pour la question: More details about leads project)\n\nNotes générales : Notes générales"
+          notes:
+            type: string
+            example: General notes
+          temperature:
+            $ref: '#/components/schemas/Temperature'
+          temperatureDisplay:
+            $ref: '#/components/schemas/TemperatureDisplay'
+          transcriptUrl:
+            type: string
+            example: https://pinpo.app.link/dLK242D
+          conversationDisplay:
+            type: string
+            example: "- [Assistant 22/03 15:22] Message d'engagement\n- [Prospect 22/03 15:34] Réponse du lead\n- [Assistant 22/03 15:39] Message de cloture"
+          conversationUrl:
+            type: string
+            example: 'https://pinpo.app.link/dlkihouhiguyvg'
+    QualificationItem:
+      type: object 
+      required:
+        - id
+        - formQuestion
+        - formResponse
+      properties:
+        id:
+          type: string
+          example: ugoiy76765443Fjhg
+        formQuestion:
+          $ref: '#/components/schemas/FormQuestion'
+        formResponse:
+          $ref: '#/components/schemas/FormResponse'
+        note:
+          type: string
+          example: Question note
+        display:
+          type: string
+          example: 'Interest in a lead engagement and qualification solution : Oui (Question note)'
+    FormQuestion:
+      type: object
+      required:
+        - id
+        - question
+        - type
+      properties:
+        id:
+          type: string
+          example: product_interest
+        question:
+          type: string
+          example: Interest in a lead engagement and qualification solution
+        type:
+          type: string
+          enum:
+            - boolean
+            - text
+            - choice
+            - date
+            - multiChoice
+    FormResponse:
+      type: object
+      required:
+        - id
+        - type
+      properties:
+        id:
+          type: string
+          example: oiubiyf7897fhgjddas545
+        value:
+          oneOf:
+            - boolean:
+              type: boolean
+              example: true
+            - textOrChoice:
+              type: string
+              example: Textual response
+            - date:
+              type: number
+              example: 1553264538.371
+            - multiChoice:
+              type: array
+              items:
+                type: string
+          discriminator:
+            propertyName: type
+    ConversationMessage:
+      type: object
+      properties:
+        sender:
+          type: string
+          enum:
+            - lead
+            - operator
+        dateTime:
+          type: number
+          example: 1553264538.371
+        text:
+          type: string
+          example: 
+    Patch:
+      type: object
+      properties:
+        op:
+          type: string
+          enum:
+            - add
+            - replace
+            - remove # not sure about remove
+        path:
+          type: string
+          example: /report/form_responses/meeting_typology/choice
+        value:
+          type: string
+          example: Phone
+    EnrichedLeadDetails:
+      type: object 
+      properties:
+        contact:
+          $ref: '#/components/schemas/Contact'
+        providerName:
+          type: string
+          example: Facebook leads
+        scenarioSelection:
+          type: string
+          example: leads_entrants
+        origin_body:
+          $ref: '#/components/schemas/Lead'
+        originProvider:
+          type: string
+          example: Facebook leads
+        requestDate:
+          type: number
+          example: 1546297200
+        requestDateDisplay:
+          type: string
+          example: "01/01/2019 00:00" #NECESSARY ??
+        lastActivityDisplay:
+          type: string
+          example: "01/01/2019 00:00" #NECESSARY ??
+        conversation:
+          type: array
+          items:
+             $ref: '#/components/schemas/ConversationMessage'
+        stringified_conversation: #WHATS THE DIFFERENCE with conversationDisplay ?
+          type: string
+          example: "- [Assistant 22/03 15:22] Message d'engagement\n- [Prospect 22/03 15:34] Réponse du lead\n- [Assistant 22/03 15:39] Message de cloture"
+        product:
+          $ref: '#/components/schemas/Product'
+        salesMan:
+          $ref: '#/components/schemas/SalesMan'
+        patch:
+          type: array
+          items:
+            $ref: '#/components/schemas/Patch'
+    EnrichedLead:
+      required:
+        - id
+        - report
+      type: object
+      properties:
+        id:
+          type: string
+          example: 10oijoijpoj
+        report:
+          $ref: '#/components/schemas/Report'
+        lastActivity:
+          type: number
+          example: 1546297200
+        trigger:
+          description: used only on Webhooks
+          $ref: '#/components/schemas/Event'
+        enrichedLeadDetails:
+          $ref: '#/components/schemas/EnrichedLeadDetails'
+    SubscribeData:
+      type: object
+      required:
+        - url
+      properties:
+        event:
+          $ref: '#/components/schemas/Event'
+          description: event you want subscribe, alls by default
+        idScenario:
+          description: add a scenario id if you don't want to subscribe to alls of yours scenarios
+          type: string
+          example: leads_entrants
+        url:
+          description: url in your SI to notify
+          type: string
+          example: https://clientURL/enrichedLead
+    Event:
+      type: string
+      enum:
+        # to define
+        - lead:unqualified
+        - lead:qualified
+        - lead:engaged (unquilifiable & qualified)
+        - lead:unengaged
+        - lead:calling #instead of conversation:call:received TO DELETE if we handle this behavior in product (send default message to lead)
+    Temperature:
+      type: string
+      enum:
+        - hot
+        - warm
+        - cold
+      # check if we keep Indeterminate ?
+    TemperatureDisplay:
+      type: string
+      enum:
+        - Chaud
+        - Tiède
+        - Froid
+        # check if we keep Indeterminate ?
+    Subscription:
+      type: object
+      required:
+        - event
+        - idScenario
+        - url
+      properties:
+        idSubscription:
+          type: string
+          example: iujoij98hgghv
+        event: 
+          $ref: '#/components/schemas/Event'
+        idScenario:
+          type: string
+          example: lead_entrants
+        url:
+          type: string
+          example: https://clientURL/enrichedLead
+        createdAt:
+          type: number
+          example: 1546297200
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
