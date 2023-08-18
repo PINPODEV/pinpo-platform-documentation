@@ -38,11 +38,10 @@ components:
     Lead:
       required:
         - contact
+        - providerName
+        - product
       type: object
       properties:
-        id:
-          type: string
-          example: 10oijoijpoj
         contact:
           $ref: '#/components/schemas/Contact'
         providerName:
@@ -53,8 +52,8 @@ components:
           example: leads_entrants
         product:
           $ref: '#/components/schemas/Product'
-        salesMan:
-          $ref: '#/components/schemas/SalesMan'
+        salesPerson:
+          $ref: '#/components/schemas/SalesPerson'
         scriptData:
           type: array
           items:
@@ -83,7 +82,7 @@ components:
         externalId:
           type: string
           example: jiu7897987GUYGhh
-    SalesMan:
+    SalesPerson:
       type: object
       properties:
         firstName:
@@ -106,6 +105,8 @@ components:
            example: https://joiuezhfiuhIcal.fr
     Product:
       type: object
+      required:
+        - name
       properties:
         name:
           type: string
