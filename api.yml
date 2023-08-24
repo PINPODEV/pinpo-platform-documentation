@@ -96,7 +96,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/Temperature'
+              $ref: '#/components/schemas/Temperatures'
         # deal with form response filter
           
       responses:
@@ -189,6 +189,37 @@ webhooks:
             description: Return a 200 status to indicate that the data was received successfully        
 components:
   schemas:
+    EnrichedLead:
+      required:
+        - id
+        - insight
+        - report
+      type: object
+      properties:
+        id:
+          type: string
+          example: 10oijoijpoj
+        externalId:
+          type: string 
+          example: 'hhhhuj1bh4'
+        insight:
+          $ref: '#/components/schemas/PossiblesInsight'
+        report:
+          $ref: '#/components/schemas/Report'
+        lastActivity:
+          type: number
+          example: 1546297200
+        trigger:
+          description: used only on Webhooks
+          $ref: '#/components/schemas/Event'
+        enrichedLeadDetails:
+          $ref: '#/components/schemas/EnrichedLeadDetails'
+    PossiblesInsight:
+      description: Possibles PINPOs Insight
+      allOf:
+        - $ref: '#/components/schemas/Temperatures'
+        - $ref: '#/components/schemas/NonEngagementReason'
+        - $ref: '#/components/schemas/NonQualificationReason'
     Lead:
       required:
         - contact
@@ -295,10 +326,6 @@ components:
           notes:
             type: string
             example: General notes
-          temperature:
-            $ref: '#/components/schemas/Temperature'
-          temperatureDisplay:
-            $ref: '#/components/schemas/TemperatureDisplay'
           transcriptUrl:
             type: string
             example: https://pinpo.app.link/dLK242D
@@ -328,6 +355,12 @@ components:
         display:
           type: string
           example: 'Interest in a lead engagement and qualification solution : Oui (Question note)'
+        state:
+          type: string
+          enum:
+            - add
+            - replace
+            - noChange
     FormQuestion:
       type: object
       required:
@@ -346,6 +379,7 @@ components:
           enum:
             - boolean
             - text
+            - number
             - choice
             - date
             - multiChoice
@@ -389,21 +423,6 @@ components:
         text:
           type: string
           example: 
-    Patch:
-      type: object
-      properties:
-        op:
-          type: string
-          enum:
-            - add
-            - replace
-            - remove # not sure about remove
-        path:
-          type: string
-          example: /report/form_responses/meeting_typology/choice
-        value:
-          type: string
-          example: Phone
     EnrichedLeadDetails:
       type: object 
       properties:
@@ -440,29 +459,6 @@ components:
           $ref: '#/components/schemas/Product'
         salesMan:
           $ref: '#/components/schemas/SalesMan'
-        patch:
-          type: array
-          items:
-            $ref: '#/components/schemas/Patch'
-    EnrichedLead:
-      required:
-        - id
-        - report
-      type: object
-      properties:
-        id:
-          type: string
-          example: 10oijoijpoj
-        report:
-          $ref: '#/components/schemas/Report'
-        lastActivity:
-          type: number
-          example: 1546297200
-        trigger:
-          description: used only on Webhooks
-          $ref: '#/components/schemas/Event'
-        enrichedLeadDetails:
-          $ref: '#/components/schemas/EnrichedLeadDetails'
     SubscribeData:
       type: object
       required:
@@ -482,26 +478,94 @@ components:
     Event:
       type: string
       enum:
-        # to define
-        - lead:unqualified
-        - lead:qualified
-        - lead:engaged (unquilifiable & qualified)
-        - lead:unengaged
-        - lead:calling #instead of conversation:call:received TO DELETE if we handle this behavior in product (send default message to lead)
-    Temperature:
-      type: string
-      enum:
-        - hot
-        - warm
-        - cold
-      # check if we keep Indeterminate ?
-    TemperatureDisplay:
-      type: string
-      enum:
-        - Chaud
-        - Tiède
-        - Froid
-        # check if we keep Indeterminate ?
+        - lead:change
+    Insight:
+      type: object
+      description: Insight definition
+      properties:
+        key:
+          type: string
+          example: 'hot'
+        display:
+          type: string
+          example: 'Lead chaud'
+        emojiText:
+          type: string
+          example: ':fire:'
+        emojiHtml:
+          type: string
+          example: '&#128293;'
+    Temperatures:
+      description: Possible temperatures
+      allOf:
+        - $ref: '#/components/schemas/Insight'
+        - enum:
+            - key: 'hot'
+              display: 'Lead Chaud'
+              emojiText: ':fire:'
+              emojiHtml: '&#128293;'
+            - key: 'warm'
+              display: 'Lead Tiède'
+              emojiText: ':white_sun_small_cloud:'
+              emojiHtml: '&#127780;&#65039;'
+            - key: 'cold'
+              display: 'Lead Froid'
+              emojiText: ':snowflake:'
+              emojiHtml: '&#10052;&#65039;'
+    NonEngagementReason:
+      description: Possibles non enagement reason
+      allOf:
+        - $ref: '#/components/schemas/Insight'
+        - enum:
+            - key: 'landline-phone'
+              display: 'Numéro fixe'
+              emojiText: ':x:'
+              emojiHtml: '&#10060;'
+            - key: 'foreign-phone'
+              display: 'Numéro étranger'
+              emojiText: ':x:'
+              emojiHtml: '&#10060;'
+            - key: 'invalid-phone'
+              display: 'Numéro invalide'
+              emojiText: ':x:'
+              emojiHtml: '&#10060;'
+            - key: 'already-engaged'
+              display: 'Déjà engagé sur ce scénario'
+              emojiText: ':x:'
+              emojiHtml: '&#10060;'
+            - key: 'not-pinpo-targeting'
+              display: 'Hors ciblage PINPO'
+              emojiText: ':x:'
+              emojiHtml: '&#10060;'
+            - key: 'reach-limit'
+              display: 'Plafond atteint'
+              emojiText: ':x:'
+              emojiHtml: '&#10060;'
+    NonQualificationReason:
+      description: Possibles reason lead is not  qualified
+      allOf:
+        - $ref: '#/components/schemas/Insight'
+        - enum:
+            - key: 'not-responding'
+              display: 'Numéro fixe'
+              emojiText: ':question:'
+              emojiHtml: '&#10067;'
+            - key: 'wrong-phone'
+              display: 'Faux destinataire'
+              emojiText: ':warning:'
+              emojiHtml: '&#9888;&#65039;'
+            - key: 'opt-out-sms'
+              display: 'STOP - Optout'
+              emojiText: ':warning:'
+              emojiHtml: '&#9888;&#65039;'
+            - key: 'rgpd'
+              display: 'STOP - Demande RGPD'
+              emojiText: ':warning:'
+              emojiHtml: '&#9888;&#65039;'
+            - key: 'cold'
+              display: 'Lead Froid'
+              emojiText: ':snowflake:'
+              emojiHtml: '&#10052;&#65039;'
     Subscription:
       type: object
       required:
