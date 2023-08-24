@@ -212,8 +212,8 @@ components:
         trigger:
           description: used only on Webhooks
           $ref: '#/components/schemas/Event'
-        enrichedLeadDetails:
-          $ref: '#/components/schemas/EnrichedLeadDetails'
+        origin_body:
+          $ref: '#/components/schemas/Lead'
     PossiblesInsight:
       description: Possibles PINPOs Insight
       allOf:
@@ -424,42 +424,6 @@ components:
         text:
           type: string
           example: 
-    EnrichedLeadDetails:
-      type: object 
-      properties:
-        contact:
-          $ref: '#/components/schemas/Contact'
-        providerName:
-          type: string
-          example: Facebook leads
-        scenarioSelection:
-          type: string
-          example: leads_entrants
-        origin_body:
-          $ref: '#/components/schemas/Lead'
-        originProvider:
-          type: string
-          example: Facebook leads
-        requestDate:
-          type: number
-          example: 1546297200
-        requestDateDisplay:
-          type: string
-          example: "01/01/2019 00:00" #NECESSARY ??
-        lastActivityDisplay:
-          type: string
-          example: "01/01/2019 00:00" #NECESSARY ??
-        conversation:
-          type: array
-          items:
-             $ref: '#/components/schemas/ConversationMessage'
-        stringified_conversation: #WHATS THE DIFFERENCE with conversationDisplay ?
-          type: string
-          example: "- [Assistant 22/03 15:22] Message d'engagement\n- [Prospect 22/03 15:34] Réponse du lead\n- [Assistant 22/03 15:39] Message de cloture"
-        product:
-          $ref: '#/components/schemas/Product'
-        salesMan:
-          $ref: '#/components/schemas/SalesMan'
     SubscribeData:
       type: object
       required:
