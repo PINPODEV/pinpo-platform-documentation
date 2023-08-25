@@ -192,7 +192,9 @@ components:
     EnrichedLead:
       required:
         - id
-        - insight
+        - resume
+        - resumeHtml
+        - insightPinpo
         - report
       type: object
       properties:
@@ -202,8 +204,14 @@ components:
         externalId:
           type: string 
           example: 'hhhhuj1bh4'
-        insight:
-          $ref: '#/components/schemas/PossiblesInsight'
+        resume:
+          type: string 
+          example: '🔥 - Lead Chaud -\n\nDetail Insight Pinpo\nEngagé : Oui\nQualifié : Oui 🔥\nTemperature : Chaud\nConversation terminée : Oui\n\nDonnées collectées:\nLe lead a un projet d achat dans le neuf : Oui\nMise en relation souhaitée avec un conseiller : Oui\nHorizon d achat : 3 mois\n\nConversation :\nPinpo [07/08/2023 12:54]:\nBonjour, je suis Julie, Cheffe de projet chez AAAA. J espère que vous allez bien ! Merci d avoir pris contact avec nous pour ZZZZ. Vous avez donc un projet d achat dans le neuf, c est bien cela ?\nprospet [07/08/2023 14:39]:\nOui\nPinpo [07/08/2023 14:40]:\nNotre responsable de projet serait ravi de vous accompagner dans votre projet. Je vous propose un rapide échange téléphonique avec lui pour vous renseigner. Cela vous conviendrait ?\nprospet [07/08/2023 14:43]:\Oui\nPinpo [07/08/2023 14:43]:\nSuper, notre responsable de projet vous rappelle dans les meilleurs délais ! Afin de le renseigner en amont de votre échange, souhaitez-vous acheter pour habiter ou investir ? Et quand souhaiteriez-vous concrétiser votre projet (3 mois, 6 mois ou plus) ?\nprospet [07/08/2023 14:44]:\nJ aimerais investir dans les 4prochains mois ! Merci\nPinpo [07/08/2023 14:45]:\nParfait, bien noté ! Je transmets ces informations au responsable de projet. Merci pour votre accueil. Excellente journée ! Marion'
+        resumeHtml:
+          type: string 
+          example: '🔥 - Lead Chaud -<br><br>Detail Insight Pinpo<br>Engagé : <b>Oui</b><br>Qualifié : <b>Oui</b> .....'
+        insightPinpo:
+          $ref: '#/components/schemas/InsigthPinpo'
         report:
           $ref: '#/components/schemas/Report'
         lastActivity:
@@ -212,8 +220,42 @@ components:
         trigger:
           description: used only on Webhooks
           $ref: '#/components/schemas/Event'
-        origin_body:
-          $ref: '#/components/schemas/Lead'
+    InsigthPinpo:
+      required:
+        - insight
+        - details
+      type: object
+      properties:
+        insight:
+          $ref: '#/components/schemas/PossiblesInsight'
+        details:
+            type: array
+            items:
+              $ref: '#/components/schemas/InsigthItem'
+    InsigthItem:
+      type: object 
+      required:
+        - key
+        - value
+        - display
+      properties:
+        key:
+          type: string
+          example: 'Engagé'
+        value:
+          oneOf:
+            - boolean:
+              type: boolean
+              example: true
+            - text:
+              type: string
+              example: Textual response
+            - $ref: '#/components/schemas/Temperatures'
+            - $ref: '#/components/schemas/NonEngagementReason'
+            - $ref: '#/components/schemas/NonQualificationReason'
+        display:
+          type: string 
+          example: 'Engagé: Oui'
     PossiblesInsight:
       description: Possibles PINPOs Insight
       allOf:
@@ -446,6 +488,9 @@ components:
         - lead:change
     Insight:
       type: object
+      required:
+        - key 
+        - display
       description: Insight definition
       properties:
         key:
@@ -454,12 +499,48 @@ components:
         display:
           type: string
           example: 'Lead chaud'
+        emoji:
+          $ref: '#/components/schemas/PossiblesEmoji'
+    Emoji:
+      type: object 
+      required:
+        - name
+        - emojiText
+        - emojiHtml
+      description: emoji to linked to Insight Pinpo
+      properties:
+        name:
+          type: string 
+          example: 'feu'
         emojiText:
           type: string
           example: ':fire:'
         emojiHtml:
           type: string
           example: '&#128293;'
+    PossiblesEmoji:
+      description: Possible emoji
+      allOf:
+        - $ref: '#/components/schemas/Emoji'
+        - enum:
+          - name: 'fire'
+            emojiText: ':fire:'
+            emojiHtml: '&#128293;'
+          - name: 'sun'
+            emojiText: ':white_sun_small_cloud:'
+            emojiHtml: '&#127780;&#65039;'
+          - name: 'snowflake'
+            emojiText: ':snowflake:'
+            emojiHtml: '&#10052;&#65039;'
+          - name: 'redcross'
+            emojiText: ':x:'
+            emojiHtml: '&#10060;'
+          - name: 'question'
+            emojiText: ':question:'
+            emojiHtml: '&#10067;'
+          - name: 'warning'
+            emojiText: ':warning:'
+            emojiHtml: '&#9888;&#65039;'
     Temperatures:
       description: Possible temperatures
       allOf:
@@ -467,16 +548,10 @@ components:
         - enum:
             - key: 'hot'
               display: 'Lead Chaud'
-              emojiText: ':fire:'
-              emojiHtml: '&#128293;'
             - key: 'warm'
               display: 'Lead Tiède'
-              emojiText: ':white_sun_small_cloud:'
-              emojiHtml: '&#127780;&#65039;'
             - key: 'cold'
               display: 'Lead Froid'
-              emojiText: ':snowflake:'
-              emojiHtml: '&#10052;&#65039;'
     NonEngagementReason:
       description: Possibles non enagement reason
       allOf:
@@ -484,28 +559,16 @@ components:
         - enum:
             - key: 'landline-phone'
               display: 'Numéro fixe'
-              emojiText: ':x:'
-              emojiHtml: '&#10060;'
             - key: 'foreign-phone'
               display: 'Numéro étranger'
-              emojiText: ':x:'
-              emojiHtml: '&#10060;'
             - key: 'invalid-phone'
               display: 'Numéro invalide'
-              emojiText: ':x:'
-              emojiHtml: '&#10060;'
             - key: 'already-engaged'
               display: 'Déjà engagé sur ce scénario'
-              emojiText: ':x:'
-              emojiHtml: '&#10060;'
             - key: 'not-pinpo-targeting'
               display: 'Hors ciblage PINPO'
-              emojiText: ':x:'
-              emojiHtml: '&#10060;'
             - key: 'reach-limit'
               display: 'Plafond atteint'
-              emojiText: ':x:'
-              emojiHtml: '&#10060;'
     NonQualificationReason:
       description: Possibles reason lead is not  qualified
       allOf:
@@ -513,24 +576,14 @@ components:
         - enum:
             - key: 'not-responding'
               display: 'Numéro fixe'
-              emojiText: ':question:'
-              emojiHtml: '&#10067;'
             - key: 'wrong-phone'
               display: 'Faux destinataire'
-              emojiText: ':warning:'
-              emojiHtml: '&#9888;&#65039;'
             - key: 'opt-out-sms'
               display: 'STOP - Optout'
-              emojiText: ':warning:'
-              emojiHtml: '&#9888;&#65039;'
             - key: 'rgpd'
               display: 'STOP - Demande RGPD'
-              emojiText: ':warning:'
-              emojiHtml: '&#9888;&#65039;'
-            - key: 'cold'
-              display: 'Lead Froid'
-              emojiText: ':snowflake:'
-              emojiHtml: '&#10052;&#65039;'
+            - key: 'not-interested'
+              display: 'Pas interessé'
     Subscription:
       type: object
       required:
