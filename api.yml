@@ -13,6 +13,8 @@ servers:
 tags:
   - name: lead
     description: Everything about your leads
+  - name: webhook
+    description: Everything about subscribing to events
 paths:
   /lead:
     post:
@@ -33,8 +35,258 @@ paths:
           description: Successful operation
         '405':
           description: Invalid input
+    get:
+      tags:
+        - lead
+      summary: get lead informations
+      description: ''
+      operationId: getLead
+      parameters:
+        - name: idLead
+          in: query
+          description: The PINPO lead id
+          required: false
+          schema:
+            type: string
+        - name: externalId
+          in: query
+          description: The External lead id
+          required: false
+          schema:
+            type: string
+        - name: leadPhone
+          in: query
+          description: The lead phone
+          required: false
+          schema:
+            type: string
+        - name: hasEmoji
+          in: query
+          description: emoji are in informations display
+          required: false
+          schema:
+            type: boolean
+            default: true
+        - name: typeDisplay
+          in: query 
+          description: type of information display
+          required: false
+          schema:
+            type: string
+            default: html
+            enum:
+              - text
+              - html
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnrichedLead'
+  /leads:
+    get:
+      tags:
+        - lead
+      summary: search leads
+      description: ''
+      operationId: searchLeads
+      parameters:
+        - name: minDate
+          in: query
+          description: "minimum date last activity to retrieve, by default date of now - 1 day"
+          required: false
+          #default: 1688203458
+          schema:
+            type: number
+        - name: maxDate
+          in: query
+          description: "max date last activity to retrieve, by default now"
+          required: false
+          #default: 1688203458
+          schema:
+            type: number
+        - name: temperature
+          in: query
+          description: "filtered temperature"
+          required: false
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Temperatures'
+        - name: hasEmoji
+          in: query
+          description: emoji are in informations display
+          required: false
+          schema:
+            type: boolean
+            default: true
+        - name: typeDisplay
+          in: query 
+          description: type of information display
+          required: false
+          schema:
+            type: string
+            enum:
+              - text
+              - html
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/EnrichedLead'
+  
+  /subscribe:
+    post:
+      tags:
+        - webhook
+      summary: Subscribe to an event
+      description: Subscribe to an event
+      operationId: subscribe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscribeData'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                description: idEvent
+                example: oihjbiyg98098
+        '405':
+          description: Invalid input
+  /subscriptions:
+    get:
+      tags:
+        - webhook
+      summary: Get all subscription
+      description: Retrieve all subcription linked to your account
+      operationId: getSubscription
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Subscription'
+      
+  /unsubscribe/{idSubcription}:
+    post:
+      tags:
+        - webhook
+      summary: Unsubscribe to an event
+      description: Unsubscribe to an event
+      operationId: unsubscribe
+      parameters:
+        - name: idSubcription
+          in: path
+          description: The idSubcription ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+        '405':
+          description: Invalid input
+webhooks:
+    EnrichedLead:
+      post:
+        x-internal: true
+        requestBody:
+          description: Information about lead qualification
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnrichedLead'
+        responses:
+          "200":
+            description: Return a 200 status to indicate that the data was received successfully        
 components:
   schemas:
+    EnrichedLead:
+      required:
+        - id
+        - resume
+        - insightPinpo
+        - report
+      type: object
+      properties:
+        id:
+          type: string
+          example: 10oijoijpoj
+        externalId:
+          type: string 
+          example: 'hhhhuj1bh4'
+        resume:
+          type: string 
+          example: '🔥 - Lead Chaud -\n\nDetail Insight Pinpo\nEngagé : Oui\nQualifié : Oui 🔥\nTemperature : Chaud\nConversation terminée : Oui\n\nDonnées collectées:\nLe lead a un projet d achat dans le neuf : Oui\nMise en relation souhaitée avec un conseiller : Oui\nHorizon d achat : 3 mois\n\nConversation :\nPinpo [07/08/2023 12:54]:\nBonjour, je suis Julie, Cheffe de projet chez AAAA. J espère que vous allez bien ! Merci d avoir pris contact avec nous pour ZZZZ. Vous avez donc un projet d achat dans le neuf, c est bien cela ?\nprospet [07/08/2023 14:39]:\nOui...'
+        insightPinpo:
+          $ref: '#/components/schemas/InsightPinpo'
+        report:
+          $ref: '#/components/schemas/Report'
+        lastActivity:
+          type: number
+          example: 1546297200
+        trigger:
+          description: used only on Webhooks
+          $ref: '#/components/schemas/Event'
+    InsightPinpo:
+      required:
+        - insight
+        - details
+        - display
+      type: object
+      properties:
+        insight:
+          $ref: '#/components/schemas/PossiblesInsight'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/InsigthItem'
+        display:
+          type: string
+          example: '❌ - Déjà engagé sur ce scénario -\nDetail Insight PINPO :\nEngagé : Non\nRaison de non engagement : Déjà engagé sur ce scénario ❌'
+    InsigthItem:
+      type: object 
+      required:
+        - key
+        - value
+        - display
+      properties:
+        key:
+          type: string
+          example: 'Engagé'
+        value:
+          oneOf:
+            - boolean:
+              type: boolean
+              example: true
+            - text:
+              type: string
+              example: Textual response
+            - $ref: '#/components/schemas/Temperatures'
+            - $ref: '#/components/schemas/NonEngagementReason'
+            - $ref: '#/components/schemas/NonQualificationReason'
+        display:
+          type: string 
+          example: 'Engagé: Oui'
+    PossiblesInsight:
+      description: Possibles PINPOs Insight
+      allOf:
+        - $ref: '#/components/schemas/Temperatures'
+        - $ref: '#/components/schemas/NonEngagementReason'
+        - $ref: '#/components/schemas/NonQualificationReason'
     Lead:
       required:
         - contact
@@ -129,6 +381,280 @@ components:
         value:
           type: string
           example: Ardèche
+    Report:
+      type: object
+      properties: 
+          qualificationForm:
+            type: array
+            items:
+              $ref: '#/components/schemas/QualificationItem'
+          qualificationFormDisplay:
+            type: string
+            example: "Interest in a lead engagement and qualification solution : Oui (Note pour la question: Interest in a lead engagement and qualification solution)\nInterest for a meeting : Oui (Note pour la question: Interest for a meeting)\nMeeting Typology : Phone (Note pour la question: Meeting Typology)\nProject Timeline : Short-term project (Note pour la question: Project Timeline)\nMore details about leads project : Réponse à la question: More details about leads project (Note pour la question: More details about leads project)\n\nNotes générales : Notes générales"
+          notes:
+            type: string
+            example: General notes
+          conversationDisplay:
+            type: string
+            example: "- [Assistant 22/03 15:22] Message d'engagement\n- [Prospect 22/03 15:34] Réponse du lead\n- [Assistant 22/03 15:39] Message de cloture"
+          conversationUrl:
+            type: string
+            example: 'https://pinpo.app.link/dlkihouhiguyvg'
+    QualificationItem:
+      type: object 
+      required:
+        - id
+        - formQuestion
+        - formResponse
+      properties:
+        id:
+          type: string
+          example: ugoiy76765443Fjhg
+        formQuestion:
+          $ref: '#/components/schemas/FormQuestion'
+        formResponse:
+          $ref: '#/components/schemas/FormResponse'
+        note:
+          type: string
+          example: Question note
+        display:
+          type: string
+          example: 'Interest in a lead engagement and qualification solution : Oui (Question note)'
+        state:
+          type: string
+          enum:
+            - add
+            - replace
+            - noChange
+    FormQuestion:
+      type: object
+      required:
+        - id
+        - question
+        - type
+      properties:
+        id:
+          type: string
+          example: product_interest
+        question:
+          type: string
+          example: Interest in a lead engagement and qualification solution
+        type:
+          type: string
+          enum:
+            - boolean
+            - text
+            - number
+            - choice
+            - date
+            - multiChoice
+    FormResponse:
+      type: object
+      required:
+        - id
+        - type
+      properties:
+        id:
+          type: string
+          example: oiubiyf7897fhgjddas545
+        value:
+          oneOf:
+            - boolean:
+              type: boolean
+              example: true
+            - textOrChoice:
+              type: string
+              example: Textual response
+            - date:
+              type: number
+              example: 1553264538.371
+            - multiChoice:
+              type: array
+              items:
+                type: string
+          discriminator:
+            propertyName: type
+    ConversationMessage:
+      type: object
+      properties:
+        sender:
+          type: string
+          enum:
+            - lead
+            - operator
+        dateTime:
+          type: number
+          example: 1553264538.371
+        text:
+          type: string
+          example: 
+    SubscribeData:
+      type: object
+      required:
+        - url
+      properties:
+        event:
+          $ref: '#/components/schemas/Event'
+          description: event you want subscribe, alls by default
+        idScenario:
+          description: add a scenario id if you don't want to subscribe to alls of yours scenarios
+          type: string
+          example: leads_entrants
+        url:
+          description: url in your SI to notify
+          type: string
+          example: https://clientURL/enrichedLead
+        hasEmoji:
+          description: emoji are in informations display
+          example: true
+          schema:
+            type: boolean
+            default: true
+        typeDisplay:
+          description: type of information display
+          example: html
+          schema:
+            type: string
+            enum:
+              - text
+              - html
+    Event:
+      type: string
+      enum:
+        - lead:change
+    Insight:
+      type: object
+      required:
+        - key 
+        - display
+      description: Insight definition
+      properties:
+        key:
+          type: string
+          example: 'hot'
+        display:
+          type: string
+          example: 'Lead chaud'
+        emoji:
+          $ref: '#/components/schemas/PossiblesEmoji'
+    Emoji:
+      type: object 
+      required:
+        - name
+        - emojiText
+        - emojiHtml
+      description: emoji to linked to Insight Pinpo
+      properties:
+        name:
+          type: string 
+          example: 'feu'
+        emojiText:
+          type: string
+          example: ':fire:'
+        emojiHtml:
+          type: string
+          example: '&#128293;'
+    PossiblesEmoji:
+      description: Possible emoji
+      allOf:
+        - $ref: '#/components/schemas/Emoji'
+        - enum:
+          - name: 'fire'
+            emojiText: ':fire:'
+            emojiHtml: '&#128293;'
+          - name: 'sun'
+            emojiText: ':white_sun_small_cloud:'
+            emojiHtml: '&#127780;&#65039;'
+          - name: 'snowflake'
+            emojiText: ':snowflake:'
+            emojiHtml: '&#10052;&#65039;'
+          - name: 'redcross'
+            emojiText: ':x:'
+            emojiHtml: '&#10060;'
+          - name: 'question'
+            emojiText: ':question:'
+            emojiHtml: '&#10067;'
+          - name: 'warning'
+            emojiText: ':warning:'
+            emojiHtml: '&#9888;&#65039;'
+    Temperatures:
+      description: Possible temperatures
+      allOf:
+        - $ref: '#/components/schemas/Insight'
+        - enum:
+            - key: 'hot'
+              display: 'Lead Chaud'
+            - key: 'warm'
+              display: 'Lead Tiède'
+            - key: 'cold'
+              display: 'Lead Froid'
+    NonEngagementReason:
+      description: Possibles non enagement reason
+      allOf:
+        - $ref: '#/components/schemas/Insight'
+        - enum:
+            - key: 'landline-phone'
+              display: 'Numéro fixe'
+            - key: 'foreign-phone'
+              display: 'Numéro étranger'
+            - key: 'invalid-phone'
+              display: 'Numéro invalide'
+            - key: 'already-engaged'
+              display: 'Déjà engagé sur ce scénario'
+            - key: 'not-pinpo-targeting'
+              display: 'Hors ciblage PINPO'
+            - key: 'reach-limit'
+              display: 'Plafond atteint'
+    NonQualificationReason:
+      description: Possibles reason lead is not  qualified
+      allOf:
+        - $ref: '#/components/schemas/Insight'
+        - enum:
+            - key: 'not-responding'
+              display: 'Numéro fixe'
+            - key: 'wrong-phone'
+              display: 'Faux destinataire'
+            - key: 'opt-out-sms'
+              display: 'STOP - Optout'
+            - key: 'rgpd'
+              display: 'STOP - Demande RGPD'
+            - key: 'not-interested'
+              display: 'Pas interessé'
+    Subscription:
+      type: object
+      required:
+        - event
+        - idScenario
+        - url
+      properties:
+        idSubscription:
+          type: string
+          example: iujoij98hgghv
+        event: 
+          $ref: '#/components/schemas/Event'
+        idScenario:
+          type: string
+          example: lead_entrants
+        url:
+          type: string
+          example: https://clientURL/enrichedLead
+        createdAt:
+          type: number
+          example: 1546297200
+        hasEmoji:
+          description: emoji are in informations display
+          example: true
+          schema:
+            type: boolean
+            default: true
+        typeDisplay:
+          description: type of information display
+          example: html
+          schema:
+            type: string
+            enum:
+              - text
+              - html
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
