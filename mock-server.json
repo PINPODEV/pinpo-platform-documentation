@@ -1,0 +1,338 @@
+{
+  "uuid": "a95fcc5d-a7fd-4f21-9dbf-b28e9afcc078",
+  "lastMigration": 28,
+  "name": "PINPO - OpenAPI 3.1",
+  "endpointPrefix": "v1",
+  "latency": 0,
+  "port": 3001,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "28ad0f5a-d77f-4868-9760-62aa6fd0dbb3",
+      "type": "http",
+      "documentation": "Add a new lead to qualify",
+      "method": "post",
+      "endpoint": "lead",
+      "responses": [
+        {
+          "uuid": "5371e51e-3577-4ddd-be8b-d1e6b220b88e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful operation",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "050419e3-7976-4b0d-9966-568da5c25fca",
+          "body": "",
+          "latency": 0,
+          "statusCode": 405,
+          "label": "Invalid input",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "37d84e3c-e6c7-403e-923f-026697de6869",
+      "type": "http",
+      "documentation": "get lead informations",
+      "method": "get",
+      "endpoint": "lead",
+      "responses": [
+        {
+          "uuid": "ed93c627-55ed-4030-af45-72f31bc7c47f",
+          "body": "{\n  \"id\": \"10oijoijpoj\",\n  \"externalId\": \"hhhhuj1bh4\",\n  \"resume\": \"🔥 - Lead Chaud -\\\\n\\\\nDetail Insight Pinpo\\\\nEngagé : Oui\\\\nQualifié : Oui 🔥\\\\nTemperature : Chaud\\\\nConversation terminée : Oui\\\\n\\\\nDonnées collectées:\\\\nLe lead a un projet d achat dans le neuf : Oui\\\\nMise en relation souhaitée avec un conseiller : Oui\\\\nHorizon d achat : 3 mois\\\\n\\\\nConversation :\\\\nPinpo [07/08/2023 12:54]:\\\\nBonjour, je suis Julie, Cheffe de projet chez AAAA. J espère que vous allez bien ! Merci d avoir pris contact avec nous pour ZZZZ. Vous avez donc un projet d achat dans le neuf, c est bien cela ?\\\\nprospet [07/08/2023 14:39]:\\\\nOui...\",\n  \"insightPinpo\": {\n    \"insight\": \"\",\n    \"details\": [\n      {\n        \"key\": \"Engagé\",\n        \"value\": {{faker 'datatype.boolean'}},\n        \"display\": \"Engagé: Oui\"\n      }\n    ],\n    \"display\": \"❌ - Déjà engagé sur ce scénario -\\\\nDetail Insight PINPO :\\\\nEngagé : Non\\\\nRaison de non engagement : Déjà engagé sur ce scénario ❌\"\n  },\n  \"report\": {\n    \"qualificationForm\": [\n      {\n        \"id\": \"ugoiy76765443Fjhg\",\n        \"formQuestion\": {\n          \"id\": \"product_interest\",\n          \"question\": \"Interest in a lead engagement and qualification solution\",\n          \"type\": \"{{oneOf (array 'boolean' 'text' 'number' 'choice' 'date' 'multiChoice')}}\"\n        },\n        \"formResponse\": {\n          \"id\": \"oiubiyf7897fhgjddas545\",\n          \"value\": {{faker 'datatype.boolean'}}\n        },\n        \"note\": \"Question note\",\n        \"display\": \"Interest in a lead engagement and qualification solution : Oui (Question note)\",\n        \"state\": \"{{oneOf (array 'add' 'replace' 'noChange')}}\"\n      }\n    ],\n    \"qualificationFormDisplay\": \"Interest in a lead engagement and qualification solution : Oui (Note pour la question: Interest in a lead engagement and qualification solution)\\nInterest for a meeting : Oui (Note pour la question: Interest for a meeting)\\nMeeting Typology : Phone (Note pour la question: Meeting Typology)\\nProject Timeline : Short-term project (Note pour la question: Project Timeline)\\nMore details about leads project : Réponse à la question: More details about leads project (Note pour la question: More details about leads project)\\n\\nNotes générales : Notes générales\",\n    \"notes\": \"General notes\",\n    \"conversationDisplay\": \"- [Assistant 22/03 15:22] Message d'engagement\\n- [Prospect 22/03 15:34] Réponse du lead\\n- [Assistant 22/03 15:39] Message de cloture\",\n    \"conversationUrl\": \"https://pinpo.app.link/dlkihouhiguyvg\"\n  },\n  \"lastActivity\": 1546297200,\n  \"trigger\": \"{{oneOf (array 'lead:change')}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "successful operation",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "bac14aab-8a64-47c5-b2bf-d83a93ba5aea",
+      "type": "http",
+      "documentation": "search leads",
+      "method": "get",
+      "endpoint": "leads",
+      "responses": [
+        {
+          "uuid": "038f4f6f-d371-46d4-a2a8-2574a4d672b6",
+          "body": "[\n  {\n    \"id\": \"10oijoijpoj\",\n    \"externalId\": \"hhhhuj1bh4\",\n    \"resume\": \"🔥 - Lead Chaud -\\\\n\\\\nDetail Insight Pinpo\\\\nEngagé : Oui\\\\nQualifié : Oui 🔥\\\\nTemperature : Chaud\\\\nConversation terminée : Oui\\\\n\\\\nDonnées collectées:\\\\nLe lead a un projet d achat dans le neuf : Oui\\\\nMise en relation souhaitée avec un conseiller : Oui\\\\nHorizon d achat : 3 mois\\\\n\\\\nConversation :\\\\nPinpo [07/08/2023 12:54]:\\\\nBonjour, je suis Julie, Cheffe de projet chez AAAA. J espère que vous allez bien ! Merci d avoir pris contact avec nous pour ZZZZ. Vous avez donc un projet d achat dans le neuf, c est bien cela ?\\\\nprospet [07/08/2023 14:39]:\\\\nOui...\",\n    \"insightPinpo\": {\n      \"insight\": \"\",\n      \"details\": [\n        {\n          \"key\": \"Engagé\",\n          \"value\": {{faker 'datatype.boolean'}},\n          \"display\": \"Engagé: Oui\"\n        }\n      ],\n      \"display\": \"❌ - Déjà engagé sur ce scénario -\\\\nDetail Insight PINPO :\\\\nEngagé : Non\\\\nRaison de non engagement : Déjà engagé sur ce scénario ❌\"\n    },\n    \"report\": {\n      \"qualificationForm\": [\n        {\n          \"id\": \"ugoiy76765443Fjhg\",\n          \"formQuestion\": {\n            \"id\": \"product_interest\",\n            \"question\": \"Interest in a lead engagement and qualification solution\",\n            \"type\": \"{{oneOf (array 'boolean' 'text' 'number' 'choice' 'date' 'multiChoice')}}\"\n          },\n          \"formResponse\": {\n            \"id\": \"oiubiyf7897fhgjddas545\",\n            \"value\": {{faker 'datatype.boolean'}}\n          },\n          \"note\": \"Question note\",\n          \"display\": \"Interest in a lead engagement and qualification solution : Oui (Question note)\",\n          \"state\": \"{{oneOf (array 'add' 'replace' 'noChange')}}\"\n        }\n      ],\n      \"qualificationFormDisplay\": \"Interest in a lead engagement and qualification solution : Oui (Note pour la question: Interest in a lead engagement and qualification solution)\\nInterest for a meeting : Oui (Note pour la question: Interest for a meeting)\\nMeeting Typology : Phone (Note pour la question: Meeting Typology)\\nProject Timeline : Short-term project (Note pour la question: Project Timeline)\\nMore details about leads project : Réponse à la question: More details about leads project (Note pour la question: More details about leads project)\\n\\nNotes générales : Notes générales\",\n      \"notes\": \"General notes\",\n      \"conversationDisplay\": \"- [Assistant 22/03 15:22] Message d'engagement\\n- [Prospect 22/03 15:34] Réponse du lead\\n- [Assistant 22/03 15:39] Message de cloture\",\n      \"conversationUrl\": \"https://pinpo.app.link/dlkihouhiguyvg\"\n    },\n    \"lastActivity\": 1546297200,\n    \"trigger\": \"{{oneOf (array 'lead:change')}}\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "successful operation",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "0fd85982-cb06-4254-8861-cdf21143d217",
+      "type": "http",
+      "documentation": "Subscribe to an event",
+      "method": "post",
+      "endpoint": "subscribe",
+      "responses": [
+        {
+          "uuid": "b8b522b7-265a-409f-a04e-6d8fe808adf4",
+          "body": "\"oihjbiyg98098\"",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful operation",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "4c4279e4-f3d3-463a-86ec-1bcc585fc44a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 405,
+          "label": "Invalid input",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "8a779a54-8043-4161-b158-800019867a42",
+      "type": "http",
+      "documentation": "Get all subscription",
+      "method": "get",
+      "endpoint": "subscriptions",
+      "responses": [
+        {
+          "uuid": "12a95f39-8eb6-4a3f-aa23-f663da9fd039",
+          "body": "[\n  {\n    \"idSubscription\": \"iujoij98hgghv\",\n    \"event\": \"{{oneOf (array 'lead:change')}}\",\n    \"idScenario\": \"lead_entrants\",\n    \"url\": \"https://clientURL/enrichedLead\",\n    \"createdAt\": 1546297200,\n    \"hasEmoji\": true,\n    \"typeDisplay\": \"html\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "successful operation",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "3a30537b-f532-42dc-9c8d-7d753cf41143",
+      "type": "http",
+      "documentation": "Unsubscribe to an event",
+      "method": "post",
+      "endpoint": "unsubscribe/:idSubcription",
+      "responses": [
+        {
+          "uuid": "69899391-522b-4be0-9350-a3811e8787a1",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Successful operation",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "79f74da6-9027-44a6-938c-bc0e80510c89",
+          "body": "",
+          "latency": 0,
+          "statusCode": 405,
+          "label": "Invalid input",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "28ad0f5a-d77f-4868-9760-62aa6fd0dbb3"
+    },
+    {
+      "type": "route",
+      "uuid": "37d84e3c-e6c7-403e-923f-026697de6869"
+    },
+    {
+      "type": "route",
+      "uuid": "bac14aab-8a64-47c5-b2bf-d83a93ba5aea"
+    },
+    {
+      "type": "route",
+      "uuid": "0fd85982-cb06-4254-8861-cdf21143d217"
+    },
+    {
+      "type": "route",
+      "uuid": "8a779a54-8043-4161-b158-800019867a42"
+    },
+    {
+      "type": "route",
+      "uuid": "3a30537b-f532-42dc-9c8d-7d753cf41143"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": []
+}
