@@ -1,4 +1,4 @@
-FROM mockoon/cli:2.3.0
+FROM mockoon/cli:4.1.0
 
 COPY ./mock-server.json /data/data.json
 
