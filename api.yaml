@@ -31,9 +31,9 @@ paths:
               $ref: '#/components/schemas/Lead'
         required: true
       responses:
-        '200':
+        '201':
           description: Successful operation
-        '405':
+        '422':
           description: Invalid input
     get:
       tags:
@@ -153,7 +153,7 @@ paths:
             schema:
               $ref: '#/components/schemas/SubscribeData'
       responses:
-        '200':
+        '201':
           description: Successful operation
           content:
             application/json:
@@ -161,7 +161,7 @@ paths:
                 type: string
                 description: idEvent
                 example: oihjbiyg98098
-        '405':
+        '422':
           description: Invalid input
   /subscriptions:
     get:
@@ -195,9 +195,9 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        '201':
           description: Successful operation
-        '405':
+        '422':
           description: Invalid input
 webhooks:
     EnrichedLead:
