@@ -228,15 +228,18 @@ components:
         externalId:
           type: string 
           example: 'hhhhuj1bh4'
+          description: Id in your CRM or SI
         resume:
           type: string 
-          example: '🔥 - Lead Chaud -\n\nDetail Insight Pinpo\nEngagé : Oui\nQualifié : Oui 🔥\nTemperature : Chaud\nConversation terminée : Oui\n\nDonnées collectées:\nLe lead a un projet d achat dans le neuf : Oui\nMise en relation souhaitée avec un conseiller : Oui\nHorizon d achat : 3 mois\n\nConversation :\nPinpo [07/08/2023 12:54]:\nBonjour, je suis Julie, Cheffe de projet chez AAAA. J espère que vous allez bien ! Merci d avoir pris contact avec nous pour ZZZZ. Vous avez donc un projet d achat dans le neuf, c est bien cela ?\nprospet [07/08/2023 14:39]:\nOui...'
+          description: Pinpo importants informations
+          example: '🔥 - Lead Chaud -\n\nDetail Insight Pinpo\nEngagé : Oui\nQualifié : Oui\nTemperature : Chaud 🔥\nConversation terminée : Oui\n\nDonnées collectées:\nLe lead a un projet d achat dans le neuf : Oui\nMise en relation souhaitée avec un conseiller : Oui\nHorizon d achat : 3 mois\n\nConversation :\nPinpo [07/08/2023 12:54]:\nBonjour, je suis Julie, Cheffe de projet chez AAAA. J espère que vous allez bien ! Merci d avoir pris contact avec nous pour ZZZZ. Vous avez donc un projet d achat dans le neuf, c est bien cela ?\nprospet [07/08/2023 14:39]:\nOui...'
         insightPinpo:
           $ref: '#/components/schemas/InsightPinpo'
         report:
           $ref: '#/components/schemas/Report'
         lastActivity:
           type: number
+          description: timestamp in milliseconds on last lead activity in Pinpo
           example: 1546297200
         trigger:
           description: used only on Webhooks
@@ -256,7 +259,8 @@ components:
             $ref: '#/components/schemas/InsigthItem'
         display:
           type: string
-          example: '❌ - Déjà engagé sur ce scénario -\nDetail Insight PINPO :\nEngagé : Non\nRaison de non engagement : Déjà engagé sur ce scénario ❌'
+          description: display for pinpo informations
+          example: 'Engagé : Oui\nQualifié : Oui\nTemperature : Chaud 🔥\nConversation terminée : Oui\n'
     InsigthItem:
       type: object 
       required:
@@ -296,18 +300,25 @@ components:
       properties:
         contact:
           $ref: '#/components/schemas/Contact'
+        externalId:
+          type: string
+          example: jjhhuGT
+          description: Id in your CRM or SI
         providerName:
           type: string
           example: Facebook leads
+          decription: source of your leads
         scenarioSelection:
           type: string
-          example: leads_entrants
+          example: kopij876f
+          decription: technical Id of your Pinpo scenario, see with your CX
         product:
           $ref: '#/components/schemas/Product'
         salesPerson:
           $ref: '#/components/schemas/SalesPerson'
         scriptData:
           type: array
+          description: check with your CX for mandatory scripts data
           items:
             $ref: '#/components/schemas/CustomData'
         statsData:
@@ -334,6 +345,7 @@ components:
         externalId:
           type: string
           example: jiu7897987GUYGhh
+          description: Id of contact in you CRM if its not the lead id
     SalesPerson:
       type: object
       properties:
@@ -352,6 +364,7 @@ components:
         externalId:
           type: string
           example: jiu7897987GUYGhh
+          description: Id of saleperson in you CRM
         iCalUrl:
            type: string
            example: https://joiuezhfiuhIcal.fr
@@ -378,6 +391,7 @@ components:
         name:
           type: string
           example: departement
+          description: name of the name. '.' is fordidden in name
         value:
           type: string
           example: Ardèche
@@ -394,6 +408,9 @@ components:
           notes:
             type: string
             example: General notes
+          transcriptUrl:
+            type: string
+            example: https://pinpo.app.link/dLK242D
           conversationDisplay:
             type: string
             example: "- [Assistant 22/03 15:22] Message d'engagement\n- [Prospect 22/03 15:34] Réponse du lead\n- [Assistant 22/03 15:39] Message de cloture"
@@ -414,12 +431,9 @@ components:
           $ref: '#/components/schemas/FormQuestion'
         formResponse:
           $ref: '#/components/schemas/FormResponse'
-        note:
-          type: string
-          example: Question note
         display:
           type: string
-          example: 'Interest in a lead engagement and qualification solution : Oui (Question note)'
+          example: 'Interest in a lead engagement and qualification solution : Oui'
         state:
           type: string
           enum:
@@ -474,20 +488,6 @@ components:
                 type: string
           discriminator:
             propertyName: type
-    ConversationMessage:
-      type: object
-      properties:
-        sender:
-          type: string
-          enum:
-            - lead
-            - operator
-        dateTime:
-          type: number
-          example: 1553264538.371
-        text:
-          type: string
-          example: 
     SubscribeData:
       type: object
       required:
@@ -507,17 +507,15 @@ components:
         hasEmoji:
           description: emoji are in informations display
           example: true
-          schema:
-            type: boolean
-            default: true
+          type: boolean
+          default: true
         typeDisplay:
           description: type of information display
           example: html
-          schema:
-            type: string
-            enum:
-              - text
-              - html
+          type: string
+          enum:
+            - text
+            - html
     Event:
       type: string
       enum:
@@ -644,21 +642,19 @@ components:
         hasEmoji:
           description: emoji are in informations display
           example: true
-          schema:
-            type: boolean
-            default: true
+          type: boolean
+          default: true
         typeDisplay:
           description: type of information display
           example: html
-          schema:
-            type: string
-            enum:
-              - text
-              - html
+          type: string
+          enum:
+            - text
+            - html
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
-      name: api-key
+      name: api_key
       in: header
 security:
   - ApiKeyAuth: []
