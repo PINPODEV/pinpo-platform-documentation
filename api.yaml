@@ -74,7 +74,7 @@ components:
         lastActivity:
           type: number
           description: timestamp in milliseconds on last lead activity in Pinpo
-          example: 1546297200
+          example: 1694765092.975
         trigger:
           description: used only on Webhooks
           $ref: '#/components/schemas/Event'
@@ -427,7 +427,7 @@ components:
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
-      name: api_key
+      name: api-key
       in: header
 security:
   - ApiKeyAuth: []
