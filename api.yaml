@@ -125,6 +125,7 @@ components:
         - $ref: '#/components/schemas/Temperatures'
         - $ref: '#/components/schemas/NonEngagementReason'
         - $ref: '#/components/schemas/NonQualificationReason'
+        - $ref: '#/components/schemas/TechnicalError'
     Lead:
       required:
         - contact
@@ -409,6 +410,10 @@ components:
               display: 'Hors ciblage PINPO'
             - key: 'reach-limit'
               display: 'Plafond atteint'
+            - key: 'duplicate'
+              display: 'Doublon'
+            - key: 'inconsistent-data'
+              display: 'Données inconsistentes'
     NonQualificationReason:
       description: Possibles reason lead is not  qualified
       allOf:
@@ -424,6 +429,15 @@ components:
               display: 'STOP - Demande RGPD'
             - key: 'not-interested'
               display: 'Pas interessé'
+    TechnicalError:
+      description: Possibles technical error during the process
+      allOf:
+        - $ref: '#/components/schemas/Insight'
+        - enum:
+            - key: 'technical-error'
+              display: 'Technical Error'
+            - key: 'internal-error-import'
+              display: 'Erreur Import'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
