@@ -13,8 +13,6 @@ servers:
 tags:
   - name: lead
     description: Everything about your leads
-  - name: webhook
-    description: Everything about subscribing to events
 paths:
   /lead:
     post:
@@ -30,65 +28,6 @@ paths:
             schema:
               $ref: '#/components/schemas/Lead'
         required: true
-      responses:
-        '201':
-          description: Successful operation
-        '422':
-          description: Invalid input
-  /subscribe:
-    post:
-      tags:
-        - webhook
-      summary: Subscribe to an event
-      description: Subscribe to an event
-      operationId: subscribe
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SubscribeData'
-      responses:
-        '201':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: string
-                description: idEvent
-                example: oihjbiyg98098
-        '422':
-          description: Invalid input
-  /subscriptions:
-    get:
-      tags:
-        - webhook
-      summary: Get all subscription
-      description: Retrieve all subcription linked to your account
-      operationId: getSubscription
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items: 
-                  $ref: '#/components/schemas/Subscription'
-      
-  /unsubscribe/{idSubcription}:
-    post:
-      tags:
-        - webhook
-      summary: Unsubscribe to an event
-      description: Unsubscribe to an event
-      operationId: unsubscribe
-      parameters:
-        - name: idSubcription
-          in: path
-          description: The idSubcription ID
-          required: true
-          schema:
-            type: string
       responses:
         '201':
           description: Successful operation
@@ -383,34 +322,6 @@ components:
                 type: string
           discriminator:
             propertyName: type
-    SubscribeData:
-      type: object
-      required:
-        - url
-      properties:
-        event:
-          $ref: '#/components/schemas/Event'
-          description: event you want subscribe, alls by default
-        idScenario:
-          description: add a scenario id if you don't want to subscribe to alls of yours scenarios
-          type: string
-          example: leads_entrants
-        url:
-          description: url in your SI to notify
-          type: string
-          example: https://clientURL/enrichedLead
-        hasEmoji:
-          description: emoji are in informations display
-          example: true
-          type: boolean
-          default: true
-        typeDisplay:
-          description: type of information display
-          example: html
-          type: string
-          enum:
-            - text
-            - html
     Event:
       type: string
       enum:
@@ -513,39 +424,6 @@ components:
               display: 'STOP - Demande RGPD'
             - key: 'not-interested'
               display: 'Pas interessé'
-    Subscription:
-      type: object
-      required:
-        - event
-        - idScenario
-        - url
-      properties:
-        idSubscription:
-          type: string
-          example: iujoij98hgghv
-        event: 
-          $ref: '#/components/schemas/Event'
-        idScenario:
-          type: string
-          example: lead_entrants
-        url:
-          type: string
-          example: https://clientURL/enrichedLead
-        createdAt:
-          type: number
-          example: 1546297200
-        hasEmoji:
-          description: emoji are in informations display
-          example: true
-          type: boolean
-          default: true
-        typeDisplay:
-          description: type of information display
-          example: html
-          type: string
-          enum:
-            - text
-            - html
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
