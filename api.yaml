@@ -35,62 +35,6 @@ paths:
           description: Successful operation
         '422':
           description: Invalid input
-  /leads:
-    get:
-      tags:
-        - lead
-      summary: search leads
-      description: ''
-      operationId: searchLeads
-      parameters:
-        - name: minDate
-          in: query
-          description: "minimum date last activity to retrieve, by default date of now - 1 day"
-          required: false
-          #default: 1688203458
-          schema:
-            type: number
-        - name: maxDate
-          in: query
-          description: "max date last activity to retrieve, by default now"
-          required: false
-          #default: 1688203458
-          schema:
-            type: number
-        - name: temperature
-          in: query
-          description: "filtered temperature"
-          required: false
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Temperatures'
-        - name: hasEmoji
-          in: query
-          description: emoji are in informations display
-          required: false
-          schema:
-            type: boolean
-            default: true
-        - name: typeDisplay
-          in: query 
-          description: type of information display
-          required: false
-          schema:
-            type: string
-            enum:
-              - text
-              - html
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items: 
-                  $ref: '#/components/schemas/EnrichedLead'
-  
   /subscribe:
     post:
       tags:
