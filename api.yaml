@@ -35,55 +35,6 @@ paths:
           description: Successful operation
         '422':
           description: Invalid input
-    get:
-      tags:
-        - lead
-      summary: get lead informations
-      description: ''
-      operationId: getLead
-      parameters:
-        - name: idLead
-          in: query
-          description: The PINPO lead id
-          required: false
-          schema:
-            type: string
-        - name: externalId
-          in: query
-          description: The External lead id
-          required: false
-          schema:
-            type: string
-        - name: leadPhone
-          in: query
-          description: The lead phone
-          required: false
-          schema:
-            type: string
-        - name: hasEmoji
-          in: query
-          description: emoji are in informations display
-          required: false
-          schema:
-            type: boolean
-            default: true
-        - name: typeDisplay
-          in: query 
-          description: type of information display
-          required: false
-          schema:
-            type: string
-            default: html
-            enum:
-              - text
-              - html
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EnrichedLead'
   /leads:
     get:
       tags:
