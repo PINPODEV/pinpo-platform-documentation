@@ -242,9 +242,6 @@ components:
           notes:
             type: string
             example: General notes
-          transcriptUrl:
-            type: string
-            example: https://pinpo.app.link/dLK242D
           conversationDisplay:
             type: string
             example: "- [Assistant 22/03 15:22] Message d'engagement\n- [Prospect 22/03 15:34] Réponse du lead\n- [Assistant 22/03 15:39] Message de cloture"
@@ -422,7 +419,7 @@ components:
         - $ref: '#/components/schemas/Insight'
         - enum:
             - key: 'not-responding'
-              display: 'Numéro fixe'
+              display: 'Injoignable'
             - key: 'wrong-phone'
               display: 'Faux destinataire'
             - key: 'opt-out-sms'
