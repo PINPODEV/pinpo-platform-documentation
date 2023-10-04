@@ -72,9 +72,9 @@ components:
         report:
           $ref: '#/components/schemas/Report'
         lastActivity:
-          type: number
-          description: timestamp in milliseconds on last lead activity in Pinpo
-          example: 1694765092.975
+          type: date-time
+          description: last lead activity in Pinpo in date time format
+          example: "2023-10-01T08:20:50.52Z"
         trigger:
           description: used only on Webhooks
           $ref: '#/components/schemas/Event'
@@ -294,7 +294,7 @@ components:
             - text
             - number
             - choice
-            - date
+            - date-time
             - multiChoice
     FormResponse:
       type: object
@@ -313,9 +313,12 @@ components:
             - textOrChoice:
               type: string
               example: Textual response
-            - date:
+            - number:
               type: number
-              example: 1553264538.371
+              example: 3
+            - date:
+              type: date-time
+              example: "2023-10-01T10:00:00.52Z"
             - multiChoice:
               type: array
               items:
