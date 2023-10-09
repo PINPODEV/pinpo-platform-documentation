@@ -59,6 +59,7 @@ components:
         id:
           type: string
           example: 10oijoijpoj
+          description: Pinpo lead id
         externalId:
           type: string 
           example: 'hhhhuj1bh4'
@@ -66,35 +67,45 @@ components:
         resume:
           type: string 
           description: Pinpo importants informations
-          example: '🔥 - Lead Chaud -\n\nDetail Insight Pinpo\nEngagé : Oui\nQualifié : Oui\nTemperature : Chaud 🔥\nConversation terminée : Oui\n\nDonnées collectées:\nLe lead a un projet d achat dans le neuf : Oui\nMise en relation souhaitée avec un conseiller : Oui\nHorizon d achat : 3 mois\n\nConversation :\nPinpo [07/08/2023 12:54]:\nBonjour, je suis Julie, Cheffe de projet chez AAAA. J espère que vous allez bien ! Merci d avoir pris contact avec nous pour ZZZZ. Vous avez donc un projet d achat dans le neuf, c est bien cela ?\nprospet [07/08/2023 14:39]:\nOui...'
+          example: '🔥 - Lead Chaud -\n\nDetail Insight Pinpo\nEngagé : Oui\nOpportunité : Oui\nTemperature : Chaud 🔥\nConversation terminée : Oui\n\nDonnées collectées:\nLe lead a un projet d achat dans le neuf : Oui\nMise en relation souhaitée avec un conseiller : Oui\nHorizon d achat : 3 mois\n\nConversation :\nPinpo [07/08/2023 12:54]:\nBonjour, je suis Julie, Cheffe de projet chez AAAA. J espère que vous allez bien ! Merci d avoir pris contact avec nous pour ZZZZ. Vous avez donc un projet d achat dans le neuf, c est bien cela ?\nprospet [07/08/2023 14:39]:\nOui...'
         insightPinpo:
+          description: Insights from Pinpo
           $ref: '#/components/schemas/InsightPinpo'
         report:
+          description: Report informations
           $ref: '#/components/schemas/Report'
         lastActivity:
-          type: number
-          description: timestamp in milliseconds on last lead activity in Pinpo
-          example: 1694765092.975
+          type: date-time
+          description: last lead activity in Pinpo in date time format
+          example: "2023-10-01T08:20:50.52Z"
+        requestDate:
+          type: date-time
+          description: date when the lead enters in Pinpo in date time format
+          example: "2023-10-01T08:20:50.52Z"
         trigger:
           description: used only on Webhooks
           $ref: '#/components/schemas/Event'
     InsightPinpo:
       required:
-        - insight
+        - insights
         - details
         - display
       type: object
       properties:
-        insight:
-          $ref: '#/components/schemas/PossiblesInsight'
+        insights:
+          type: array
+          items:
+            $ref: '#/components/schemas/PossiblesInsight'
+          description: list of insights from Pinpo
         details:
           type: array
           items:
             $ref: '#/components/schemas/InsigthItem'
+          description: details of insights from Pinpo
         display:
           type: string
           description: display for pinpo informations
-          example: 'Engagé : Oui\nQualifié : Oui\nTemperature : Chaud 🔥\nConversation terminée : Oui\n'
+          example: 'Engagé : Oui\nOpportunité : Oui\nTemperature : Chaud 🔥\nConversation terminée : Oui\n'
     InsigthItem:
       type: object 
       required:
@@ -115,7 +126,10 @@ components:
               example: Textual response
             - $ref: '#/components/schemas/Temperatures'
             - $ref: '#/components/schemas/NonEngagementReason'
-            - $ref: '#/components/schemas/NonQualificationReason'
+            - $ref: '#/components/schemas/DelayReason'
+            - array:
+              items:
+                $ref: '#/components/schemas/DelayReason'
         display:
           type: string 
           example: 'Engagé: Oui'
@@ -124,7 +138,7 @@ components:
       allOf:
         - $ref: '#/components/schemas/Temperatures'
         - $ref: '#/components/schemas/NonEngagementReason'
-        - $ref: '#/components/schemas/NonQualificationReason'
+        - $ref: '#/components/schemas/DelayReason'
         - $ref: '#/components/schemas/TechnicalError'
     Lead:
       required:
@@ -134,6 +148,7 @@ components:
       type: object
       properties:
         contact:
+          description: lead contact informations
           $ref: '#/components/schemas/Contact'
         externalId:
           type: string
@@ -148,8 +163,10 @@ components:
           example: kopij876f
           decription: technical Id of your Pinpo scenario, see with your CX
         product:
+          description: product informations
           $ref: '#/components/schemas/Product'
         salesPerson:
+          description: salesperson informations
           $ref: '#/components/schemas/SalesPerson'
         scriptData:
           type: array
@@ -158,6 +175,7 @@ components:
             $ref: '#/components/schemas/CustomData'
         statsData:
           type: array
+          description: check with your CX for interested stats data
           items:
             $ref: '#/components/schemas/CustomData'
     Contact:
@@ -168,15 +186,19 @@ components:
         firstName:
           type: string
           example: John
+          description: first name of contact
         lastName:
           type: string
           example: Doe
+          description: last name of contact
         phone:
           type: string
           example: 33606060606
+          description: phone number of contact used to talk
         mail:
           type: string
           example: john.doe@pinpo.fr
+          description: email of contact
         externalId:
           type: string
           example: jiu7897987GUYGhh
@@ -187,15 +209,19 @@ components:
         firstName:
           type: string
           example: John
+          description: first name of salesperson assigned to lead
         lastName:
           type: string
           example: Doe
+          description: last name of salesperson assigned to lead
         phone:
           type: string
           example: 33606060606
+          description: phone of salesperson assigned to lead
         mail:
           type: string
           example: john.doe@pinpo.fr
+          description: mail of salesperson assigned to lead
         externalId:
           type: string
           example: jiu7897987GUYGhh
@@ -203,6 +229,7 @@ components:
         iCalUrl:
            type: string
            example: https://joiuezhfiuhIcal.fr
+           description: iCalUrl of salesperson assigned to lead can be used to check saleperson disponibilities
     Product:
       type: object
       required:
@@ -211,12 +238,15 @@ components:
         name:
           type: string
           example: Programme des oliviers
+          description: product name
         category:
           type: string
           example: new
+          description: product category
         externalId:
           type: string
           example: huih89hhgh
+          description: Id of product in you CRM
     CustomData:
       type: object
       required:
@@ -242,9 +272,6 @@ components:
           notes:
             type: string
             example: General notes
-          transcriptUrl:
-            type: string
-            example: https://pinpo.app.link/dLK242D
           conversationDisplay:
             type: string
             example: "- [Assistant 22/03 15:22] Message d'engagement\n- [Prospect 22/03 15:34] Réponse du lead\n- [Assistant 22/03 15:39] Message de cloture"
@@ -294,7 +321,7 @@ components:
             - text
             - number
             - choice
-            - date
+            - date-time
             - multiChoice
     FormResponse:
       type: object
@@ -313,9 +340,12 @@ components:
             - textOrChoice:
               type: string
               example: Textual response
-            - date:
+            - number:
               type: number
-              example: 1553264538.371
+              example: 3
+            - date:
+              type: date-time
+              example: "2023-10-01T10:00:00.52Z"
             - multiChoice:
               type: array
               items:
@@ -393,7 +423,7 @@ components:
             - key: 'cold'
               display: 'Lead Froid'
     NonEngagementReason:
-      description: Possibles non enagement reason
+      description: Possibles non engagement reason
       allOf:
         - $ref: '#/components/schemas/Insight'
         - enum:
@@ -413,21 +443,19 @@ components:
               display: 'Doublon'
             - key: 'inconsistent-data'
               display: 'Données inconsistentes'
-    NonQualificationReason:
-      description: Possibles reason lead is not  qualified
+    DelayReason:
+      description: Possibles reason lead is not fully processed
       allOf:
         - $ref: '#/components/schemas/Insight'
         - enum:
             - key: 'not-responding'
-              display: 'Numéro fixe'
+              display: 'Injoignable'
             - key: 'wrong-phone'
               display: 'Faux destinataire'
             - key: 'opt-out-sms'
               display: 'STOP - Optout'
             - key: 'rgpd'
               display: 'STOP - Demande RGPD'
-            - key: 'not-interested'
-              display: 'Pas interessé'
     TechnicalError:
       description: Possibles technical error during the process
       allOf:
