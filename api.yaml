@@ -13,6 +13,8 @@ servers:
 tags:
   - name: lead
     description: Everything about your leads
+  - name: mock
+    description: Tools to mock webhook trigger
 paths:
   /lead:
     post:
@@ -33,6 +35,25 @@ paths:
           description: Successful operation
         '422':
           description: Invalid input
+  /mock:
+    post:
+      tags:
+        - mock
+      summary: trigger webhook enriched lead to specific endpoint to help you integrate Pinpo
+      description: trigger webhook enriched lead to specific endpoint to help you integrate Pinpo
+      operationId: mockTriggerWebhook
+      requestBody:
+        description: Mock Webhook trigger depends on Pinpo Insight
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MockWebhook'
+        required: true
+      responses:
+        '200':
+          description: Successful trigger webhook on specified url
+        '422':
+          description: Unprocessable Entity
 webhooks:
     EnrichedLead:
       post:
@@ -465,6 +486,47 @@ components:
               display: 'Technical Error'
             - key: 'internal-error-import'
               display: 'Erreur Import'
+    MockWebhook:
+      description: Data for trigger specific enriched lead
+      type: object
+      required:
+        - typeLead
+        - url
+        - hasEmoji
+        - typeDisplay
+      properties:
+        typeLead:
+          type: string 
+          example: 'hot'
+          enum:
+            - hot
+            - warm
+            - cold
+            - landline-phone
+            - foreign-phone
+            - invalid-phone
+            - already-engaged
+            - not-pinpo-targeting
+            - reach-limit
+            - duplicate
+            - inconsistent-data
+            - not-responding
+            - wrong-phone
+            - opt-out-sms
+            - rgpd
+        url:
+          type:  string
+          example: http://urlToTrigger.fr/hook
+        hasEmoji:
+          type: boolean
+          example: true
+        typeDisplay:
+          type:  string
+          example: html
+          enum:
+            - html
+            - text
+
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
