@@ -35,6 +35,8 @@ paths:
           description: Successful operation
         '422':
           description: Invalid input
+        '409':
+          description: Duplicate value
   /mock:
     post:
       tags:
