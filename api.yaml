@@ -304,20 +304,13 @@ components:
     QualificationItem:
       type: object 
       required:
-        - id
         - formQuestion
         - formResponse
       properties:
-        id:
-          type: string
-          example: ugoiy76765443Fjhg
         formQuestion:
           $ref: '#/components/schemas/FormQuestion'
         formResponse:
           $ref: '#/components/schemas/FormResponse'
-        display:
-          type: string
-          example: 'Interest in a lead engagement and qualification solution : Oui'
         state:
           type: string
           enum:
@@ -349,12 +342,8 @@ components:
     FormResponse:
       type: object
       required:
-        - id
         - type
       properties:
-        id:
-          type: string
-          example: oiubiyf7897fhgjddas545
         value:
           oneOf:
             - boolean:
