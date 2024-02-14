@@ -201,6 +201,11 @@ components:
           description: check with your CX for interested stats data
           items:
             $ref: '#/components/schemas/CustomData'
+        outputData:
+          type: array
+          description: data used in output integration, check with your CX for mandatory data
+          items:
+            $ref: '#/components/schemas/CustomData'
     Contact:
       type: object
       required:
