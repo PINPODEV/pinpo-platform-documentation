@@ -89,7 +89,9 @@ components:
           description: Id in your CRM or SI of the request of the lead
         resume:
           type: string 
-          description: Pinpo importants informations
+          description: |
+           Pinpo importants informations <br/>
+           <img src="dist/resume.png" alt="Image rendu resume" width="50%" height="50%">
           example: '🔥 - Lead Chaud -\n\nDetail Insight Pinpo\nEngagé : Oui\nOpportunité : Oui\nTemperature : Chaud 🔥\nConversation terminée : Oui\n\nDonnées collectées:\nLe lead a un projet d achat dans le neuf : Oui\nMise en relation souhaitée avec un conseiller : Oui\nHorizon d achat : 3 mois\n\nConversation :\nPinpo [07/08/2023 12:54]:\nBonjour, je suis Julie, Cheffe de projet chez AAAA. J espère que vous allez bien ! Merci d avoir pris contact avec nous pour ZZZZ. Vous avez donc un projet d achat dans le neuf, c est bien cela ?\nprospet [07/08/2023 14:39]:\nOui...'
         insightPinpo:
           description: Insights from Pinpo
@@ -179,7 +181,13 @@ components:
           description: Id in your CRM or SI of the request of the lead (This will be the external ID that will receive when the lead exit PINPO)
         providerName:
           type: string
-          example: Facebook leads
+          example:
+            - Facebook leads
+            - Réseaux sociaux
+            - Google Ads
+            - Site internet
+            - Portails/Comparateurs
+            - ...
           decription: source of your leads
         scenarioSelection:
           type: string
@@ -193,12 +201,12 @@ components:
           $ref: '#/components/schemas/SalesPerson'
         scriptData:
           type: array
-          description: check with your CX for mandatory scripts data
+          description: data used in SMS conversation to add some context to the lead, check with your CX for mandatory scripts data
           items:
             $ref: '#/components/schemas/CustomData'
         statsData:
           type: array
-          description: check with your CX for interested stats data
+          description: can be used for statistical purpose, check with your CX for interested stats data
           items:
             $ref: '#/components/schemas/CustomData'
         outputData:
@@ -255,9 +263,9 @@ components:
           example: jiu7897987GUYGhh
           description: Id of saleperson in you CRM
         iCalUrl:
-           type: string
-           example: https://joiuezhfiuhIcal.fr
-           description: iCalUrl of salesperson assigned to lead can be used to check saleperson disponibilities
+          type: string
+          example: https://joiuezhfiuhIcal.fr
+          description: iCalUrl of salesperson assigned to lead can be used to check saleperson disponibilities
     Product:
       type: object
       required:
@@ -265,8 +273,16 @@ components:
       properties:
         name:
           type: string
-          example: Programme des oliviers
-          description: product name
+          example:
+            - Programme des oliviers
+            - Pompe à chaleur
+            - Assurance vie
+            - Logiciel de comptabilité
+            - Voiture 1234
+            - Contrat Mobile/fibre
+            - Formation Audio Visuel
+            - Crédit Immobilier
+            - ...
         category:
           type: string
           example: new
