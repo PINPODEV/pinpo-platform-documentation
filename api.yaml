@@ -29,6 +29,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Lead'
+            examples:
+              Usual example:
+                $ref: '#/components/examples/usualImportLead'
+              Only Mandatory:
+                $ref: '#/components/examples/simpleOnlyMandatoryImportLead'
+              Complete:
+                $ref: '#/components/examples/complexeImportLead'
         required: true
       responses:
         '201':
@@ -524,6 +531,68 @@ components:
             - html
             - text
 
+  examples:
+    simpleOnlyMandatoryImportLead:
+      value: 
+        contact:
+          phone: '0606060606'
+        providerName: "Réseaux sociaux"
+        product:
+          name: "Pompe à chaleur"
+    usualImportLead:
+      value:
+        contact:
+          firstName: "John"
+          lastName: "Doe"
+          phone: "33606060606"
+          mail: "john.doe@pinpo.fr"
+          externalId: "jiu7897987GUYGhh"
+        externalId: "jjhhuGT"
+        providerName: "Facebook leads"
+        scenarioSelection: "kopij876f"
+        product:
+          name: "Programme des oliviers"
+        salesPerson: 
+          firstName: "Jane"
+          lastName: "Doe"
+          phone: "33606060606"
+          mail: "john.doe@pinpo.fr"
+        scriptData:
+          - name: "departement"
+            value: "Ardèche"
+    complexeImportLead:
+      value:
+        contact:
+          firstName: "John"
+          lastName: "Doe"
+          phone: "33606060606"
+          mail: "john.doe@pinpo.fr"
+          externalId: "jiu7897987GUYGhh"
+        externalId: "jjhhuGT"
+        providerName: "Facebook leads"
+        scenarioSelection: "kopij876f"
+        product:
+          name: "Programme des oliviers"
+          category: "new"
+          externalId: "huih89hhgh"
+        salesPerson: 
+          firstName: "Jane"
+          lastName: "Doe"
+          phone: "33606060606"
+          mail: "john.doe@pinpo.fr"
+          externalId: "jiu7897987GUYGhh"
+          iCalUrl: "https://joiuezhfiuhIcal.fr"
+        scriptData:
+          - name: "departement"
+            value: "Ardèche"
+          - name: "postalCode"
+            value: "07000"
+        statsData:
+          - name: "day"
+            value: Monday
+        outputData:
+          - name: "civility"
+            value: Mrs
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
