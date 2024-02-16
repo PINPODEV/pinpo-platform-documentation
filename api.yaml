@@ -97,7 +97,7 @@ components:
         resume:
           type: string 
           description: |
-           Pinpo importants informations <br/>
+           Pinpo relevant informations <br/>
            <img src="dist/resume.png" alt="Image rendu resume" width="50%" height="50%">
           example: '🔥 - Lead Chaud -\n\nDetail Insight Pinpo\nEngagé : Oui\nOpportunité : Oui\nTemperature : Chaud 🔥\nConversation terminée : Oui\n\nDonnées collectées:\nLe lead a un projet d achat dans le neuf : Oui\nMise en relation souhaitée avec un conseiller : Oui\nHorizon d achat : 3 mois\n\nConversation :\nPinpo [07/08/2023 12:54]:\nBonjour, je suis Julie, Cheffe de projet chez AAAA. J espère que vous allez bien ! Merci d avoir pris contact avec nous pour ZZZZ. Vous avez donc un projet d achat dans le neuf, c est bien cela ?\nprospet [07/08/2023 14:39]:\nOui...'
         insightPinpo:
@@ -266,7 +266,7 @@ components:
         iCalUrl:
           type: string
           example: https://joiuezhfiuhIcal.fr
-          description: iCalUrl of salesperson assigned to lead can be used to check saleperson disponibilities
+          description: iCalUrl of salesperson assigned to lead can be used to check saleperson availabilities
     Product:
       type: object
       required:
