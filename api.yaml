@@ -181,13 +181,7 @@ components:
           description: Id in your CRM or SI of the request of the lead (This will be the external ID that will receive when the lead exit PINPO)
         providerName:
           type: string
-          example:
-            - Facebook leads
-            - Réseaux sociaux
-            - Google Ads
-            - Site internet
-            - Portails/Comparateurs
-            - ...
+          example: "'Facebook leads' ou 'Réseaux sociaux' ou 'Google Ads' ou 'Site internet' ou 'Portails/Comparateurs' ..."
           decription: source of your leads
         scenarioSelection:
           type: string
@@ -273,16 +267,7 @@ components:
       properties:
         name:
           type: string
-          example:
-            - Programme des oliviers
-            - Pompe à chaleur
-            - Assurance vie
-            - Logiciel de comptabilité
-            - Voiture 1234
-            - Contrat Mobile/fibre
-            - Formation Audio Visuel
-            - Crédit Immobilier
-            - ...
+          example: "'Programme des oliviers' ou 'Pompe à chaleur' ou 'Assurance vie' ou 'Logiciel de comptabilité' ou 'Voiture 1234' ou 'Contrat Mobile/fibre' ou 'Formation Audio Visuel' ou 'Crédit Immobilier' ..."
         category:
           type: string
           example: new
