@@ -595,6 +595,9 @@ components:
           mail: "john.doe@pinpo.fr"
           externalId: "jiu7897987GUYGhh"
           iCalUrl: "https://joiuezhfiuhIcal.fr"
+        company:
+          name: Pinpo
+          externalId: huih89hhgh
         scriptData:
           - name: "departement"
             value: "Ardèche"
