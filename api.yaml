@@ -200,6 +200,9 @@ components:
         salesPerson:
           description: salesperson informations
           $ref: '#/components/schemas/SalesPerson'
+        company:
+          description: for B2B client, add company information
+          $ref: '#/components/schemas/Company'
         scriptData:
           type: array
           description: data used in SMS conversation to add some context to the lead, check with your CX for mandatory scripts data
@@ -283,6 +286,16 @@ components:
           type: string
           example: huih89hhgh
           description: Id of product in you CRM
+    Company:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Pinpo
+        externalId:
+          type: string
+          example: huih89hhgh
+          description: Id of company in you CRM
     CustomData:
       type: object
       required:
