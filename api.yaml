@@ -481,6 +481,8 @@ components:
               display: 'Doublon'
             - key: 'inconsistent-data'
               display: 'Données inconsistentes'
+            - key: 'technical-error-engagement'
+              display: "Erreur Technique lors de l'engagement"
     DelayReason:
       description: Possibles reason lead is not fully processed
       allOf:
