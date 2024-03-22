@@ -481,7 +481,7 @@ components:
               display: 'Doublon'
             - key: 'inconsistent-data'
               display: 'Données inconsistantes'
-            - key: 'technical-error-engagement'
+            - key: 'technical-error'
               display: "Erreur Technique lors de l'engagement"
     DelayReason:
       description: Possibles reason lead is not fully processed
@@ -501,7 +501,7 @@ components:
       allOf:
         - $ref: '#/components/schemas/Insight'
         - enum:
-            - key: 'technical-error'
+            - key: 'internal-technical-error'
               display: 'Technical Error'
             - key: 'internal-error-import'
               display: 'Erreur Import'
