@@ -75,6 +75,24 @@ webhooks:
                 $ref: '#/components/schemas/EnrichedLead'
         responses:
           "200":
+            description: Return a 200 status to indicate that the data was received successfully 
+      put:
+        x-internal: true
+        parameters:
+        - in: path
+          name: externalId
+          schema:
+            type: string
+          required: true
+          description: ID of the lead or contact if lead id doesn't exist
+        requestBody:
+          description: Information about lead qualification
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnrichedLead'
+        responses:
+          "200":
             description: Return a 200 status to indicate that the data was received successfully        
 components:
   schemas:
