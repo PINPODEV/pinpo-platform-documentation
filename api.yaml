@@ -100,6 +100,7 @@ components:
       required:
         - id
         - resume
+        - leadTypology
         - insightPinpo
         - report
       type: object
@@ -112,6 +113,9 @@ components:
           type: string 
           example: 'jjhhuGT'
           description: Id in your CRM or SI of the request of the lead
+        leadTypology:
+          description: Lead typology from Pinpo
+          $ref: '#/components/schemas/LeadTypologyPinpo'
         resume:
           type: string 
           description: |
@@ -135,6 +139,47 @@ components:
         trigger:
           description: used only on Webhooks
           $ref: '#/components/schemas/Event'
+    LeadTypologyPinpo:
+      required:
+        - key
+        - value
+      type: object
+      properties:
+        key:
+          type: string
+          description: Main lead Information Key
+          enum: 
+            - hot-with-meeting
+            - hot-without-meeting
+            - hot-not-contacted
+            - hot-immediate-contact
+            - warm
+            - cold
+            - landline-phone
+            - foreign-phone
+            - invalid-phone
+            - already-engaged
+            - not-pinpo-targeting
+            - reach-limit
+            - duplicate
+            - inconsistent-data
+            - not-responding
+            - wrong-phone
+            - opt-out-sms
+            - rgpd
+        value:
+          type: string
+          description:  Main lead Information display
+          enum: 
+            - Chaud avec RDV
+            - Chaud sans RDV
+            - Chaud non recontacté par l'entreprise
+            - Chaud demande de contact immediat
+            - Lead tiède
+            - Lead froid
+            - Numéro fixe
+            - Numéro étranger
+            - ...
     InsightPinpo:
       required:
         - insights
@@ -165,7 +210,7 @@ components:
       properties:
         key:
           type: string
-          example: 'Engagé'
+          example: 'engaged'
         value:
           oneOf:
             - boolean:
