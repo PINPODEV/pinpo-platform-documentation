@@ -31,11 +31,11 @@ paths:
               $ref: '#/components/schemas/Lead'
             examples:
               Usual example:
-                $ref: '#/components/examples/usualImportLead'
+                $ref: '#/components/examplesImport/usualImportLead'
               Only Mandatory:
-                $ref: '#/components/examples/simpleOnlyMandatoryImportLead'
+                $ref: '#/components/examplesImport/simpleOnlyMandatoryImportLead'
               Complete:
-                $ref: '#/components/examples/complexeImportLead'
+                $ref: '#/components/examplesImport/complexeImportLead'
         required: true
       responses:
         '201':
@@ -57,6 +57,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/MockWebhook'
+            examples:
+              Hot lead with meeting in html:
+                $ref: '#/components/examplesMock/hotWithMeetingHtml'
+              Hot lead asking immediate contact in text:
+                $ref: '#/components/examplesMock/hotImmediateContactText'
+              RGPD lead in html:
+                $ref: '#/components/examplesMock/rgpdHtml'
         required: true
       responses:
         '200':
@@ -593,7 +600,7 @@ components:
             - html
             - text
 
-  examples:
+  examplesImport:
     simpleOnlyMandatoryImportLead:
       value: 
         contact:
@@ -658,6 +665,26 @@ components:
         outputData:
           - name: "civility"
             value: Mrs
+  examplesMock:
+    hotWithMeetingHtml:
+      value:
+        typeLead: hot-with-meeting 
+        url: https://test.fr
+        hasEmoji: true
+        typeDisplay: html
+    hotImmediateContactText:
+      value:
+        typeLead: hot-immediate-contact
+        url: https://test.fr
+        hasEmoji: false
+        typeDisplay: test
+    rgpdHtml:
+      value:
+        typeLead: rgpd
+        url: https://test.fr
+        hasEmoji: false
+        typeDisplay: html
+          
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
