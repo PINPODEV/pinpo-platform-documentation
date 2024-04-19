@@ -145,27 +145,7 @@ components:
       type: object
       properties:
         key:
-          type: string
-          description: Main lead Information Key
-          enum: 
-            - hot-with-meeting
-            - hot-without-meeting
-            - hot-not-contacted
-            - hot-immediate-contact
-            - warm
-            - cold
-            - landline-phone
-            - foreign-phone
-            - invalid-phone
-            - already-engaged
-            - not-pinpo-targeting
-            - reach-limit
-            - duplicate
-            - inconsistent-data
-            - not-responding
-            - wrong-phone
-            - opt-out-sms
-            - rgpd
+          $ref: '#/components/schemas/LeadTypology'            
         value:
           type: string
           description:  Main lead Information display
@@ -511,6 +491,28 @@ components:
           - name: 'warning'
             emojiText: ':warning:'
             emojiHtml: '&#9888;&#65039;'
+    LeadTypology:
+      type: string
+      description: Main lead Information Key
+      enum: 
+        - hot-with-meeting
+        - hot-without-meeting
+        - hot-not-contacted
+        - hot-immediate-contact
+        - warm
+        - cold
+        - landline-phone
+        - foreign-phone
+        - invalid-phone
+        - already-engaged
+        - not-pinpo-targeting
+        - reach-limit
+        - duplicate
+        - inconsistent-data
+        - not-responding
+        - wrong-phone
+        - opt-out-sms
+        - rgpd
     Temperatures:
       description: Possible temperatures
       allOf:
@@ -577,24 +579,7 @@ components:
         - typeDisplay
       properties:
         typeLead:
-          type: string 
-          example: 'hot'
-          enum:
-            - hot
-            - warm
-            - cold
-            - landline-phone
-            - foreign-phone
-            - invalid-phone
-            - already-engaged
-            - not-pinpo-targeting
-            - reach-limit
-            - duplicate
-            - inconsistent-data
-            - not-responding
-            - wrong-phone
-            - opt-out-sms
-            - rgpd
+          $ref: '#/components/schemas/LeadTypology'  
         url:
           type:  string
           example: http://urlToTrigger.fr/hook
