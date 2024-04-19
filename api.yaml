@@ -100,7 +100,6 @@ components:
       required:
         - id
         - resume
-        - leadTypology
         - insightPinpo
         - report
       type: object
@@ -114,7 +113,7 @@ components:
           example: 'jjhhuGT'
           description: Id in your CRM or SI of the request of the lead
         leadTypology:
-          description: Lead typology from Pinpo
+          description: Main lead Information from Pinpo
           $ref: '#/components/schemas/LeadTypologyPinpo'
         resume:
           type: string 
