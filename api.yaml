@@ -167,6 +167,11 @@ components:
         trigger:
           description: used only on Webhooks
           $ref: '#/components/schemas/Event'
+        outputData:
+          type: array
+          description: data imported in output block
+          items:
+            $ref: '#/components/schemas/CustomData'
     LeadTypologyPinpo:
       required:
         - key
