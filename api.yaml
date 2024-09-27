@@ -34,7 +34,7 @@ paths:
       description: |
         - You are responsible for sending the lead at the right timing.
         - By default, for the leads received by PINPO late at night or early in the morning, the first message is postponed until the next morning (this behavior can be customized).
-        - The lead must absolutely have a phone number with at least 9 characters in order to be accepted by our service. Otherwise, the request will be purely rejected. (Examples of accepted numbers: `688392837`, `0699030495`, `334790939405`).
+        - The lead must absolutely have a phone number with at least 9 characters in order to be accepted by our service. Otherwise, the request will be purely rejected. (Examples of accepted numbers: `688392837`, `0699030495`, `33699030495`).
 
       operationId: importLead
       requestBody:
