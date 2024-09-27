@@ -55,7 +55,7 @@ paths:
         201 : 
           description : The import was **successful**. *You need to make sure that nobody will  communicate with the lead while it is in by Pinpo’s hands. Two potential ideas to explore, make the object invisible in the CRM or assign the object to a Pinpo user in the CRM.*
         409 :
-          description : Duplicate value.
+          description : The import **is not successful** because of duplicated value. This lead has been already imported in our platform and can't be processed twice.
         422 : 
           description : The import **is not successful**. *Give back the control to the salesperson, explaining that Pinpo could not process it; he/she can then contact the lead through another communication channel.*
 
