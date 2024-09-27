@@ -676,7 +676,7 @@ components:
           firstName: "Michael"
           lastName: "Scott"
           phone: "33707070707"
-          mail: "michael.scott@coporation.fr"
+          mail: "michael.scott@corporation.fr"
         scriptData:
           - name: "location"
             value: "Scraton"
