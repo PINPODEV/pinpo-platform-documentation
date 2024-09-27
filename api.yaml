@@ -1,7 +1,17 @@
 openapi: 3.1.0
 info:
   title: PINPO - OpenAPI 3.1
-  description: Pinpo is an automated lead qualification platform
+  
+  description: |
+    **Pinpo is an automated lead qualification platform.**
+
+    - This documentation gives you all the information you need to be able to integrate your solution with Pinpo via API.
+
+    - For each route, you will see:
+
+      - An `Example Value`, that shows you the JSON structure.
+      - A `Schema`, that shows you the required (i.e. mandatory) values and some detailed indications for each.
+      - The list of responses the PINPO API can send back.
   contact:
     email: integration@pinpo.fr
   version: 1.0.11
@@ -11,17 +21,21 @@ externalDocs:
 servers:
   - url: https://api.pinpo.com/v1
 tags:
-  - name: lead
+  - name: Lead
     description: Everything about your leads
   - name: mock
-    description: Tools to mock webhook trigger
+    description: Tools to mock the webhook trigger
 paths:
   /lead:
     post:
       tags:
-        - lead
+        - Lead
       summary: Add a new lead to qualify
-      description: Add a new lead to qualify
+      description: |
+        - You are responsible for sending the lead at the right timing.
+        - By default, for the leads received by PINPO late at night or early in the morning, the first message is postponed until the next morning (this behavior can be customized).
+        - The lead must absolutely have a phone number with at least 9 characters in order to be accepted by our service. Otherwise, the request will be purely rejected. (Examples of accepted numbers: `688392837`, `0699030495`, `334790939405`).
+
       operationId: importLead
       requestBody:
         description: Import a new lead in PINPO
@@ -38,18 +52,22 @@ paths:
                 $ref: '#/components/examplesImport/complexeImportLead'
         required: true
       responses:
-        '201':
-          description: Successful operation
-        '422':
-          description: Invalid input
-        '409':
-          description: Duplicate value
+        201 : 
+          description : The import was **successful**. *You need to make sure that nobody will  communicate with the lead while it is in by Pinpo’s hands. Two potential ideas to explore, make the object invisible in the CRM or assign the object to a Pinpo user in the CRM.*
+        409 :
+          description : The import **is not successful** because of duplicated value. This lead has been already imported in our platform and can't be processed twice.
+        422 : 
+          description : The import **is not successful**. *Give back the control to the salesperson, explaining that Pinpo could not process it; he/she can then contact the lead through another communication channel.*
+
   /mock:
     post:
       tags:
         - mock
       summary: trigger webhook enriched lead to specific endpoint to help you integrate Pinpo
-      description: trigger webhook enriched lead to specific endpoint to help you integrate Pinpo
+      description: |
+        - This is a mock route that emulates the exit of a lead (similar to the enrichedLead webhook subscription).
+        - You can find all kinds of lead in the `Schema` section, under the `typeLead` field.
+        - Pinpo can either do a POST Request or a PUT request.
       operationId: mockTriggerWebhook
       requestBody:
         description: Mock Webhook trigger depends on Pinpo Insight
@@ -73,7 +91,9 @@ paths:
 webhooks:
     EnrichedLead:
       post:
-        x-internal: true
+        description : |
+          - It is PINPO that will setup the webhook subscription of this route. You will have to share with PINPO the URL and the method that must be registered.
+          - If the response to the POST request is not a success, Pinpo will retry the same call 7 times (the delay in between each tentative increases every time).
         requestBody:
           description: Information about lead qualification
           content:
@@ -95,7 +115,9 @@ webhooks:
           "200":
             description: Return a 200 status to indicate that the data was received successfully 
       put:
-        x-internal: true
+        description : |
+          - It is PINPO that will setup the webhook subscription of this route. You will have to share with PINPO the URL and the method that must be registered.
+          - If the response to the PUT request is not a success, Pinpo will retry the same call 7 times (the delay in between each tentative increases every time).
         parameters:
         - in: path
           name: externalId
@@ -136,10 +158,10 @@ components:
         id:
           type: string
           example: 10oijoijpoj
-          description: Pinpo lead id
+          description: This is the Pinpo Lead ID
         externalId:
           type: string 
-          example: 'jjhhuGT'
+          example: 'efghi56789'
           description: Id in your CRM or SI of the request of the lead
         leadTypology:
           description: Main lead Information from Pinpo
@@ -158,18 +180,18 @@ components:
           $ref: '#/components/schemas/Report'
         lastActivity:
           type: date-time
-          description: last lead activity in Pinpo in date time format
+          description: Last lead activity date in Pinpo in date time format
           example: "2023-10-01T08:20:50.52Z"
         requestDate:
           type: date-time
-          description: date when the lead enters in Pinpo in date time format
+          description: Date when the lead entered in Pinpo in date time format
           example: "2023-10-01T08:20:50.52Z"
         trigger:
           description: used only on Webhooks
           $ref: '#/components/schemas/Event'
         outputData:
           type: array
-          description: data imported in output block
+          description: You find here the data imported in the outputData
           items:
             $ref: '#/components/schemas/CustomData'
     LeadTypologyPinpo:
@@ -204,15 +226,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PossiblesInsight'
-          description: list of insights from Pinpo
+          description: List of the insights from Pinpo
         details:
           type: array
           items:
             $ref: '#/components/schemas/InsigthItem'
-          description: details of insights from Pinpo
+          description: Details of the insights from Pinpo
         display:
           type: string
-          description: display for pinpo informations
+          description: Display of the pinpo informations
           example: 'Engagé : Oui\nOpportunité : Oui\nTemperature : Chaud 🔥\nConversation terminée : Oui\n'
     InsigthItem:
       type: object 
@@ -256,42 +278,42 @@ components:
       type: object
       properties:
         contact:
-          description: lead contact informations
+          description: Lead contact informations
           $ref: '#/components/schemas/Contact'
         externalId:
           type: string
-          example: jjhhuGT
-          description: Id in your CRM or SI of the request of the lead (This will be the external ID that will receive when the lead exit PINPO)
+          example: efghi56789
+          description: Id in your CRM or SI of the request of the lead (This will be the external ID that will receive when the lead exits PINPO)
         providerName:
           type: string
-          example: "'Facebook leads' ou 'Réseaux sociaux' ou 'Google Ads' ou 'Site internet' ou 'Portails/Comparateurs' ..."
-          decription: source of your leads
+          example: "'Facebook leads' or 'Réseaux sociaux' or 'Google Ads' or 'Site internet' or 'Portails/Comparateurs' ..."
+          decription: Source of your leads
         scenarioSelection:
           type: string
           example: kopij876f
-          decription: technical Id of your Pinpo scenario, see with your CX
+          decription: Technical Id of your Pinpo scenario. See with your CX Manager.
         product:
-          description: product informations
+          description: Product informations
           $ref: '#/components/schemas/Product'
         salesPerson:
-          description: salesperson informations
+          description: Salesperson informations
           $ref: '#/components/schemas/SalesPerson'
         company:
-          description: for B2B client, add company information
+          description: For B2B client, add the company's information.
           $ref: '#/components/schemas/Company'
         scriptData:
           type: array
-          description: data used in SMS conversation to add some context to the lead, check with your CX for mandatory scripts data
+          description: Data used in SMS conversation to add some context to the lead, check with your CX Manager for mandatory scripts data.
           items:
             $ref: '#/components/schemas/CustomData'
         statsData:
           type: array
-          description: can be used for statistical purpose, check with your CX for interested stats data
+          description: Data that can be used for statistical purpose, check with your CX Manager for interesting stats data.
           items:
             $ref: '#/components/schemas/CustomData'
         outputData:
           type: array
-          description: data used in output integration, check with your CX for mandatory data
+          description: Data that will be present in your EXIT integration (EnrichedLead).
           items:
             $ref: '#/components/schemas/CustomData'
     Contact:
@@ -302,50 +324,50 @@ components:
         firstName:
           type: string
           example: John
-          description: first name of contact
+          description: First name of the contact
         lastName:
           type: string
           example: Doe
-          description: last name of contact
+          description: Last name of the contact
         phone:
           type: string
           example: 33606060606
-          description: phone number of contact used to talk
+          description: Mobile phone number of the contact
         mail:
           type: string
-          example: john.doe@pinpo.fr
-          description: email of contact
+          example: john.doe@email.fr
+          description: Email address of the contact
         externalId:
           type: string
-          example: jiu7897987GUYGhh
-          description: Id of contact in you CRM if its not the lead id
+          example: abcd1234
+          description: Id of contact in your CRM if its not the lead id
     SalesPerson:
       type: object
       properties:
         firstName:
           type: string
-          example: John
-          description: first name of salesperson assigned to lead
+          example: Michael
+          description: First name of the salesperson assigned to the lead
         lastName:
           type: string
-          example: Doe
-          description: last name of salesperson assigned to lead
+          example: Scott
+          description: Last name of the salesperson assigned to the lead
         phone:
           type: string
-          example: 33606060606
-          description: phone of salesperson assigned to lead
+          example: 33707070707
+          description: Mobile phone number of the salesperson assigned to the lead
         mail:
           type: string
-          example: john.doe@pinpo.fr
-          description: mail of salesperson assigned to lead
+          example: michael.scott@corporation.fr
+          description: Mail of salesperson assigned to lead
         externalId:
           type: string
-          example: jiu7897987GUYGhh
-          description: Id of saleperson in you CRM
+          example: scrantonms111
+          description: Id of the saleperson in your CRM
         iCalUrl:
           type: string
-          example: https://joiuezhfiuhIcal.fr
-          description: iCalUrl of salesperson assigned to lead can be used to check saleperson availabilities
+          example: https://michaelscott.dundermifflin.ical.fr
+          description: iCal Url of the salesperson assigned to lead. This can be used to check the saleperson availabilities.
     Product:
       type: object
       required:
@@ -353,25 +375,26 @@ components:
       properties:
         name:
           type: string
-          example: "'Programme des oliviers' ou 'Pompe à chaleur' ou 'Assurance vie' ou 'Logiciel de comptabilité' ou 'Voiture 1234' ou 'Contrat Mobile/fibre' ou 'Formation Audio Visuel' ou 'Crédit Immobilier' ..."
+          description : Name of the product the lead made a request on
+          example: "'Ream of paper' or 'Programme des oliviers' or 'Pompe à chaleur' or 'Assurance vie' or 'Logiciel de comptabilité' or 'Voiture 1234' or 'Contrat Mobile/fibre' or 'Formation Audio Visuel' or 'Crédit Immobilier' ..."
         category:
           type: string
           example: new
-          description: product category
+          description: Product category (should be new)
         externalId:
           type: string
-          example: huih89hhgh
-          description: Id of product in you CRM
+          example: 120paperream
+          description: Id of the product in you CRM that the lead made a request on
     Company:
       type: object
       properties:
         name:
           type: string
-          example: Pinpo
+          example: Dunder Mifflin Paper Company Inc
         externalId:
           type: string
           example: huih89hhgh
-          description: Id of company in you CRM
+          description: Id of the company in you CRM
     CustomData:
       type: object
       required:
@@ -379,11 +402,12 @@ components:
       properties:
         name:
           type: string
-          example: departement
-          description: name of the name. '.' is fordidden in name
+          example: location
+          description: Key of the item. '.' is fordidden in the name
         value:
           type: string
-          example: Ardèche
+          example: Scranton
+          description: Value of the item.
     Report:
       type: object
       properties: 
@@ -491,7 +515,7 @@ components:
         - name
         - emojiText
         - emojiHtml
-      description: emoji to linked to Insight Pinpo
+      description: Emoji to linked to Insight Pinpo
       properties:
         name:
           type: string 
@@ -641,57 +665,57 @@ components:
           firstName: "John"
           lastName: "Doe"
           phone: "33606060606"
-          mail: "john.doe@pinpo.fr"
-          externalId: "jiu7897987GUYGhh"
-        externalId: "jjhhuGT"
+          mail: "john.doe@email.fr"
+          externalId: "abcd1234"
+        externalId: "efghi56789"
         providerName: "Facebook leads"
         scenarioSelection: "kopij876f"
         product:
-          name: "Programme des oliviers"
+          name: "Ream of paper"
         salesPerson: 
-          firstName: "Jane"
-          lastName: "Doe"
-          phone: "33606060606"
-          mail: "john.doe@pinpo.fr"
+          firstName: "Michael"
+          lastName: "Scott"
+          phone: "33707070707"
+          mail: "michael.scott@corporation.fr"
         scriptData:
-          - name: "departement"
-            value: "Ardèche"
+          - name: "location"
+            value: "Scraton"
     complexeImportLead:
       value:
         contact:
           firstName: "John"
           lastName: "Doe"
           phone: "33606060606"
-          mail: "john.doe@pinpo.fr"
-          externalId: "jiu7897987GUYGhh"
-        externalId: "jjhhuGT"
+          mail: "john.doe@email.fr"
+          externalId: "abcd1234"
+        externalId: "efghi56789"
         providerName: "Facebook leads"
         scenarioSelection: "kopij876f"
         product:
-          name: "Programme des oliviers"
+          name: "Ream of Paper"
           category: "new"
-          externalId: "huih89hhgh"
+          externalId: "120paperream"
         salesPerson: 
-          firstName: "Jane"
-          lastName: "Doe"
-          phone: "33606060606"
-          mail: "john.doe@pinpo.fr"
-          externalId: "jiu7897987GUYGhh"
-          iCalUrl: "https://joiuezhfiuhIcal.fr"
+          firstName: "Michael"
+          lastName: "Scott"
+          phone: "33707070707"
+          mail: "michael.scott@corporation.fr"
+          externalId: "scrantonms111"
+          iCalUrl: "https://michaelscott.dundermifflin.ical.fr"
         company:
-          name: Pinpo
+          name: Dunder Mifflin Paper Company Inc
           externalId: huih89hhgh
         scriptData:
-          - name: "departement"
-            value: "Ardèche"
+          - name: "location"
+            value: "Scraton"
           - name: "postalCode"
-            value: "07000"
+            value: "18501"
         statsData:
           - name: "day"
             value: Monday
         outputData:
           - name: "civility"
-            value: Mrs
+            value: Mr
   examplesMock:
     hotWithMeetingHtml:
       value:
