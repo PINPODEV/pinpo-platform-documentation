@@ -358,7 +358,7 @@ components:
           description: Mobile phone number of the salesperson assigned to the lead
         mail:
           type: string
-          example: michael.scott@coporation.fr
+          example: michael.scott@corporation.fr
           description: Mail of salesperson assigned to lead
         externalId:
           type: string
