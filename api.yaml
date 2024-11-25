@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: PINPO - OpenAPI 3.1
-  
+
   description: |
     **Pinpo is an automated lead qualification platform.**
 
@@ -42,22 +42,22 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Lead'
+              $ref: "#/components/schemas/Lead"
             examples:
               Usual example:
-                $ref: '#/components/examplesImport/usualImportLead'
+                $ref: "#/components/examplesImport/usualImportLead"
               Only Mandatory:
-                $ref: '#/components/examplesImport/simpleOnlyMandatoryImportLead'
+                $ref: "#/components/examplesImport/simpleOnlyMandatoryImportLead"
               Complete:
-                $ref: '#/components/examplesImport/complexeImportLead'
+                $ref: "#/components/examplesImport/complexeImportLead"
         required: true
       responses:
-        201 : 
-          description : The import was **successful**. *You need to make sure that nobody will  communicate with the lead while it is in by Pinpo’s hands. Two potential ideas to explore, make the object invisible in the CRM or assign the object to a Pinpo user in the CRM.*
-        409 :
-          description : The import **is not successful** because of duplicated value. This lead has been already imported in our platform and can't be processed twice.
-        422 : 
-          description : The import **is not successful**. *Give back the control to the salesperson, explaining that Pinpo could not process it; he/she can then contact the lead through another communication channel.*
+        201:
+          description: The import was **successful**. *You need to make sure that nobody will  communicate with the lead while it is in by Pinpo’s hands. Two potential ideas to explore, make the object invisible in the CRM or assign the object to a Pinpo user in the CRM.*
+        409:
+          description: The import **is not successful** because of duplicated value. This lead has been already imported in our platform and can't be processed twice.
+        422:
+          description: The import **is not successful**. *Give back the control to the salesperson, explaining that Pinpo could not process it; he/she can then contact the lead through another communication channel.*
 
   /mock:
     post:
@@ -74,77 +74,77 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MockWebhook'
+              $ref: "#/components/schemas/MockWebhook"
             examples:
               Hot lead with meeting in html:
-                $ref: '#/components/examplesMock/hotWithMeetingHtml'
+                $ref: "#/components/examplesMock/hotWithMeetingHtml"
               Hot lead asking immediate contact in text:
-                $ref: '#/components/examplesMock/hotImmediateContactText'
+                $ref: "#/components/examplesMock/hotImmediateContactText"
               RGPD lead in html:
-                $ref: '#/components/examplesMock/rgpdHtml'
+                $ref: "#/components/examplesMock/rgpdHtml"
         required: true
       responses:
-        '200':
+        "200":
           description: Successful trigger webhook on specified url
-        '422':
+        "422":
           description: Unprocessable Entity
 webhooks:
-    EnrichedLead:
-      post:
-        description : |
-          - It is PINPO that will setup the webhook subscription of this route. You will have to share with PINPO the URL and the method that must be registered.
-          - If the response to the POST request is not a success, Pinpo will retry the same call 7 times (the delay in between each tentative increases every time).
-        requestBody:
-          description: Information about lead qualification
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EnrichedLead'
-              examples:
-                Hot lead with meeting in html:
-                  $ref: '#/components/examplesEnrichedLead/hotWithMeetingHtml'
-                Hot lead asking immediate contact in text:
-                  $ref: '#/components/examplesEnrichedLead/hotImmediateContactText'
-                Warm lead in text:
-                  $ref: '#/components/examplesEnrichedLead/warm'
-                RGPD lead in text:
-                  $ref: '#/components/examplesEnrichedLead/rgpd'
-                LandlinePhone text:
-                  $ref: '#/components/examplesEnrichedLead/landlinePhone'
-        responses:
-          "200":
-            description: Return a 200 status to indicate that the data was received successfully 
-      put:
-        description : |
-          - It is PINPO that will setup the webhook subscription of this route. You will have to share with PINPO the URL and the method that must be registered.
-          - If the response to the PUT request is not a success, Pinpo will retry the same call 7 times (the delay in between each tentative increases every time).
-        parameters:
+  EnrichedLead:
+    post:
+      description: |
+        - It is PINPO that will setup the webhook subscription of this route. You will have to share with PINPO the URL and the method that must be registered.
+        - If the response to the POST request is not a success, Pinpo will retry the same call 7 times (the delay in between each tentative increases every time).
+      requestBody:
+        description: Information about lead qualification
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EnrichedLead"
+            examples:
+              Hot lead with meeting in html:
+                $ref: "#/components/examplesEnrichedLead/hotWithMeetingHtml"
+              Hot lead asking immediate contact in text:
+                $ref: "#/components/examplesEnrichedLead/hotImmediateContactText"
+              Warm lead in text:
+                $ref: "#/components/examplesEnrichedLead/warm"
+              RGPD lead in text:
+                $ref: "#/components/examplesEnrichedLead/rgpd"
+              LandlinePhone text:
+                $ref: "#/components/examplesEnrichedLead/landlinePhone"
+      responses:
+        "200":
+          description: Return a 200 status to indicate that the data was received successfully
+    put:
+      description: |
+        - It is PINPO that will setup the webhook subscription of this route. You will have to share with PINPO the URL and the method that must be registered.
+        - If the response to the PUT request is not a success, Pinpo will retry the same call 7 times (the delay in between each tentative increases every time).
+      parameters:
         - in: path
           name: externalId
           schema:
             type: string
           required: true
           description: ID of the lead or contact if lead id doesn't exist
-        requestBody:
-          description: Information about lead qualification
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EnrichedLead'
-              examples:
-                Hot lead with meeting in html:
-                  $ref: '#/components/examplesEnrichedLead/hotWithMeetingHtml'
-                Hot lead asking immediate contact in text:
-                  $ref: '#/components/examplesEnrichedLead/hotImmediateContactText'
-                warm lead in text:
-                  $ref: '#/components/examplesEnrichedLead/warm'
-                RGPD lead in text:
-                  $ref: '#/components/examplesEnrichedLead/rgpd'
-                LandlinePhone text:
-                  $ref: '#/components/examplesEnrichedLead/landlinePhone'
-        responses:
-          "200":
-            description: Return a 200 status to indicate that the data was received successfully        
+      requestBody:
+        description: Information about lead qualification
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EnrichedLead"
+            examples:
+              Hot lead with meeting in html:
+                $ref: "#/components/examplesEnrichedLead/hotWithMeetingHtml"
+              Hot lead asking immediate contact in text:
+                $ref: "#/components/examplesEnrichedLead/hotImmediateContactText"
+              warm lead in text:
+                $ref: "#/components/examplesEnrichedLead/warm"
+              RGPD lead in text:
+                $ref: "#/components/examplesEnrichedLead/rgpd"
+              LandlinePhone text:
+                $ref: "#/components/examplesEnrichedLead/landlinePhone"
+      responses:
+        "200":
+          description: Return a 200 status to indicate that the data was received successfully
 components:
   schemas:
     EnrichedLead:
@@ -160,24 +160,24 @@ components:
           example: 10oijoijpoj
           description: This is the Pinpo Lead ID
         externalId:
-          type: string 
-          example: 'efghi56789'
+          type: string
+          example: "efghi56789"
           description: Id in your CRM or SI of the request of the lead
         leadTypology:
           description: Main lead Information from Pinpo
-          $ref: '#/components/schemas/LeadTypologyPinpo'
+          $ref: "#/components/schemas/LeadTypologyPinpo"
         resume:
-          type: string 
+          type: string
           description: |
-           Pinpo relevant informations <br/>
-           <img src="dist/resume.png" alt="Image rendu resume" width="50%" height="50%">
+            Pinpo relevant informations <br/>
+            <img src="dist/resume.png" alt="Image rendu resume" width="50%" height="50%">
           example: '🔥 - Lead Chaud -\n\nDetail Insight Pinpo\nEngagé : Oui\nOpportunité : Oui\nTemperature : Chaud 🔥\nConversation terminée : Oui\n\nDonnées collectées:\nLe lead a un projet d achat dans le neuf : Oui\nMise en relation souhaitée avec un conseiller : Oui\nHorizon d achat : 3 mois\n\nConversation :\nPinpo [07/08/2023 12:54]:\nBonjour, je suis Julie, Cheffe de projet chez AAAA. J espère que vous allez bien ! Merci d avoir pris contact avec nous pour ZZZZ. Vous avez donc un projet d achat dans le neuf, c est bien cela ?\nprospet [07/08/2023 14:39]:\nOui...'
         insightPinpo:
           description: Insights from Pinpo
-          $ref: '#/components/schemas/InsightPinpo'
+          $ref: "#/components/schemas/InsightPinpo"
         report:
           description: Report informations
-          $ref: '#/components/schemas/Report'
+          $ref: "#/components/schemas/Report"
         lastActivity:
           type: date-time
           description: Last lead activity date in Pinpo in date time format
@@ -188,12 +188,12 @@ components:
           example: "2023-10-01T08:20:50.52Z"
         trigger:
           description: used only on Webhooks
-          $ref: '#/components/schemas/Event'
+          $ref: "#/components/schemas/Event"
         outputData:
           type: array
           description: You find here the data imported in the outputData
           items:
-            $ref: '#/components/schemas/CustomData'
+            $ref: "#/components/schemas/CustomData"
     LeadTypologyPinpo:
       required:
         - key
@@ -201,11 +201,11 @@ components:
       type: object
       properties:
         key:
-          $ref: '#/components/schemas/LeadTypology'            
+          $ref: "#/components/schemas/LeadTypology"
         value:
           type: string
-          description:  Main lead Information display
-          enum: 
+          description: Main lead Information display
+          enum:
             - Chaud avec RDV
             - Chaud sans RDV
             - Chaud non recontacté par l'entreprise
@@ -225,19 +225,19 @@ components:
         insights:
           type: array
           items:
-            $ref: '#/components/schemas/PossiblesInsight'
+            $ref: "#/components/schemas/PossiblesInsight"
           description: List of the insights from Pinpo
         details:
           type: array
           items:
-            $ref: '#/components/schemas/InsigthItem'
+            $ref: "#/components/schemas/InsigthItem"
           description: Details of the insights from Pinpo
         display:
           type: string
           description: Display of the pinpo informations
           example: 'Engagé : Oui\nOpportunité : Oui\nTemperature : Chaud 🔥\nConversation terminée : Oui\n'
     InsigthItem:
-      type: object 
+      type: object
       required:
         - key
         - value
@@ -245,7 +245,7 @@ components:
       properties:
         key:
           type: string
-          example: 'engaged'
+          example: "engaged"
         value:
           oneOf:
             - boolean:
@@ -254,22 +254,22 @@ components:
             - text:
               type: string
               example: Textual response
-            - $ref: '#/components/schemas/Temperatures'
-            - $ref: '#/components/schemas/NonEngagementReason'
-            - $ref: '#/components/schemas/DelayReason'
+            - $ref: "#/components/schemas/Temperatures"
+            - $ref: "#/components/schemas/NonEngagementReason"
+            - $ref: "#/components/schemas/DelayReason"
             - array:
               items:
-                $ref: '#/components/schemas/DelayReason'
+                $ref: "#/components/schemas/DelayReason"
         display:
-          type: string 
-          example: 'Engagé: Oui'
+          type: string
+          example: "Engagé: Oui"
     PossiblesInsight:
       description: Possibles PINPOs Insight
       allOf:
-        - $ref: '#/components/schemas/Temperatures'
-        - $ref: '#/components/schemas/NonEngagementReason'
-        - $ref: '#/components/schemas/DelayReason'
-        - $ref: '#/components/schemas/TechnicalError'
+        - $ref: "#/components/schemas/Temperatures"
+        - $ref: "#/components/schemas/NonEngagementReason"
+        - $ref: "#/components/schemas/DelayReason"
+        - $ref: "#/components/schemas/TechnicalError"
     Lead:
       required:
         - contact
@@ -279,7 +279,7 @@ components:
       properties:
         contact:
           description: Lead contact informations
-          $ref: '#/components/schemas/Contact'
+          $ref: "#/components/schemas/Contact"
         externalId:
           type: string
           example: efghi56789
@@ -294,28 +294,28 @@ components:
           decription: Technical Id of your Pinpo scenario. See with your CX Manager.
         product:
           description: Product informations
-          $ref: '#/components/schemas/Product'
+          $ref: "#/components/schemas/Product"
         salesPerson:
           description: Salesperson informations
-          $ref: '#/components/schemas/SalesPerson'
+          $ref: "#/components/schemas/SalesPerson"
         company:
           description: For B2B client, add the company's information.
-          $ref: '#/components/schemas/Company'
+          $ref: "#/components/schemas/Company"
         scriptData:
           type: array
           description: Data used in SMS conversation to add some context to the lead, check with your CX Manager for mandatory scripts data.
           items:
-            $ref: '#/components/schemas/CustomData'
+            $ref: "#/components/schemas/CustomData"
         statsData:
           type: array
           description: Data that can be used for statistical purpose, check with your CX Manager for interesting stats data.
           items:
-            $ref: '#/components/schemas/CustomData'
+            $ref: "#/components/schemas/CustomData"
         outputData:
           type: array
           description: Data that will be present in your EXIT integration (EnrichedLead).
           items:
-            $ref: '#/components/schemas/CustomData'
+            $ref: "#/components/schemas/CustomData"
     Contact:
       type: object
       required:
@@ -375,7 +375,7 @@ components:
       properties:
         name:
           type: string
-          description : Name of the product the lead made a request on
+          description: Name of the product the lead made a request on
           example: "'Ream of paper' or 'Programme des oliviers' or 'Pompe à chaleur' or 'Assurance vie' or 'Logiciel de comptabilité' or 'Voiture 1234' or 'Contrat Mobile/fibre' or 'Formation Audio Visuel' or 'Crédit Immobilier' ..."
         category:
           type: string
@@ -410,33 +410,33 @@ components:
           description: Value of the item.
     Report:
       type: object
-      properties: 
-          qualificationForm:
-            type: array
-            items:
-              $ref: '#/components/schemas/QualificationItem'
-          qualificationFormDisplay:
-            type: string
-            example: "Interest in a lead engagement and qualification solution : Oui (Note pour la question: Interest in a lead engagement and qualification solution)\nInterest for a meeting : Oui (Note pour la question: Interest for a meeting)\nMeeting Typology : Phone (Note pour la question: Meeting Typology)\nProject Timeline : Short-term project (Note pour la question: Project Timeline)\nMore details about leads project : Réponse à la question: More details about leads project (Note pour la question: More details about leads project)\n\nNotes générales : Notes générales"
-          notes:
-            type: string
-            example: General notes
-          conversationDisplay:
-            type: string
-            example: "- [Assistant 22/03 15:22] Message d'engagement\n- [Prospect 22/03 15:34] Réponse du lead\n- [Assistant 22/03 15:39] Message de cloture"
-          conversationUrl:
-            type: string
-            example: 'https://pinpo.app.link/dlkihouhiguyvg'
+      properties:
+        qualificationForm:
+          type: array
+          items:
+            $ref: "#/components/schemas/QualificationItem"
+        qualificationFormDisplay:
+          type: string
+          example: "Interest in a lead engagement and qualification solution : Oui (Note pour la question: Interest in a lead engagement and qualification solution)\nInterest for a meeting : Oui (Note pour la question: Interest for a meeting)\nMeeting Typology : Phone (Note pour la question: Meeting Typology)\nProject Timeline : Short-term project (Note pour la question: Project Timeline)\nMore details about leads project : Réponse à la question: More details about leads project (Note pour la question: More details about leads project)\n\nNotes générales : Notes générales"
+        notes:
+          type: string
+          example: General notes
+        conversationDisplay:
+          type: string
+          example: "- [Assistant 22/03 15:22] Message d'engagement\n- [Prospect 22/03 15:34] Réponse du lead\n- [Assistant 22/03 15:39] Message de cloture"
+        conversationUrl:
+          type: string
+          example: "https://pinpo.app.link/dlkihouhiguyvg"
     QualificationItem:
-      type: object 
+      type: object
       required:
         - formQuestion
         - formResponse
       properties:
         formQuestion:
-          $ref: '#/components/schemas/FormQuestion'
+          $ref: "#/components/schemas/FormQuestion"
         formResponse:
-          $ref: '#/components/schemas/FormResponse'
+          $ref: "#/components/schemas/FormResponse"
         state:
           type: string
           enum:
@@ -497,20 +497,20 @@ components:
     Insight:
       type: object
       required:
-        - key 
+        - key
         - display
       description: Insight definition
       properties:
         key:
           type: string
-          example: 'hot'
+          example: "hot"
         display:
           type: string
-          example: 'Lead chaud'
+          example: "Lead chaud"
         emoji:
-          $ref: '#/components/schemas/PossiblesEmoji'
+          $ref: "#/components/schemas/PossiblesEmoji"
     Emoji:
-      type: object 
+      type: object
       required:
         - name
         - emojiText
@@ -518,41 +518,41 @@ components:
       description: Emoji to linked to Insight Pinpo
       properties:
         name:
-          type: string 
-          example: 'feu'
+          type: string
+          example: "feu"
         emojiText:
           type: string
-          example: ':fire:'
+          example: ":fire:"
         emojiHtml:
           type: string
-          example: '&#128293;'
+          example: "&#128293;"
     PossiblesEmoji:
       description: Possible emoji
       allOf:
-        - $ref: '#/components/schemas/Emoji'
+        - $ref: "#/components/schemas/Emoji"
         - enum:
-          - name: 'fire'
-            emojiText: ':fire:'
-            emojiHtml: '&#128293;'
-          - name: 'sun'
-            emojiText: ':white_sun_small_cloud:'
-            emojiHtml: '&#127780;&#65039;'
-          - name: 'snowflake'
-            emojiText: ':snowflake:'
-            emojiHtml: '&#10052;&#65039;'
-          - name: 'redcross'
-            emojiText: ':x:'
-            emojiHtml: '&#10060;'
-          - name: 'question'
-            emojiText: ':question:'
-            emojiHtml: '&#10067;'
-          - name: 'warning'
-            emojiText: ':warning:'
-            emojiHtml: '&#9888;&#65039;'
+            - name: "fire"
+              emojiText: ":fire:"
+              emojiHtml: "&#128293;"
+            - name: "sun"
+              emojiText: ":white_sun_small_cloud:"
+              emojiHtml: "&#127780;&#65039;"
+            - name: "snowflake"
+              emojiText: ":snowflake:"
+              emojiHtml: "&#10052;&#65039;"
+            - name: "redcross"
+              emojiText: ":x:"
+              emojiHtml: "&#10060;"
+            - name: "question"
+              emojiText: ":question:"
+              emojiHtml: "&#10067;"
+            - name: "warning"
+              emojiText: ":warning:"
+              emojiHtml: "&#9888;&#65039;"
     LeadTypology:
       type: string
       description: Main lead Information Key
-      enum: 
+      enum:
         - hot-with-meeting
         - hot-without-meeting
         - hot-not-contacted
@@ -571,62 +571,65 @@ components:
         - wrong-phone
         - opt-out-sms
         - rgpd
+        - meeting-pending
     Temperatures:
       description: Possible temperatures
       allOf:
-        - $ref: '#/components/schemas/Insight'
+        - $ref: "#/components/schemas/Insight"
         - enum:
-            - key: 'hot'
-              display: 'Lead Chaud'
-            - key: 'warm'
-              display: 'Lead Tiède'
-            - key: 'cold'
-              display: 'Lead Froid'
+            - key: "hot"
+              display: "Lead Chaud"
+            - key: "warm"
+              display: "Lead Tiède"
+            - key: "cold"
+              display: "Lead Froid"
     NonEngagementReason:
       description: Possibles non engagement reason
       allOf:
-        - $ref: '#/components/schemas/Insight'
+        - $ref: "#/components/schemas/Insight"
         - enum:
-            - key: 'landline-phone'
-              display: 'Numéro fixe'
-            - key: 'foreign-phone'
-              display: 'Numéro étranger'
-            - key: 'invalid-phone'
-              display: 'Numéro invalide'
-            - key: 'already-engaged'
-              display: 'Déjà engagé sur ce scénario'
-            - key: 'not-pinpo-targeting'
-              display: 'Hors ciblage PINPO'
-            - key: 'reach-limit'
-              display: 'Plafond atteint'
-            - key: 'duplicate'
-              display: 'Doublon'
-            - key: 'inconsistent-data'
-              display: 'Données inconsistantes'
-            - key: 'technical-error'
+            - key: "landline-phone"
+              display: "Numéro fixe"
+            - key: "foreign-phone"
+              display: "Numéro étranger"
+            - key: "invalid-phone"
+              display: "Numéro invalide"
+            - key: "already-engaged"
+              display: "Déjà engagé sur ce scénario"
+            - key: "not-pinpo-targeting"
+              display: "Hors ciblage PINPO"
+            - key: "reach-limit"
+              display: "Plafond atteint"
+            - key: "duplicate"
+              display: "Doublon"
+            - key: "inconsistent-data"
+              display: "Données inconsistantes"
+            - key: "technical-error"
               display: "Erreur Technique lors de l'engagement"
     DelayReason:
       description: Possibles reason lead is not fully processed
       allOf:
-        - $ref: '#/components/schemas/Insight'
+        - $ref: "#/components/schemas/Insight"
         - enum:
-            - key: 'not-responding'
-              display: 'Injoignable'
-            - key: 'wrong-phone'
-              display: 'Faux destinataire'
-            - key: 'opt-out-sms'
-              display: 'STOP - Optout'
-            - key: 'rgpd'
-              display: 'STOP - Demande RGPD'
+            - key: "not-responding"
+              display: "Injoignable"
+            - key: "wrong-phone"
+              display: "Faux destinataire"
+            - key: "opt-out-sms"
+              display: "STOP - Optout"
+            - key: "rgpd"
+              display: "STOP - Demande RGPD"
+            - key: "meeting-pending"
+              display: "Rendez-vous à planifier"
     TechnicalError:
       description: Possibles technical error during the process
       allOf:
-        - $ref: '#/components/schemas/Insight'
+        - $ref: "#/components/schemas/Insight"
         - enum:
-            - key: 'internal-technical-error'
-              display: 'Technical Error'
-            - key: 'internal-error-import'
-              display: 'Erreur Import'
+            - key: "internal-technical-error"
+              display: "Technical Error"
+            - key: "internal-error-import"
+              display: "Erreur Import"
     MockWebhook:
       description: Data for trigger specific enriched lead
       type: object
@@ -637,15 +640,15 @@ components:
         - typeDisplay
       properties:
         typeLead:
-          $ref: '#/components/schemas/LeadTypology'  
+          $ref: "#/components/schemas/LeadTypology"
         url:
-          type:  string
+          type: string
           example: http://urlToTrigger.fr/hook
         hasEmoji:
           type: boolean
           example: true
         typeDisplay:
-          type:  string
+          type: string
           example: html
           enum:
             - html
@@ -653,9 +656,9 @@ components:
 
   examplesImport:
     simpleOnlyMandatoryImportLead:
-      value: 
+      value:
         contact:
-          phone: '0606060606'
+          phone: "0606060606"
         providerName: "Réseaux sociaux"
         product:
           name: "Pompe à chaleur"
@@ -672,7 +675,7 @@ components:
         scenarioSelection: "kopij876f"
         product:
           name: "Ream of paper"
-        salesPerson: 
+        salesPerson:
           firstName: "Michael"
           lastName: "Scott"
           phone: "33707070707"
@@ -695,7 +698,7 @@ components:
           name: "Ream of Paper"
           category: "new"
           externalId: "120paperream"
-        salesPerson: 
+        salesPerson:
           firstName: "Michael"
           lastName: "Scott"
           phone: "33707070707"
@@ -719,7 +722,7 @@ components:
   examplesMock:
     hotWithMeetingHtml:
       value:
-        typeLead: hot-with-meeting 
+        typeLead: hot-with-meeting
         url: https://test.fr
         hasEmoji: true
         typeDisplay: html
@@ -744,7 +747,7 @@ components:
           key: hot-with-meeting
           value: Chaud avec RDV
         resume: "Lead chaud<br/><br/><b><u>Détail Insight PINPO</u></b> :<ul><li>Engagé : <b>Oui</b></li><li>Opportunité : <b>Oui</b></li><li>Température : <b>chaud</b></li><li>Conversation terminée : <b>Oui</b></li><li>Statut de la qualification : <b>Clôturée</b></li></ul><br/><b><u>Données collectées</u></b> :<ul><li>Le lead a un projet d'achat dans le neuf : <b>Oui</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Oui</b></li><li>Horizon d'achat : <b>3 mois</b></li><li>Date et heure du RDV : <b>mardi 05 mars 2024 11:00</b></li></ul><br/><b><u>Conversation</u></b> :<ul><li><b>Pinpo</b> [07/08/2023 14:54]: <br>Bonjour, je suis Marion, Cheffe de projet chez ... J'espère que vous allez bien ! Merci d'avoir pris contact avec nous pour la résidence LES PALMIERS. Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST test</b> [07/08/2023 16:39]: <br>Oui</li><li><b>Pinpo</b> [07/08/2023 16:40]: <br>Notre responsable de projet serait ravi de vous accompagner dans votre projet. Je vous propose un rapide échange téléphonique avec lui pour vous renseigner.  Seriez-vous disponible le 5 mars à 11:00, ou sur un autre créneau svp :) ?</li><li><b>TEST test</b> [07/08/2023 16:43]: <br>Oui</li><li><b>Pinpo</b> [07/08/2023 16:43]: <br>Je confirme votre RDV du mardi 5 mars 2024 11:00 avec Sam (ses coordonnées : 0606060606, test@pinpo.fr)! Afin de le renseigner en amont de votre échange, souhaitez-vous acheter pour habiter ou investir ? Et quand souhaiteriez-vous concrétiser votre projet (3 mois, 6 mois ou plus) ?</li><li><b>TEST test</b> [07/08/2023 16:44]: <br>J'aimerais investir dans les 4prochains mois ! Merci</li><li><b>Pinpo</b> [07/08/2023 16:45]: <br>Parfait, bien noté ! Je transmets ces informations au responsable de projet. Merci pour votre accueil. Excellente journée ! Marion</li></ul>,"
-        insightPinpo: 
+        insightPinpo:
           details:
             - key: engaged
               title: Engagé
@@ -757,8 +760,8 @@ components:
               value:
                 key: hot
                 display: Lead chaud
-                emoji: 
-                  props: 
+                emoji:
+                  props:
                     name: fire
                     emojiText: ":fire:"
                     emojiHtml: &#128293;
@@ -769,21 +772,21 @@ components:
               title: Statut de la qualification
               value: Clôturée
           display: "<ul><li>Engagé : <b>Oui</b></li><li>Opportunité : <b>Oui</b></li><li>Température : <b>chaud</b></li><li>Conversation terminée : <b>Oui</b></li><li>Statut de la qualification : <b>Clôturée</b></li></ul>,"
-          insights: 
+          insights:
             - key: hot
               display: Lead chaud
-              emoji: 
-                props: 
+              emoji:
+                props:
                   name: fire
                   emojiText: ":fire:"
                   emojiHtml: &#128293;
-          report: 
+          report:
             qualificationForm:
-              - formQuestion: 
+              - formQuestion:
                   id: project,
                   question: Le lead a un projet d'achat dans le neuf
                   type: boolean
-                formResponse: 
+                formResponse:
                   value: true
                 note:
                 state: add
@@ -795,7 +798,7 @@ components:
                   value: true
                 note:
                 state: add
-              - formQuestion: 
+              - formQuestion:
                   id: buyHorizon,
                   question: Horizon d'achat
                   type: choice
@@ -809,10 +812,10 @@ components:
                   type: date
                 formResponse:
                   value: 2024-03-05T10:00:00.000Z
-                note: 
+                note:
                 state: add
             qualificationFormDisplay: "<ul><li>Le lead a un projet d'achat dans le neuf : <b>Oui</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Oui</b></li><li>Horizon d'achat : <b>3 mois</b></li><li>Date et heure du RDV : <b>mardi 05 mars 2024 11:00</b></li></ul>,"
-            notes: 
+            notes:
             conversationDisplay: "<ul><li><b>Pinpo</b> [07/08/2023 14:54]: <br>Bonjour, je suis Marion, Cheffe de projet chez ... J'espère que vous allez bien ! Merci d'avoir pris contact avec nous pour la résidence LES PALMIERS. Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST test</b> [07/08/2023 16:39]: <br>Oui</li><li><b>Pinpo</b> [07/08/2023 16:40]: <br>Notre responsable de projet serait ravi de vous accompagner dans votre projet. Je vous propose un rapide échange téléphonique avec lui pour vous renseigner.  Seriez-vous disponible le 5 mars à 11:00, ou sur un autre créneau svp :) ?</li><li><b>TEST test</b> [07/08/2023 16:43]: <br>Oui</li><li><b>Pinpo</b> [07/08/2023 16:43]: <br>Je confirme votre RDV du mardi 5 mars 2024 11:00 avec Sam (ses coordonnées : 0606060606, test@pinpo.fr)! Afin de le renseigner en amont de votre échange, souhaitez-vous acheter pour habiter ou investir ? Et quand souhaiteriez-vous concrétiser votre projet (3 mois, 6 mois ou plus) ?</li><li><b>TEST test</b> [07/08/2023 16:44]: <br>J'aimerais investir dans les 4prochains mois ! Merci</li><li><b>Pinpo</b> [07/08/2023 16:45]: <br>Parfait, bien noté ! Je transmets ces informations au responsable de projet. Merci pour votre accueil. Excellente journée ! Marion</li></ul>,"
             conversationUrl: https://pinpo.app.link/e/ezSMLbOx4Bb
           lastActivity: 2023-08-07T14:55:05.195Z
@@ -868,7 +871,7 @@ components:
                 type: boolean
               formResponse:
                 value: true
-              note: 
+              note:
               state: add
             - formQuestion:
                 id: optinContact
@@ -876,15 +879,15 @@ components:
                 type: boolean
               formResponse:
                 value: true
-              note: 
+              note:
               state: add
             - formQuestion:
                 id: immediateContact
                 question: Le lead souhaite être contacté immédiatement
                 type: boolean
-              formResponse: 
+              formResponse:
                 value: true
-              note: 
+              note:
               state: add
             - formQuestion:
                 id: buyHorizon,
@@ -892,10 +895,10 @@ components:
                 type: choice
               formResponse:
                 value: 3 mois
-              note: 
+              note:
               state: noChange
           qualificationFormDisplay: "<ul><li>Le lead a un projet d'achat dans le neuf : <b>Oui</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Oui</b></li><li>Le lead souhaite être contacté immédiatement : <b>Oui</b></li><li>Horizon d'achat : <b>3 mois</b></li></ul>"
-          notes: 
+          notes:
           conversationDisplay: "<ul><li><b>Pinpo</b> [07/08/2023 14:54]: <br>Bonjour, je suis Marion, Cheffe de projet chez ... J'espère que vous allez bien ! Merci d'avoir pris contact avec nous pour la résidence LES PALMIERS. Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST test</b> [07/08/2023 16:39]: <br>Oui, serait il possible de ma rappeler tout de suite ?</li><li><b>Pinpo</b> [07/08/2023 16:40]: <br>Notre responsable de projet serait ravi de vous accompagner dans votre projet. Je lui remonte l'information, il vous rappelera au plus vite ?</li><li><b>Pinpo</b> [07/08/2023 16:43]: <br>Afin de le renseigner en amont de votre échange, souhaitez-vous acheter pour habiter ou investir ? Et quand souhaiteriez-vous concrétiser votre projet (3 mois, 6 mois ou plus) ?</li><li><b>TEST test</b> [07/08/2023 16:44]: <br>J'aimerais investir dans les 4prochains mois ! Merci</li><li><b>Pinpo</b> [07/08/2023 16:45]: <br>Parfait, bien noté ! Je transmets ces informations au responsable de projet. Merci pour votre accueil. Excellente journée ! Marion</li></ul>"
           conversationUrl: https://pinpo.app.link/e/ezSMLbOx4Bb
         lastActivity: 2023-08-07T14:55:05.195Z
@@ -943,7 +946,7 @@ components:
                   name: sun
                   emojiText: ":white_sun_small_cloud:"
                   emojiHtml: &#127780;&#65039;
-        report: 
+        report:
           qualificationForm:
             - formQuestion:
                 id: project
@@ -951,7 +954,7 @@ components:
                 type: boolean
               formResponse:
                 value: true
-              note: 
+              note:
               state: add
             - formQuestion:
                 id: optinContact
@@ -965,12 +968,12 @@ components:
                 id: whyNoInterest
                 question: Raisons du désintérêt
                 type: text
-              formResponse: 
+              formResponse:
                 value: Trop tot dans la recherche du lead
-              note: 
+              note:
               state: noChange
           qualificationFormDisplay: "<ul><li>Le lead a un projet d'achat dans le neuf : <b>Oui</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Non</b></li><li>Raisons du désintérêt : <b>Trop tot dans la recherche du lead</b></li></ul>"
-          notes: 
+          notes:
           conversationDisplay: "<ul><li><b>Pinpo</b> [07/08/2023 15:04]: <br>Bonjour, je suis Marion, Cheffe de projet chez ..... Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST</b> [07/08/2023 15:17]: <br>Bonjour Marion,<br>Oui tout à fait !<br>Merci de l'avoir noté.</li><li><b>Pinpo</b> [07/08/2023 15:17]: <br>Notre responsable de projet serait ravi de vous accompagner dans votre projet. Je vous propose un rapide échange téléphonique avec lui pour vous renseigner. Cela vous conviendrait ?</li><li><b>TEST</b> [07/08/2023 15:18]: <br>Non merci Marion, pas encore, c'est trop tôt dans mes recherches !<br>Bonne journée et au plaisir </li><li><b>Pinpo</b> [07/08/2023 15:18]: <br>Merci pour votre retour, bien noté ! N'hésitez pas à revenir vers moi si ce type de projet vous intéresse à l'avenir. Excellente journée.</li></ul>"
           conversationUrl: https://pinpo.app.link/e/aaaaaaa
         lastActivity: 2023-08-07T13:19:20.717Z
@@ -981,11 +984,11 @@ components:
       value:
         id: Lyd2M3vMxV
         externalId: externalIdLead
-        leadTypology: 
+        leadTypology:
           key: rgpd
-          value: STOP - Demande RGPD 
+          value: STOP - Demande RGPD
         resume: "Lead froid - STOP - Demande RGPD<br/><br/><b><u>Détail Insight PINPO</u></b> :<ul><li>Engagé : <b>Oui</b></li><li>Opportunité : <b>Non</b></li><li>Température : <b>froid</b></li><li>Motif de contre temps : <b>STOP - Demande RGPD</b></li><li>Conversation terminée : <b>Oui</b></li><li>Statut de la qualification : <b>Clôturée</b></li></ul><br/><b><u>Données collectées</u></b> :<ul><li>Le lead a un projet : <b>Non</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Non</b></li></ul><br/><b><u>Conversation</u></b> :<ul><li><b>Pinpo</b> [07/08/2023 14:56]: <br>Bonjour, je suis Marion, Cheffe de projet chez ... J'espère que vous allez bien ! Merci d'avoir pris contact avec nous pour la résidence LES PALMIERS. Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST test</b> [07/08/2023 14:57]: <br>Bonjour, je ne souhaite pas être contacté svp, serait il possible de suprimer mes données ? Merci. </li><li><b>Pinpo</b> [07/08/2023 14:58]: <br>Merci pour votre message. C’est bien noté, vous ne serez plus contacté et je fais remonter votre demande RGPD. Excellente journée</li></ul>"
-        insightPinpo: 
+        insightPinpo:
           details:
             - key: engaged
               title: Engagé
@@ -995,25 +998,25 @@ components:
               value: false
             - key: temperature
               title: Température
-              value: 
+              value:
                 key: cold
                 display: Lead froid
-                emoji: 
-                  props: 
+                emoji:
+                  props:
                     name: snowflake
                     emojiText: ":snowflake:"
                     emojiHtml: &#10052;&#65039;
             - key: delayReason
               title: Motif de contre temps
               value:
-                  - id: 62b67d51-39ce-4dfe-a3d4-d83f57d726be
-                    key: rgpd
-                    display: STOP - Demande RGPD
-                    emoji: 
-                      props: 
-                        name: warning
-                        emojiText: ":warning:"
-                        emojiHtml: &#9888;&#65039;
+                - id: 62b67d51-39ce-4dfe-a3d4-d83f57d726be
+                  key: rgpd
+                  display: STOP - Demande RGPD
+                  emoji:
+                    props:
+                      name: warning
+                      emojiText: ":warning:"
+                      emojiHtml: &#9888;&#65039;
             - key: endedConversation
               title: Conversation terminée
               value: true
@@ -1024,49 +1027,49 @@ components:
           insights:
             - key: cold
               display: Lead froid
-              emoji: 
-                props: 
+              emoji:
+                props:
                   name: snowflake
                   emojiText: ":snowflake:"
                   emojiHtml: &#10052;&#65039;
             - key: rgpd
               display: STOP - Demande RGPD
-              emoji: 
-                props: 
+              emoji:
+                props:
                   name: warning
                   emojiText: ":warning:"
-                  emojiHtml: &#9888;&#65039; 
-        report: 
+                  emojiHtml: &#9888;&#65039;
+        report:
           qualificationForm:
-            - formQuestion: 
+            - formQuestion:
                 id: project
                 question: Le lead a un projet
                 type: boolean
-              formResponse: 
+              formResponse:
                 value: false
-              note: 
+              note:
               state: add
-            - formQuestion: 
+            - formQuestion:
                 id: optinContact
                 question: Mise en relation souhaitée avec un conseiller
                 type: boolean
-              formResponse: 
+              formResponse:
                 value: false
-              note: 
+              note:
               state: add
           qualificationFormDisplay: "<ul><li>Le lead a un projet : <b>Non</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Non</b></li></ul>"
-          notes: 
+          notes:
           conversationDisplay: "<ul><li><b>Pinpo</b> [07/08/2023 14:56]: <br>Bonjour, je suis Marion, Cheffe de projet chez ... J'espère que vous allez bien ! Merci d'avoir pris contact avec nous pour la résidence LES PALMIERS. Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST test</b> [07/08/2023 14:57]: <br>Bonjour, je ne souhaite pas être contacté svp, serait il possible de suprimer mes données ? Merci. </li><li><b>Pinpo</b> [07/08/2023 14:58]: <br>Merci pour votre message. C’est bien noté, vous ne serez plus contacté et je fais remonter votre demande RGPD. Excellente journée</li></ul>"
           conversationUrl: https://pinpo.app.link/e/pwjYOOtp4Bb
         lastActivity: 2023-08-07T12:58:32.652Z
         requestDate: 2023-08-07T12:56:13.689Z
         trigger: lead:change
-        idScenario: idAssistant    
+        idScenario: idAssistant
     landlinePhone:
       value:
         id: hJs5CwgLXE
         externalId: externalIdLead
-        leadTypology: 
+        leadTypology:
           key: landline-phone
           value: Numéro fixe
         resume: "Numéro fixe<br/><br/><b><u>Détail Insight PINPO</u></b> :<ul><li>Engagé : <b>Non</b></li><li>Raison de non engagement : <b>Numéro fixe</b></li><li>Opportunité : <b>A déterminer</b></li></ul>"
@@ -1077,11 +1080,11 @@ components:
               value: false
             - key: nonEngagementReason
               title: Raison de non engagement
-              value: 
+              value:
                 key: landline-phone
                 display: Numéro fixe
-                emoji: 
-                  props: 
+                emoji:
+                  props:
                     name: warning
                     emojiText: ":warning:"
                     emojiHtml: &#9888;&#65039;
@@ -1091,15 +1094,15 @@ components:
           insights:
             - key: landline-phone
               display: Numéro fixe
-              emoji: 
-                props: 
+              emoji:
+                props:
                   name: warning
                   emojiText: ":warning:"
                   emojiHtml: &#9888;&#65039;
-        report: 
-          qualificationForm: 
-          qualificationFormDisplay: 
-          conversationDisplay: 
+        report:
+          qualificationForm:
+          qualificationFormDisplay:
+          conversationDisplay:
         lastActivity: 2023-08-07T13:01:21.962Z
         requestDate: 2023-08-07T13:01:19.691Z
         trigger: lead:change
