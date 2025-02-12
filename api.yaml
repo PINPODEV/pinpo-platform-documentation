@@ -59,6 +59,35 @@ paths:
         422:
           description: The import **is not successful**. *Give back the control to the salesperson, explaining that Pinpo could not process it; he/she can then contact the lead through another communication channel.*
 
+  /csv/import:
+    post:
+      tags:
+        - Lead
+      summary: Import several lead with Csv/Excel file 
+      description: |
+        - By default, for the leads received by PINPO late at night or early in the morning, the first message is postponed until the next morning (this behavior can be customized).
+        - The lead must absolutely have a phone number with at least 9 characters in order to be accepted by our service. Otherwise, the request will be purely rejected. (Examples of accepted numbers: `688392837`, `0699030495`, `33699030495`).
+
+      operationId: importCsv
+      requestBody:
+        description: Import a new csv/excel file in PINPO
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+        required: true
+      responses:
+        201:
+          description: The import was **successful**. *You need to make sure that nobody will  communicate with the lead while it is in by Pinpo’s hands. Two potential ideas to explore, make the object invisible in the CRM or assign the object to a Pinpo user in the CRM.*
+        400:
+          description: The import **is not successful** because of error in ile content. Error details in answer
+        422:
+          description: The import **is not successful**.
+
   /mock:
     post:
       tags:
