@@ -63,7 +63,7 @@ paths:
     post:
       tags:
         - Lead
-      summary: Import several lead with Csv/Excel file 
+      summary: Import several lead with Csv/Excel file
       description: |
         - By default, for the leads received by PINPO late at night or early in the morning, the first message is postponed until the next morning (this behavior can be customized).
         - The lead must absolutely have a phone number with at least 9 characters in order to be accepted by our service. Otherwise, the request will be purely rejected. (Examples of accepted numbers: `688392837`, `0699030495`, `33699030495`).
@@ -472,6 +472,10 @@ components:
             - add
             - replace
             - noChange
+        lastModifiedAt:
+          type: string
+          format: date-time
+          example: "2023-10-01T10:00:00.52Z"
     FormQuestion:
       type: object
       required:
@@ -819,6 +823,7 @@ components:
                   value: true
                 note:
                 state: add
+                lastModifiedAt: 2024-03-04T10:02:00.000Z
               - formQuestion:
                   id: optinContact,
                   question: Mise en relation souhaitée avec un conseiller
@@ -827,6 +832,7 @@ components:
                   value: true
                 note:
                 state: add
+                lastModifiedAt: 2024-03-04T09:58:00.000Z
               - formQuestion:
                   id: buyHorizon,
                   question: Horizon d'achat
@@ -843,6 +849,7 @@ components:
                   value: 2024-03-05T10:00:00.000Z
                 note:
                 state: add
+                lastModifiedAt: 2024-03-04T10:01:00.000Z
             qualificationFormDisplay: "<ul><li>Le lead a un projet d'achat dans le neuf : <b>Oui</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Oui</b></li><li>Horizon d'achat : <b>3 mois</b></li><li>Date et heure du RDV : <b>mardi 05 mars 2024 11:00</b></li></ul>,"
             notes:
             conversationDisplay: "<ul><li><b>Pinpo</b> [07/08/2023 14:54]: <br>Bonjour, je suis Marion, Cheffe de projet chez ... J'espère que vous allez bien ! Merci d'avoir pris contact avec nous pour la résidence LES PALMIERS. Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST test</b> [07/08/2023 16:39]: <br>Oui</li><li><b>Pinpo</b> [07/08/2023 16:40]: <br>Notre responsable de projet serait ravi de vous accompagner dans votre projet. Je vous propose un rapide échange téléphonique avec lui pour vous renseigner.  Seriez-vous disponible le 5 mars à 11:00, ou sur un autre créneau svp :) ?</li><li><b>TEST test</b> [07/08/2023 16:43]: <br>Oui</li><li><b>Pinpo</b> [07/08/2023 16:43]: <br>Je confirme votre RDV du mardi 5 mars 2024 11:00 avec Sam (ses coordonnées : 0606060606, test@pinpo.fr)! Afin de le renseigner en amont de votre échange, souhaitez-vous acheter pour habiter ou investir ? Et quand souhaiteriez-vous concrétiser votre projet (3 mois, 6 mois ou plus) ?</li><li><b>TEST test</b> [07/08/2023 16:44]: <br>J'aimerais investir dans les 4prochains mois ! Merci</li><li><b>Pinpo</b> [07/08/2023 16:45]: <br>Parfait, bien noté ! Je transmets ces informations au responsable de projet. Merci pour votre accueil. Excellente journée ! Marion</li></ul>,"
@@ -902,6 +909,7 @@ components:
                 value: true
               note:
               state: add
+              lastModifiedAt: 2024-03-04T10:03:00.000Z
             - formQuestion:
                 id: optinContact
                 question: Mise en relation souhaitée avec un conseiller
@@ -910,6 +918,7 @@ components:
                 value: true
               note:
               state: add
+              lastModifiedAt: 2024-03-04T10:01:00.000Z
             - formQuestion:
                 id: immediateContact
                 question: Le lead souhaite être contacté immédiatement
@@ -926,6 +935,7 @@ components:
                 value: 3 mois
               note:
               state: noChange
+              lastModifiedAt: 2024-03-04T10:02:00.000Z
           qualificationFormDisplay: "<ul><li>Le lead a un projet d'achat dans le neuf : <b>Oui</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Oui</b></li><li>Le lead souhaite être contacté immédiatement : <b>Oui</b></li><li>Horizon d'achat : <b>3 mois</b></li></ul>"
           notes:
           conversationDisplay: "<ul><li><b>Pinpo</b> [07/08/2023 14:54]: <br>Bonjour, je suis Marion, Cheffe de projet chez ... J'espère que vous allez bien ! Merci d'avoir pris contact avec nous pour la résidence LES PALMIERS. Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST test</b> [07/08/2023 16:39]: <br>Oui, serait il possible de ma rappeler tout de suite ?</li><li><b>Pinpo</b> [07/08/2023 16:40]: <br>Notre responsable de projet serait ravi de vous accompagner dans votre projet. Je lui remonte l'information, il vous rappelera au plus vite ?</li><li><b>Pinpo</b> [07/08/2023 16:43]: <br>Afin de le renseigner en amont de votre échange, souhaitez-vous acheter pour habiter ou investir ? Et quand souhaiteriez-vous concrétiser votre projet (3 mois, 6 mois ou plus) ?</li><li><b>TEST test</b> [07/08/2023 16:44]: <br>J'aimerais investir dans les 4prochains mois ! Merci</li><li><b>Pinpo</b> [07/08/2023 16:45]: <br>Parfait, bien noté ! Je transmets ces informations au responsable de projet. Merci pour votre accueil. Excellente journée ! Marion</li></ul>"
@@ -985,6 +995,7 @@ components:
                 value: true
               note:
               state: add
+              lastModifiedAt: 2024-03-04T10:03:00.000Z
             - formQuestion:
                 id: optinContact
                 question: Mise en relation souhaitée avec un conseiller
@@ -993,6 +1004,7 @@ components:
                 value: false
               note:
               state: add
+              lastModifiedAt: 2024-03-04T10:01:00.000Z
             - formQuestion:
                 id: whyNoInterest
                 question: Raisons du désintérêt
@@ -1001,6 +1013,7 @@ components:
                 value: Trop tot dans la recherche du lead
               note:
               state: noChange
+              lastModifiedAt: 2024-03-04T10:02:00.000Z
           qualificationFormDisplay: "<ul><li>Le lead a un projet d'achat dans le neuf : <b>Oui</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Non</b></li><li>Raisons du désintérêt : <b>Trop tot dans la recherche du lead</b></li></ul>"
           notes:
           conversationDisplay: "<ul><li><b>Pinpo</b> [07/08/2023 15:04]: <br>Bonjour, je suis Marion, Cheffe de projet chez ..... Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST</b> [07/08/2023 15:17]: <br>Bonjour Marion,<br>Oui tout à fait !<br>Merci de l'avoir noté.</li><li><b>Pinpo</b> [07/08/2023 15:17]: <br>Notre responsable de projet serait ravi de vous accompagner dans votre projet. Je vous propose un rapide échange téléphonique avec lui pour vous renseigner. Cela vous conviendrait ?</li><li><b>TEST</b> [07/08/2023 15:18]: <br>Non merci Marion, pas encore, c'est trop tôt dans mes recherches !<br>Bonne journée et au plaisir </li><li><b>Pinpo</b> [07/08/2023 15:18]: <br>Merci pour votre retour, bien noté ! N'hésitez pas à revenir vers moi si ce type de projet vous intéresse à l'avenir. Excellente journée.</li></ul>"
@@ -1078,6 +1091,7 @@ components:
                 value: false
               note:
               state: add
+              lastModifiedAt: 2024-03-04T10:01:00.000Z
             - formQuestion:
                 id: optinContact
                 question: Mise en relation souhaitée avec un conseiller
@@ -1086,6 +1100,7 @@ components:
                 value: false
               note:
               state: add
+              lastModifiedAt: 2024-03-04T10:02:00.000Z
           qualificationFormDisplay: "<ul><li>Le lead a un projet : <b>Non</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Non</b></li></ul>"
           notes:
           conversationDisplay: "<ul><li><b>Pinpo</b> [07/08/2023 14:56]: <br>Bonjour, je suis Marion, Cheffe de projet chez ... J'espère que vous allez bien ! Merci d'avoir pris contact avec nous pour la résidence LES PALMIERS. Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST test</b> [07/08/2023 14:57]: <br>Bonjour, je ne souhaite pas être contacté svp, serait il possible de suprimer mes données ? Merci. </li><li><b>Pinpo</b> [07/08/2023 14:58]: <br>Merci pour votre message. C’est bien noté, vous ne serez plus contacté et je fais remonter votre demande RGPD. Excellente journée</li></ul>"
