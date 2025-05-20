@@ -195,6 +195,9 @@ components:
         leadTypology:
           description: Main lead Information from Pinpo
           $ref: "#/components/schemas/LeadTypologyPinpo"
+        contact:
+          description: Contact informations
+          $ref: "#/components/schemas/Contact"
         resume:
           type: string
           description: |
@@ -779,6 +782,12 @@ components:
         leadTypology:
           key: hot-with-meeting
           value: Chaud avec RDV
+        contact:
+          firstName: "John"
+          lastName: "Doe"
+          phone: "33606060606"
+          mail: "john.doe@email.fr"
+          externalId: "abcd1234"
         resume: "Lead chaud<br/><br/><b><u>Détail Insight PINPO</u></b> :<ul><li>Engagé : <b>Oui</b></li><li>Opportunité : <b>Oui</b></li><li>Température : <b>chaud</b></li><li>Conversation terminée : <b>Oui</b></li><li>Statut de la qualification : <b>Clôturée</b></li></ul><br/><b><u>Données collectées</u></b> :<ul><li>Le lead a un projet d'achat dans le neuf : <b>Oui</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Oui</b></li><li>Horizon d'achat : <b>3 mois</b></li><li>Date et heure du RDV : <b>mardi 05 mars 2024 11:00</b></li></ul><br/><b><u>Conversation</u></b> :<ul><li><b>Pinpo</b> [07/08/2023 14:54]: <br>Bonjour, je suis Marion, Cheffe de projet chez ... J'espère que vous allez bien ! Merci d'avoir pris contact avec nous pour la résidence LES PALMIERS. Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST test</b> [07/08/2023 16:39]: <br>Oui</li><li><b>Pinpo</b> [07/08/2023 16:40]: <br>Notre responsable de projet serait ravi de vous accompagner dans votre projet. Je vous propose un rapide échange téléphonique avec lui pour vous renseigner.  Seriez-vous disponible le 5 mars à 11:00, ou sur un autre créneau svp :) ?</li><li><b>TEST test</b> [07/08/2023 16:43]: <br>Oui</li><li><b>Pinpo</b> [07/08/2023 16:43]: <br>Je confirme votre RDV du mardi 5 mars 2024 11:00 avec Sam (ses coordonnées : 0606060606, test@pinpo.fr)! Afin de le renseigner en amont de votre échange, souhaitez-vous acheter pour habiter ou investir ? Et quand souhaiteriez-vous concrétiser votre projet (3 mois, 6 mois ou plus) ?</li><li><b>TEST test</b> [07/08/2023 16:44]: <br>J'aimerais investir dans les 4prochains mois ! Merci</li><li><b>Pinpo</b> [07/08/2023 16:45]: <br>Parfait, bien noté ! Je transmets ces informations au responsable de projet. Merci pour votre accueil. Excellente journée ! Marion</li></ul>,"
         insightPinpo:
           details:
@@ -865,6 +874,12 @@ components:
         leadTypology:
           key: hot-without-meeting
           value: Chaud sans RDV
+        contact:
+          firstName: "John"
+          lastName: "Doe"
+          phone: "33606060606"
+          mail: "john.doe@email.fr"
+          externalId: "abcd1234"
         resume: "Lead chaud<br/><br/><b><u>Détail Insight PINPO</u></b> :<ul><li>Engagé : <b>Oui</b></li><li>Opportunité : <b>Oui</b></li><li>Température : <b>chaud</b></li><li>Conversation terminée : <b>Oui</b></li><li>Statut de la qualification : <b>Clôturée</b></li></ul><br/><b><u>Données collectées</u></b> :<ul><li>Le lead a un projet d'achat dans le neuf : <b>Oui</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Oui</b></li><li>Le lead souhaite être contacté immédiatement : <b>Oui</b></li><li>Horizon d'achat : <b>3 mois</b></li></ul><br/><b><u>Conversation</u></b> :<ul><li><b>Pinpo</b> [07/08/2023 14:54]: <br>Bonjour, je suis Marion, Cheffe de projet chez ... J'espère que vous allez bien ! Merci d'avoir pris contact avec nous pour la résidence LES PALMIERS. Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST test</b> [07/08/2023 16:39]: <br>Oui, serait il possible de ma rappeler tout de suite ?</li><li><b>Pinpo</b> [07/08/2023 16:40]: <br>Notre responsable de projet serait ravi de vous accompagner dans votre projet. Je lui remonte l'information, il vous rappelera au plus vite ?</li><li><b>Pinpo</b> [07/08/2023 16:43]: <br>Afin de le renseigner en amont de votre échange, souhaitez-vous acheter pour habiter ou investir ? Et quand souhaiteriez-vous concrétiser votre projet (3 mois, 6 mois ou plus) ?</li><li><b>TEST test</b> [07/08/2023 16:44]: <br>J'aimerais investir dans les 4prochains mois ! Merci</li><li><b>Pinpo</b> [07/08/2023 16:45]: <br>Parfait, bien noté ! Je transmets ces informations au responsable de projet. Merci pour votre accueil. Excellente journée ! Marion</li></ul>,"
         insightPinpo:
           details:
@@ -951,6 +966,12 @@ components:
         leadTypology:
           key: warm
           value: Lead tiède
+        contact:
+          firstName: "John"
+          lastName: "Doe"
+          phone: "33606060606"
+          mail: "john.doe@email.fr"
+          externalId: "abcd1234"
         resume: "Lead tiède<br/><br/><b><u>Détail Insight PINPO</u></b> :<ul><li>Engagé : <b>Oui</b></li><li>Opportunité : <b>Oui</b></li><li>Température : <b>tiède</b></li><li>Conversation terminée : <b>Oui</b></li><li>Statut de la qualification : <b>Clôturée</b></li></ul><br/><b><u>Données collectées</u></b> :<ul><li>Le lead a un projet d'achat dans le neuf : <b>Oui</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Non</b></li><li>Raisons du désintérêt : <b>Trop tot dans la recherche du lead</b></li></ul><br/><b><u>Conversation</u></b> :<ul><li><b>Pinpo</b> [07/08/2023 15:04]: <br>Bonjour, je suis Marion, Cheffe de projet chez ..... Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST</b> [07/08/2023 15:17]: <br>Bonjour Marion,<br>Oui tout à fait !<br>Merci de l'avoir noté.</li><li><b>Pinpo</b> [07/08/2023 15:17]: <br>Notre responsable de projet serait ravi de vous accompagner dans votre projet. Je vous propose un rapide échange téléphonique avec lui pour vous renseigner. Cela vous conviendrait ?</li><li><b>TEST</b> [07/08/2023 15:18]: <br>Non merci Marion, pas encore, c'est trop tôt dans mes recherches !<br>Bonne journée et au plaisir </li><li><b>Pinpo</b> [07/08/2023 15:18]: <br>Merci pour votre retour, bien noté ! N'hésitez pas à revenir vers moi si ce type de projet vous intéresse à l'avenir. Excellente journée.</li></ul>"
         insightPinpo:
           details:
@@ -1029,6 +1050,12 @@ components:
         leadTypology:
           key: rgpd
           value: STOP - Demande RGPD
+        contact:
+          firstName: "John"
+          lastName: "Doe"
+          phone: "33606060606"
+          mail: "john.doe@email.fr"
+          externalId: "abcd1234"
         resume: "Lead froid - STOP - Demande RGPD<br/><br/><b><u>Détail Insight PINPO</u></b> :<ul><li>Engagé : <b>Oui</b></li><li>Opportunité : <b>Non</b></li><li>Température : <b>froid</b></li><li>Motif de contre temps : <b>STOP - Demande RGPD</b></li><li>Conversation terminée : <b>Oui</b></li><li>Statut de la qualification : <b>Clôturée</b></li></ul><br/><b><u>Données collectées</u></b> :<ul><li>Le lead a un projet : <b>Non</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Non</b></li></ul><br/><b><u>Conversation</u></b> :<ul><li><b>Pinpo</b> [07/08/2023 14:56]: <br>Bonjour, je suis Marion, Cheffe de projet chez ... J'espère que vous allez bien ! Merci d'avoir pris contact avec nous pour la résidence LES PALMIERS. Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST test</b> [07/08/2023 14:57]: <br>Bonjour, je ne souhaite pas être contacté svp, serait il possible de suprimer mes données ? Merci. </li><li><b>Pinpo</b> [07/08/2023 14:58]: <br>Merci pour votre message. C’est bien noté, vous ne serez plus contacté et je fais remonter votre demande RGPD. Excellente journée</li></ul>"
         insightPinpo:
           details:
@@ -1116,6 +1143,12 @@ components:
         leadTypology:
           key: landline-phone
           value: Numéro fixe
+        contact:
+          firstName: "John"
+          lastName: "Doe"
+          phone: "33606060606"
+          mail: "john.doe@email.fr"
+          externalId: "abcd1234"
         resume: "Numéro fixe<br/><br/><b><u>Détail Insight PINPO</u></b> :<ul><li>Engagé : <b>Non</b></li><li>Raison de non engagement : <b>Numéro fixe</b></li><li>Opportunité : <b>A déterminer</b></li></ul>"
         insightPinpo:
           details:
