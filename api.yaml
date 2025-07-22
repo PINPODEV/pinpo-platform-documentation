@@ -96,7 +96,7 @@ paths:
         - mock
       summary: trigger webhook enriched lead to specific endpoint to help you integrate Pinpo
       description: |
-        - This is a mock route that emulates the exit of a lead (similar to the enrichedLead webhook subscription).
+        - This is a mock route that emulates the exit of a lead (similar to the Lead webhook subscription).
         - You can find all kinds of lead in the `Schema` section, under the `typeLead` field.
         - Pinpo can either do a POST Request or a PUT request.
       operationId: mockTriggerWebhook
@@ -134,18 +134,18 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/EnrichedLead"
+              $ref: "#/components/schemas/Lead"
             examples:
               Hot lead with meeting in html:
-                $ref: "#/components/examplesEnrichedLead/hotWithMeetingHtml"
+                $ref: "#/components/examplesLead/hotWithMeetingHtml"
               Hot lead asking immediate contact in text:
-                $ref: "#/components/examplesEnrichedLead/hotImmediateContactText"
+                $ref: "#/components/examplesLead/hotImmediateContactText"
               Warm lead in text:
-                $ref: "#/components/examplesEnrichedLead/warm"
+                $ref: "#/components/examplesLead/warm"
               RGPD lead in text:
-                $ref: "#/components/examplesEnrichedLead/rgpd"
+                $ref: "#/components/examplesLead/rgpd"
               LandlinePhone text:
-                $ref: "#/components/examplesEnrichedLead/landlinePhone"
+                $ref: "#/components/examplesLead/landlinePhone"
       responses:
         "200":
           description: Return a 200 status to indicate that the data was received successfully
@@ -167,25 +167,25 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/EnrichedLead"
+              $ref: "#/components/schemas/Lead"
             examples:
               Hot lead with meeting in html:
-                $ref: "#/components/examplesEnrichedLead/hotWithMeetingHtml"
+                $ref: "#/components/examplesLead/hotWithMeetingHtml"
               Hot lead asking immediate contact in text:
-                $ref: "#/components/examplesEnrichedLead/hotImmediateContactText"
+                $ref: "#/components/examplesLead/hotImmediateContactText"
               warm lead in text:
-                $ref: "#/components/examplesEnrichedLead/warm"
+                $ref: "#/components/examplesLead/warm"
               RGPD lead in text:
-                $ref: "#/components/examplesEnrichedLead/rgpd"
+                $ref: "#/components/examplesLead/rgpd"
               LandlinePhone text:
-                $ref: "#/components/examplesEnrichedLead/landlinePhone"
+                $ref: "#/components/examplesLead/landlinePhone"
       responses:
         "200":
           description: Return a 200 status to indicate that the data was received successfully
 
 components:
   schemas:
-    EnrichedLead:
+    Lead:
       required:
         - id
         - resume
@@ -354,7 +354,7 @@ components:
             $ref: "#/components/schemas/CustomData"
         outputData:
           type: array
-          description: Data that will be present in your EXIT integration (EnrichedLead).
+          description: Data that will be present in your EXIT integration (Lead).
           items:
             $ref: "#/components/schemas/CustomData"
     Contact:
@@ -783,7 +783,7 @@ components:
         url: https://test.fr
         hasEmoji: false
         typeDisplay: html
-  examplesEnrichedLead:
+  examplesLead:
     hotWithMeetingHtml:
       value:
         id: SNkSwfNMIV
