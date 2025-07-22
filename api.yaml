@@ -25,6 +25,8 @@ tags:
     description: Everything about your leads
   - name: mock
     description: Tools to mock the webhook trigger
+  - name: Webhooks
+    description: Webhooks to receive notifications from PINPO
 paths:
   /lead:
     post:
@@ -120,22 +122,7 @@ paths:
 
   # These are documentation-only paths to make the example selector work in the documentation
   # The actual webhook endpoints are defined in the webhooks section
-  /_docs/webhooks/enriched-lead:
-    post:
-      $ref: "#/webhooks/EnrichedLead/post"
-    put:
-      $ref: "#/webhooks/EnrichedLead/put"
-      parameters:
-        - in: path
-          name: externalId
-          schema:
-            type: string
-            example: "ext_lead_12345"
-          required: true
-          description: The external ID of the lead being updated (matching the externalId in your system)
-
-webhooks:
-  EnrichedLead:
+  /Webhooks/EnrichedLead:
     post:
       description: |
         - It is PINPO that will setup the webhook subscription of this route. You will have to share with PINPO the URL and the method that must be registered.
@@ -191,6 +178,7 @@ webhooks:
       responses:
         "200":
           description: Return a 200 status to indicate that the data was received successfully
+
 components:
   schemas:
     EnrichedLead:
