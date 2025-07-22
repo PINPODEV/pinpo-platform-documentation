@@ -122,8 +122,10 @@ paths:
 
   # These are documentation-only paths to make the example selector work in the documentation
   # The actual webhook endpoints are defined in the webhooks section
-  /Webhooks/EnrichedLead:
+  /Lead:
     post:
+      tags:
+        - Webhooks
       description: |
         - It is PINPO that will setup the webhook subscription of this route. You will have to share with PINPO the URL and the method that must be registered.
         - If the response to the POST request is not a success, Pinpo will retry the same call 7 times (the delay in between each tentative increases every time).
@@ -148,6 +150,8 @@ paths:
         "200":
           description: Return a 200 status to indicate that the data was received successfully
     put:
+      tags:
+        - Webhooks
       description: |
         - It is PINPO that will setup the webhook subscription of this route. You will have to share with PINPO the URL and the method that must be registered.
         - If the response to the PUT request is not a success, Pinpo will retry the same call 7 times (the delay in between each tentative increases every time).
