@@ -26,7 +26,7 @@ tags:
   - name: mock
     description: Tools to mock the webhook trigger
   - name: Webhooks
-    description: Webhooks to receive notifications from PINPO
+    description: Webhook notifications about your leads
 paths:
   /lead:
     post:
@@ -44,7 +44,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Lead"
+              $ref: "#/components/schemas/ImportLead"
             examples:
               Usual example:
                 $ref: "#/components/examplesImport/usualImportLead"
@@ -120,13 +120,13 @@ paths:
         "422":
           description: Unprocessable Entity
 
-  # These are documentation-only paths to make the example selector work in the documentation
-  # The actual webhook endpoints are defined in the webhooks section
   /Lead:
     post:
       tags:
         - Webhooks
       description: |
+        - This webhook will be triggered each time Pinpo finishes processing a lead.
+        - The list of all lead categories can be found in the `LeadTypology` section.
         - It is PINPO that will setup the webhook subscription of this route. You will have to share with PINPO the URL and the method that must be registered.
         - If the response to the POST request is not a success, Pinpo will retry the same call 7 times (the delay in between each tentative increases every time).
       requestBody:
@@ -149,40 +149,6 @@ paths:
       responses:
         "200":
           description: Return a 200 status to indicate that the data was received successfully
-    put:
-      tags:
-        - Webhooks
-      description: |
-        - It is PINPO that will setup the webhook subscription of this route. You will have to share with PINPO the URL and the method that must be registered.
-        - If the response to the PUT request is not a success, Pinpo will retry the same call 7 times (the delay in between each tentative increases every time).
-      parameters:
-        - in: path
-          name: externalId
-          schema:
-            type: string
-          required: true
-          description: ID of the lead or contact if lead id doesn't exist
-      requestBody:
-        description: Information about lead qualification
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Lead"
-            examples:
-              Hot lead with meeting in html:
-                $ref: "#/components/examplesLead/hotWithMeetingHtml"
-              Hot lead asking immediate contact in text:
-                $ref: "#/components/examplesLead/hotImmediateContactText"
-              warm lead in text:
-                $ref: "#/components/examplesLead/warm"
-              RGPD lead in text:
-                $ref: "#/components/examplesLead/rgpd"
-              LandlinePhone text:
-                $ref: "#/components/examplesLead/landlinePhone"
-      responses:
-        "200":
-          description: Return a 200 status to indicate that the data was received successfully
-
 components:
   schemas:
     Lead:
@@ -311,7 +277,7 @@ components:
         - $ref: "#/components/schemas/NonEngagementReason"
         - $ref: "#/components/schemas/DelayReason"
         - $ref: "#/components/schemas/TechnicalError"
-    Lead:
+    ImportLead:
       required:
         - contact
         - providerName
