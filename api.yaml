@@ -117,6 +117,23 @@ paths:
           description: Successful trigger webhook on specified url
         "422":
           description: Unprocessable Entity
+
+  # These are documentation-only paths to make the example selector work in the documentation
+  # The actual webhook endpoints are defined in the webhooks section
+  /_docs/webhooks/enriched-lead:
+    post:
+      $ref: "#/webhooks/EnrichedLead/post"
+    put:
+      $ref: "#/webhooks/EnrichedLead/put"
+      parameters:
+        - in: path
+          name: externalId
+          schema:
+            type: string
+            example: "ext_lead_12345"
+          required: true
+          description: The external ID of the lead being updated (matching the externalId in your system)
+
 webhooks:
   EnrichedLead:
     post:
