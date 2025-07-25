@@ -167,6 +167,10 @@ components:
           type: string
           example: "efghi56789"
           description: Id in your CRM or SI of the request of the lead
+        idScenario:
+          type: string
+          example: "123456789"
+          description: Id of the scenario used to process the lead
         leadTypology:
           description: Main lead Information from Pinpo
           $ref: "#/components/schemas/LeadTypologyPinpo"
