@@ -352,6 +352,15 @@ components:
           type: string
           example: abcd1234
           description: Id of contact in your CRM if its not the lead id
+        gender:
+          type: string
+          enum:
+            - female
+            - male
+            - other
+            - unknown
+          example: female
+          description: Gender of the contact
     SalesPerson:
       type: object
       properties:
@@ -706,6 +715,7 @@ components:
           phone: "33606060606"
           mail: "john.doe@email.fr"
           externalId: "abcd1234"
+          gender: "male"
         externalId: "efghi56789"
         providerName: "Facebook leads"
         scenarioSelection: "kopij876f"
@@ -767,6 +777,7 @@ components:
           phone: "33606060606"
           mail: "john.doe@email.fr"
           externalId: "abcd1234"
+          gender: "male"
         resume: "Lead chaud<br/><br/><b><u>Détail Insight PINPO</u></b> :<ul><li>Engagé : <b>Oui</b></li><li>Opportunité : <b>Oui</b></li><li>Température : <b>chaud</b></li><li>Conversation terminée : <b>Oui</b></li><li>Statut de la qualification : <b>Clôturée</b></li></ul><br/><b><u>Données collectées</u></b> :<ul><li>Le lead a un projet d'achat dans le neuf : <b>Oui</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Oui</b></li><li>Horizon d'achat : <b>3 mois</b></li><li>Date et heure du RDV : <b>mardi 05 mars 2024 11:00</b></li></ul><br/><b><u>Conversation</u></b> :<ul><li><b>Pinpo</b> [07/08/2023 14:54]: <br>Bonjour, je suis Marion, Cheffe de projet chez ... J'espère que vous allez bien ! Merci d'avoir pris contact avec nous pour la résidence LES PALMIERS. Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST test</b> [07/08/2023 16:39]: <br>Oui</li><li><b>Pinpo</b> [07/08/2023 16:40]: <br>Notre responsable de projet serait ravi de vous accompagner dans votre projet. Je vous propose un rapide échange téléphonique avec lui pour vous renseigner.  Seriez-vous disponible le 5 mars à 11:00, ou sur un autre créneau svp :) ?</li><li><b>TEST test</b> [07/08/2023 16:43]: <br>Oui</li><li><b>Pinpo</b> [07/08/2023 16:43]: <br>Je confirme votre RDV du mardi 5 mars 2024 11:00 avec Sam (ses coordonnées : 0606060606, test@pinpo.fr)! Afin de le renseigner en amont de votre échange, souhaitez-vous acheter pour habiter ou investir ? Et quand souhaiteriez-vous concrétiser votre projet (3 mois, 6 mois ou plus) ?</li><li><b>TEST test</b> [07/08/2023 16:44]: <br>J'aimerais investir dans les 4prochains mois ! Merci</li><li><b>Pinpo</b> [07/08/2023 16:45]: <br>Parfait, bien noté ! Je transmets ces informations au responsable de projet. Merci pour votre accueil. Excellente journée ! Marion</li></ul>,"
         insightPinpo:
           details:
@@ -859,6 +870,7 @@ components:
           phone: "33606060606"
           mail: "john.doe@email.fr"
           externalId: "abcd1234"
+          gender: "male"
         resume: "Lead chaud<br/><br/><b><u>Détail Insight PINPO</u></b> :<ul><li>Engagé : <b>Oui</b></li><li>Opportunité : <b>Oui</b></li><li>Température : <b>chaud</b></li><li>Conversation terminée : <b>Oui</b></li><li>Statut de la qualification : <b>Clôturée</b></li></ul><br/><b><u>Données collectées</u></b> :<ul><li>Le lead a un projet d'achat dans le neuf : <b>Oui</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Oui</b></li><li>Le lead souhaite être contacté immédiatement : <b>Oui</b></li><li>Horizon d'achat : <b>3 mois</b></li></ul><br/><b><u>Conversation</u></b> :<ul><li><b>Pinpo</b> [07/08/2023 14:54]: <br>Bonjour, je suis Marion, Cheffe de projet chez ... J'espère que vous allez bien ! Merci d'avoir pris contact avec nous pour la résidence LES PALMIERS. Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST test</b> [07/08/2023 16:39]: <br>Oui, serait il possible de ma rappeler tout de suite ?</li><li><b>Pinpo</b> [07/08/2023 16:40]: <br>Notre responsable de projet serait ravi de vous accompagner dans votre projet. Je lui remonte l'information, il vous rappelera au plus vite ?</li><li><b>Pinpo</b> [07/08/2023 16:43]: <br>Afin de le renseigner en amont de votre échange, souhaitez-vous acheter pour habiter ou investir ? Et quand souhaiteriez-vous concrétiser votre projet (3 mois, 6 mois ou plus) ?</li><li><b>TEST test</b> [07/08/2023 16:44]: <br>J'aimerais investir dans les 4prochains mois ! Merci</li><li><b>Pinpo</b> [07/08/2023 16:45]: <br>Parfait, bien noté ! Je transmets ces informations au responsable de projet. Merci pour votre accueil. Excellente journée ! Marion</li></ul>,"
         insightPinpo:
           details:
