@@ -694,6 +694,7 @@ components:
           phone: "33606060606"
           mail: "john.doe@email.fr"
           externalId: "abcd1234"
+          gender: "male"
         externalId: "efghi56789"
         providerName: "Facebook leads"
         scenarioSelection: "kopij876f"
