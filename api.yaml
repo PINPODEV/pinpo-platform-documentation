@@ -676,27 +676,506 @@ components:
 
   examples:
     usualImportLead:
-      $ref: "#/components/x-examplesImport/usualImportLead"
+      value:
+        contact:
+          firstName: "John"
+          lastName: "Doe"
+          phone: "33606060606"
+          mail: "john.doe@email.fr"
+          externalId: "abcd1234"
+          gender: "male"
+        externalId: "efghi56789"
+        providerName: "Facebook leads"
+        scenarioSelection: "kopij876f"
+        product:
+          name: "Ream of paper"
+        salesPerson:
+          firstName: "Michael"
+          lastName: "Scott"
+          phone: "33707070707"
+          mail: "michael.scott@corporation.fr"
+        scriptData:
+          - name: "location"
+            value: "Scraton"
     simpleOnlyMandatoryImportLead:
-      $ref: "#/components/x-examplesImport/simpleOnlyMandatoryImportLead"
+      value:
+        contact:
+          phone: "0606060606"
+        providerName: "Réseaux sociaux"
+        product:
+          name: "Pompe à chaleur"
     complexeImportLead:
-      $ref: "#/components/x-examplesImport/complexeImportLead"
+      value:
+        contact:
+          firstName: "John"
+          lastName: "Doe"
+          phone: "33606060606"
+          mail: "john.doe@email.fr"
+          externalId: "abcd1234"
+          gender: "male"
+        externalId: "efghi56789"
+        providerName: "Facebook leads"
+        scenarioSelection: "kopij876f"
+        product:
+          name: "Ream of Paper"
+          category: "new"
+          externalId: "120paperream"
+        salesPerson:
+          firstName: "Michael"
+          lastName: "Scott"
+          phone: "33707070707"
+          mail: "michael.scott@corporation.fr"
+          externalId: "scrantonms111"
+          iCalUrl: "https://michaelscott.dundermifflin.ical.fr"
+        company:
+          name: Dunder Mifflin Paper Company Inc
+          externalId: huih89hhgh
+        scriptData:
+          - name: "location"
+            value: "Scraton"
+          - name: "postalCode"
+            value: "18501"
+        statsData:
+          - name: "day"
+            value: Monday
+        outputData:
+          - name: "civility"
+            value: Mr
     mockHotWithMeetingHtml:
-      $ref: "#/components/x-examplesMock/hotWithMeetingHtml"
+      value:
+        typeLead: hot-with-meeting
+        url: https://test.fr
+        hasEmoji: true
+        typeDisplay: html
     mockHotImmediateContactText:
-      $ref: "#/components/x-examplesMock/hotImmediateContactText"
+      value:
+        typeLead: hot-immediate-contact
+        url: https://test.fr
+        hasEmoji: false
+        typeDisplay: text
     mockRgpdHtml:
-      $ref: "#/components/x-examplesMock/rgpdHtml"
+      value:
+        typeLead: rgpd
+        url: https://test.fr
+        hasEmoji: false
+        typeDisplay: html
     hotWithMeetingHtml:
-      $ref: "#/components/x-examplesLead/hotWithMeetingHtml"
+      value:
+        id: SNkSwfNMIV
+        externalId: externalIdLead
+        leadTypology:
+          key: hot-with-meeting
+          value: Chaud avec RDV
+        contact:
+          firstName: "John"
+          lastName: "Doe"
+          phone: "33606060606"
+          mail: "john.doe@email.fr"
+          externalId: "abcd1234"
+          gender: "male"
+        resume: "Lead chaud<br/><br/><b><u>Détail Insight PINPO</u></b> :<ul><li>Engagé : <b>Oui</b></li><li>Opportunité : <b>Oui</b></li><li>Température : <b>chaud</b></li><li>Conversation terminée : <b>Oui</b></li><li>Statut de la qualification : <b>Clôturée</b></li></ul><br/><b><u>Données collectées</u></b> :<ul><li>Le lead a un projet d'achat dans le neuf : <b>Oui</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Oui</b></li><li>Horizon d'achat : <b>3 mois</b></li><li>Date et heure du RDV : <b>mardi 05 mars 2024 11:00</b></li></ul><br/><b><u>Conversation</u></b> :<ul><li><b>Pinpo</b> [07/08/2023 14:54]: <br>Bonjour, je suis Marion, Cheffe de projet chez ... J'espère que vous allez bien ! Merci d'avoir pris contact avec nous pour la résidence LES PALMIERS. Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST test</b> [07/08/2023 16:39]: <br>Oui</li><li><b>Pinpo</b> [07/08/2023 16:40]: <br>Notre responsable de projet serait ravi de vous accompagner dans votre projet. Je vous propose un rapide échange téléphonique avec lui pour vous renseigner.  Seriez-vous disponible le 5 mars à 11:00, ou sur un autre créneau svp :) ?</li><li><b>TEST test</b> [07/08/2023 16:43]: <br>Oui</li><li><b>Pinpo</b> [07/08/2023 16:43]: <br>Je confirme votre RDV du mardi 5 mars 2024 11:00 avec Sam (ses coordonnées : 0606060606, test@pinpo.fr)! Afin de le renseigner en amont de votre échange, souhaitez-vous acheter pour habiter ou investir ? Et quand souhaiteriez-vous concrétiser votre projet (3 mois, 6 mois ou plus) ?</li><li><b>TEST test</b> [07/08/2023 16:44]: <br>J'aimerais investir dans les 4prochains mois ! Merci</li><li><b>Pinpo</b> [07/08/2023 16:45]: <br>Parfait, bien noté ! Je transmets ces informations au responsable de projet. Merci pour votre accueil. Excellente journée ! Marion</li></ul>,"
+        insightPinpo:
+          details:
+            - key: engaged
+              title: Engagé
+              value: true
+            - key: opportunity
+              title: Opportunité
+              value: true
+            - key: temperature
+              title: Température
+              value:
+                key: hot
+                display: Lead chaud
+                emoji:
+                  props:
+                    name: fire
+                    emojiText: ":fire:"
+                    emojiHtml: "&#128293;"
+            - key: endedConversation
+              title: Conversation terminée
+              value: true
+            - key: qualificationStatus
+              title: Statut de la qualification
+              value: Clôturée
+          display: "<ul><li>Engagé : <b>Oui</b></li><li>Opportunité : <b>Oui</b></li><li>Température : <b>chaud</b></li><li>Conversation terminée : <b>Oui</b></li><li>Statut de la qualification : <b>Clôturée</b></li></ul>,"
+          insights:
+            - key: hot
+              display: Lead chaud
+              emoji:
+                props:
+                  name: fire
+                  emojiText: ":fire:"
+                  emojiHtml: "&#128293;"
+          report:
+            qualificationForm:
+              - formQuestion:
+                  id: project,
+                  question: Le lead a un projet d'achat dans le neuf
+                  type: boolean
+                formResponse:
+                  value: true
+                note:
+                state: add
+                lastModifiedAt: 2024-03-04T10:02:00.000Z
+              - formQuestion:
+                  id: optinContact,
+                  question: Mise en relation souhaitée avec un conseiller
+                  type: boolean
+                formResponse:
+                  value: true
+                note:
+                state: add
+                lastModifiedAt: 2024-03-04T09:58:00.000Z
+              - formQuestion:
+                  id: buyHorizon,
+                  question: Horizon d'achat
+                  type: choice
+                formResponse:
+                  value: 3 mois
+                note:
+                state: noChange
+              - formQuestion:
+                  id: meetingTime,
+                  question: Date et heure du RDV
+                  type: date
+                formResponse:
+                  value: 2024-03-05T10:00:00.000Z
+                note:
+                state: add
+                lastModifiedAt: 2024-03-04T10:01:00.000Z
+            qualificationFormDisplay: "<ul><li>Le lead a un projet d'achat dans le neuf : <b>Oui</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Oui</b></li><li>Horizon d'achat : <b>3 mois</b></li><li>Date et heure du RDV : <b>mardi 05 mars 2024 11:00</b></li></ul>,"
+            notes:
+            conversationDisplay: "<ul><li><b>Pinpo</b> [07/08/2023 14:54]: <br>Bonjour, je suis Marion, Cheffe de projet chez ... J'espère que vous allez bien ! Merci d'avoir pris contact avec nous pour la résidence LES PALMIERS. Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST test</b> [07/08/2023 16:39]: <br>Oui</li><li><b>Pinpo</b> [07/08/2023 16:40]: <br>Notre responsable de projet serait ravi de vous accompagner dans votre projet. Je vous propose un rapide échange téléphonique avec lui pour vous renseigner.  Seriez-vous disponible le 5 mars à 11:00, ou sur un autre créneau svp :) ?</li><li><b>TEST test</b> [07/08/2023 16:43]: <br>Oui</li><li><b>Pinpo</b> [07/08/2023 16:43]: <br>Je confirme votre RDV du mardi 5 mars 2024 11:00 avec Sam (ses coordonnées : 0606060606, test@pinpo.fr)! Afin de le renseigner en amont de votre échange, souhaitez-vous acheter pour habiter ou investir ? Et quand souhaiteriez-vous concrétiser votre projet (3 mois, 6 mois ou plus) ?</li><li><b>TEST test</b> [07/08/2023 16:44]: <br>J'aimerais investir dans les 4prochains mois ! Merci</li><li><b>Pinpo</b> [07/08/2023 16:45]: <br>Parfait, bien noté ! Je transmets ces informations au responsable de projet. Merci pour votre accueil. Excellente journée ! Marion</li></ul>,"
+            conversationUrl: https://pinpo.app.link/e/ezSMLbOx4Bb
+          lastActivity: 2023-08-07T14:55:05.195Z
+          requestDate: 2023-08-07T12:54:12.425Z
+          trigger: "lead:change"
+          idScenario: idAssistant
     hotImmediateContactText:
-      $ref: "#/components/x-examplesLead/hotImmediateContactText"
+      value:
+        id: SNkSwfNMIV
+        externalId: externalIdLead
+        leadTypology:
+          key: hot-without-meeting
+          value: Chaud sans RDV
+        contact:
+          firstName: "John"
+          lastName: "Doe"
+          phone: "33606060606"
+          mail: "john.doe@email.fr"
+          externalId: "abcd1234"
+          gender: "male"
+        resume: "Lead chaud<br/><br/><b><u>Détail Insight PINPO</u></b> :<ul><li>Engagé : <b>Oui</b></li><li>Opportunité : <b>Oui</b></li><li>Température : <b>chaud</b></li><li>Conversation terminée : <b>Oui</b></li><li>Statut de la qualification : <b>Clôturée</b></li></ul><br/><b><u>Données collectées</u></b> :<ul><li>Le lead a un projet d'achat dans le neuf : <b>Oui</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Oui</b></li><li>Le lead souhaite être contacté immédiatement : <b>Oui</b></li><li>Horizon d'achat : <b>3 mois</b></li></ul><br/><b><u>Conversation</u></b> :<ul><li><b>Pinpo</b> [07/08/2023 14:54]: <br>Bonjour, je suis Marion, Cheffe de projet chez ... J'espère que vous allez bien ! Merci d'avoir pris contact avec nous pour la résidence LES PALMIERS. Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST test</b> [07/08/2023 16:39]: <br>Oui, serait il possible de ma rappeler tout de suite ?</li><li><b>Pinpo</b> [07/08/2023 16:40]: <br>Notre responsable de projet serait ravi de vous accompagner dans votre projet. Je lui remonte l'information, il vous rappelera au plus vite ?</li><li><b>Pinpo</b> [07/08/2023 16:43]: <br>Afin de le renseigner en amont de votre échange, souhaitez-vous acheter pour habiter ou investir ? Et quand souhaiteriez-vous concrétiser votre projet (3 mois, 6 mois ou plus) ?</li><li><b>TEST test</b> [07/08/2023 16:44]: <br>J'aimerais investir dans les 4prochains mois ! Merci</li><li><b>Pinpo</b> [07/08/2023 16:45]: <br>Parfait, bien noté ! Je transmets ces informations au responsable de projet. Merci pour votre accueil. Excellente journée ! Marion</li></ul>,"
+        insightPinpo:
+          details:
+            - key: engaged
+              title: Engagé
+              value: true
+            - key: opportunity
+              title: Opportunité
+              value: true
+            - key: temperature
+              title: Température
+              value:
+                key: hot
+                display: Lead chaud
+                emoji:
+                  props:
+                    name: fire
+                    emojiText: ":fire:"
+                    emojiHtml: "&#128293;"
+            - key: endedConversation
+              title: Conversation terminée
+              value: true
+            - key: qualificationStatus
+              title: Statut de la qualification
+              value: Clôturée
+          display: "<ul><li>Engagé : <b>Oui</b></li><li>Opportunité : <b>Oui</b></li><li>Température : <b>chaud</b></li><li>Conversation terminée : <b>Oui</b></li><li>Statut de la qualification : <b>Clôturée</b></li></ul>"
+          insights:
+            - key: hot
+              display: Lead chaud
+              emoji:
+                props:
+                  name: fire
+                  emojiText: ":fire:"
+                  emojiHtml: "&#128293;"
+        report:
+          qualificationForm:
+            - formQuestion:
+                id: project
+                question: Le lead a un projet d'achat dans le neuf
+                type: boolean
+              formResponse:
+                value: true
+              note:
+              state: add
+              lastModifiedAt: 2024-03-04T10:03:00.000Z
+            - formQuestion:
+                id: optinContact
+                question: Mise en relation souhaitée avec un conseiller
+                type: boolean
+              formResponse:
+                value: true
+              note:
+              state: add
+              lastModifiedAt: 2024-03-04T10:01:00.000Z
+            - formQuestion:
+                id: immediateContact
+                question: Le lead souhaite être contacté immédiatement
+                type: boolean
+              formResponse:
+                value: true
+              note:
+              state: add
+            - formQuestion:
+                id: buyHorizon,
+                question: Horizon d'achat,
+                type: choice
+              formResponse:
+                value: 3 mois
+              note:
+              state: noChange
+              lastModifiedAt: 2024-03-04T10:02:00.000Z
+          qualificationFormDisplay: "<ul><li>Le lead a un projet d'achat dans le neuf : <b>Oui</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Oui</b></li><li>Le lead souhaite être contacté immédiatement : <b>Oui</b></li><li>Horizon d'achat : <b>3 mois</b></li></ul>"
+          notes:
+          conversationDisplay: "<ul><li><b>Pinpo</b> [07/08/2023 14:54]: <br>Bonjour, je suis Marion, Cheffe de projet chez ... J'espère que vous allez bien ! Merci d'avoir pris contact avec nous pour la résidence LES PALMIERS. Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST test</b> [07/08/2023 16:39]: <br>Oui, serait il possible de ma rappeler tout de suite ?</li><li><b>Pinpo</b> [07/08/2023 16:40]: <br>Notre responsable de projet serait ravi de vous accompagner dans votre projet. Je lui remonte l'information, il vous rappelera au plus vite ?</li><li><b>Pinpo</b> [07/08/2023 16:43]: <br>Afin de le renseigner en amont de votre échange, souhaitez-vous acheter pour habiter ou investir ? Et quand souhaiteriez-vous concrétiser votre projet (3 mois, 6 mois ou plus) ?</li><li><b>TEST test</b> [07/08/2023 16:44]: <br>J'aimerais investir dans les 4prochains mois ! Merci</li><li><b>Pinpo</b> [07/08/2023 16:45]: <br>Parfait, bien noté ! Je transmets ces informations au responsable de projet. Merci pour votre accueil. Excellente journée ! Marion</li></ul>"
+          conversationUrl: https://pinpo.app.link/e/ezSMLbOx4Bb
+        lastActivity: 2023-08-07T14:55:05.195Z
+        requestDate: 2023-08-07T12:54:12.425Z
+        trigger: "lead:change"
+        idScenario: idAssistant
     warm:
-      $ref: "#/components/x-examplesLead/warm"
+      value:
+        id: Rb0UTBIBp2
+        externalId: externalIdLead
+        leadTypology:
+          key: warm
+          value: Lead tiède
+        contact:
+          firstName: "John"
+          lastName: "Doe"
+          phone: "33606060606"
+          mail: "john.doe@email.fr"
+          externalId: "abcd1234"
+        resume: "Lead tiède<br/><br/><b><u>Détail Insight PINPO</u></b> :<ul><li>Engagé : <b>Oui</b></li><li>Opportunité : <b>Oui</b></li><li>Température : <b>tiède</b></li><li>Conversation terminée : <b>Oui</b></li><li>Statut de la qualification : <b>Clôturée</b></li></ul><br/><b><u>Données collectées</u></b> :<ul><li>Le lead a un projet d'achat dans le neuf : <b>Oui</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Non</b></li><li>Raisons du désintérêt : <b>Trop tot dans la recherche du lead</b></li></ul><br/><b><u>Conversation</u></b> :<ul><li><b>Pinpo</b> [07/08/2023 15:04]: <br>Bonjour, je suis Marion, Cheffe de projet chez ..... Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST</b> [07/08/2023 15:17]: <br>Bonjour Marion,<br>Oui tout à fait !<br>Merci de l'avoir noté.</li><li><b>Pinpo</b> [07/08/2023 15:17]: <br>Notre responsable de projet serait ravi de vous accompagner dans votre projet. Je vous propose un rapide échange téléphonique avec lui pour vous renseigner. Cela vous conviendrait ?</li><li><b>TEST</b> [07/08/2023 15:18]: <br>Non merci Marion, pas encore, c'est trop tôt dans mes recherches !<br>Bonne journée et au plaisir </li><li><b>Pinpo</b> [07/08/2023 15:18]: <br>Merci pour votre retour, bien noté ! N'hésitez pas à revenir vers moi si ce type de projet vous intéresse à l'avenir. Excellente journée.</li></ul>"
+        insightPinpo:
+          details:
+            - key: engaged
+              title: Engagé
+              value: true
+            - key: opportunity
+              title: Opportunité
+              value: true
+            - key: temperature
+              title: Température
+              value:
+                key: warm
+                display: Lead tiède
+                emoji:
+                  props:
+                    name: sun
+                    emojiText: ":white_sun_small_cloud:"
+                    emojiHtml: "&#127780;&#65039;"
+            - key: endedConversation
+              title: Conversation terminée
+              value: true
+            - key: qualificationStatus
+              title: Statut de la qualification
+              value: Clôturée
+          display: "<ul><li>Engagé : <b>Oui</b></li><li>Opportunité : <b>Oui</b></li><li>Température : <b>tiède</b></li><li>Conversation terminée : <b>Oui</b></li><li>Statut de la qualification : <b>Clôturée</b></li></ul>"
+          insights:
+            - key: warm
+              display: Lead tiède
+              emoji:
+                props:
+                  name: sun
+                  emojiText: ":white_sun_small_cloud:"
+                  emojiHtml: "&#127780;&#65039;"
+        report:
+          qualificationForm:
+            - formQuestion:
+                id: project
+                question: Le lead a un projet d'achat dans le neuf
+                type: boolean
+              formResponse:
+                value: true
+              note:
+              state: add
+              lastModifiedAt: 2024-03-04T10:03:00.000Z
+            - formQuestion:
+                id: optinContact
+                question: Mise en relation souhaitée avec un conseiller
+                type: boolean
+              formResponse:
+                value: false
+              note:
+              state: add
+              lastModifiedAt: 2024-03-04T10:01:00.000Z
+            - formQuestion:
+                id: whyNoInterest
+                question: Raisons du désintérêt
+                type: text
+              formResponse:
+                value: Trop tot dans la recherche du lead
+              note:
+              state: noChange
+              lastModifiedAt: 2024-03-04T10:02:00.000Z
+          qualificationFormDisplay: "<ul><li>Le lead a un projet d'achat dans le neuf : <b>Oui</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Non</b></li><li>Raisons du désintérêt : <b>Trop tot dans la recherche du lead</b></li></ul>"
+          notes:
+          conversationDisplay: "<ul><li><b>Pinpo</b> [07/08/2023 15:04]: <br>Bonjour, je suis Marion, Cheffe de projet chez ..... Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST</b> [07/08/2023 15:17]: <br>Bonjour Marion,<br>Oui tout à fait !<br>Merci de l'avoir noté.</li><li><b>Pinpo</b> [07/08/2023 15:17]: <br>Notre responsable de projet serait ravi de vous accompagner dans votre projet. Je vous propose un rapide échange téléphonique avec lui pour vous renseigner. Cela vous conviendrait ?</li><li><b>TEST</b> [07/08/2023 15:18]: <br>Non merci Marion, pas encore, c'est trop tôt dans mes recherches !<br>Bonne journée et au plaisir </li><li><b>Pinpo</b> [07/08/2023 15:18]: <br>Merci pour votre retour, bien noté ! N'hésitez pas à revenir vers moi si ce type de projet vous intéresse à l'avenir. Excellente journée.</li></ul>"
+          conversationUrl: https://pinpo.app.link/e/aaaaaaa
+        lastActivity: 2023-08-07T13:19:20.717Z
+        requestDate: 2023-08-07T13:04:11.098Z
+        trigger: "lead:change"
+        idScenario: idAssistant
     rgpd:
-      $ref: "#/components/x-examplesLead/rgpd"
+      value:
+        id: Lyd2M3vMxV
+        externalId: externalIdLead
+        leadTypology:
+          key: rgpd
+          value: STOP - Demande RGPD
+        contact:
+          firstName: "John"
+          lastName: "Doe"
+          phone: "33606060606"
+          mail: "john.doe@email.fr"
+          externalId: "abcd1234"
+        resume: "Lead froid - STOP - Demande RGPD<br/><br/><b><u>Détail Insight PINPO</u></b> :<ul><li>Engagé : <b>Oui</b></li><li>Opportunité : <b>Non</b></li><li>Température : <b>froid</b></li><li>Motif de contre temps : <b>STOP - Demande RGPD</b></li><li>Conversation terminée : <b>Oui</b></li><li>Statut de la qualification : <b>Clôturée</b></li></ul><br/><b><u>Données collectées</u></b> :<ul><li>Le lead a un projet : <b>Non</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Non</b></li></ul><br/><b><u>Conversation</u></b> :<ul><li><b>Pinpo</b> [07/08/2023 14:56]: <br>Bonjour, je suis Marion, Cheffe de projet chez ... J'espère que vous allez bien ! Merci d'avoir pris contact avec nous pour la résidence LES PALMIERS. Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST test</b> [07/08/2023 14:57]: <br>Bonjour, je ne souhaite pas être contacté svp, serait il possible de suprimer mes données ? Merci. </li><li><b>Pinpo</b> [07/08/2023 14:58]: <br>Merci pour votre message. C’est bien noté, vous ne serez plus contacté et je fais remonter votre demande RGPD. Excellente journée</li></ul>"
+        insightPinpo:
+          details:
+            - key: engaged
+              title: Engagé
+              value: true
+            - key: opportunity
+              title: Opportunité
+              value: false
+            - key: temperature
+              title: Température
+              value:
+                key: cold
+                display: Lead froid
+                emoji:
+                  props:
+                    name: snowflake
+                    emojiText: ":snowflake:"
+                    emojiHtml: "&#10052;&#65039;"
+            - key: delayReason
+              title: Motif de contre temps
+              value:
+                - id: 62b67d51-39ce-4dfe-a3d4-d83f57d726be
+                  key: rgpd
+                  display: STOP - Demande RGPD
+                  emoji:
+                    props:
+                      name: warning
+                      emojiText: ":warning:"
+                      emojiHtml: "&#9888;&#65039;"
+            - key: endedConversation
+              title: Conversation terminée
+              value: true
+            - key: qualificationStatus
+              title: Statut de la qualification
+              value: Clôturée
+          display: "<ul><li>Engagé : <b>Oui</b></li><li>Opportunité : <b>Non</b></li><li>Température : <b>froid</b></li><li>Motif de contre temps : <b>STOP - Demande RGPD</b></li><li>Conversation terminée : <b>Oui</b></li><li>Statut de la qualification : <b>Clôturée</b></li></ul>"
+          insights:
+            - key: cold
+              display: Lead froid
+              emoji:
+                props:
+                  name: snowflake
+                  emojiText: ":snowflake:"
+                  emojiHtml: "&#10052;&#65039;"
+            - key: rgpd
+              display: STOP - Demande RGPD
+              emoji:
+                props:
+                  name: warning
+                  emojiText: ":warning:"
+                  emojiHtml: "&#9888;&#65039;"
+        report:
+          qualificationForm:
+            - formQuestion:
+                id: project
+                question: Le lead a un projet
+                type: boolean
+              formResponse:
+                value: false
+              note:
+              state: add
+              lastModifiedAt: 2024-03-04T10:01:00.000Z
+            - formQuestion:
+                id: optinContact
+                question: Mise en relation souhaitée avec un conseiller
+                type: boolean
+              formResponse:
+                value: false
+              note:
+              state: add
+              lastModifiedAt: 2024-03-04T10:02:00.000Z
+          qualificationFormDisplay: "<ul><li>Le lead a un projet : <b>Non</b></li><li>Mise en relation souhaitée avec un conseiller : <b>Non</b></li></ul>"
+          notes:
+          conversationDisplay: "<ul><li><b>Pinpo</b> [07/08/2023 14:56]: <br>Bonjour, je suis Marion, Cheffe de projet chez ... J'espère que vous allez bien ! Merci d'avoir pris contact avec nous pour la résidence LES PALMIERS. Vous avez donc un projet d'achat dans le neuf, c'est bien cela ?</li><li><b>TEST test</b> [07/08/2023 14:57]: <br>Bonjour, je ne souhaite pas être contacté svp, serait il possible de suprimer mes données ? Merci. </li><li><b>Pinpo</b> [07/08/2023 14:58]: <br>Merci pour votre message. C’est bien noté, vous ne serez plus contacté et je fais remonter votre demande RGPD. Excellente journée</li></ul>"
+          conversationUrl: https://pinpo.app.link/e/pwjYOOtp4Bb
+        lastActivity: 2023-08-07T12:58:32.652Z
+        requestDate: 2023-08-07T12:56:13.689Z
+        trigger: "lead:change"
+        idScenario: idAssistant
     landlinePhone:
-      $ref: "#/components/x-examplesLead/landlinePhone"
+      value:
+        id: hJs5CwgLXE
+        externalId: externalIdLead
+        leadTypology:
+          key: landline-phone
+          value: Numéro fixe
+        contact:
+          firstName: "John"
+          lastName: "Doe"
+          phone: "33606060606"
+          mail: "john.doe@email.fr"
+          externalId: "abcd1234"
+        resume: "Numéro fixe<br/><br/><b><u>Détail Insight PINPO</u></b> :<ul><li>Engagé : <b>Non</b></li><li>Raison de non engagement : <b>Numéro fixe</b></li><li>Opportunité : <b>A déterminer</b></li></ul>"
+        insightPinpo:
+          details:
+            - key: engaged
+              title: Engagé
+              value: false
+            - key: opportunity
+              title: Opportunité
+              value: false
+            - key: reasonNoEngagement
+              title: Raison de non engagement
+              value:
+                key: landline-phone
+                display: Numéro fixe
+                emoji:
+                  props:
+                    name: warning
+                    emojiText: ":warning:"
+                    emojiHtml: "&#9888;&#65039;"
+            - key: opportunity,
+              title: Opportunité
+              value: false
+          display: "<ul><li>Engagé : <b>Non</b></li><li>Raison de non engagement : <b>Numéro fixe</b></li><li>Opportunité : <b>A déterminer</b></li></ul>"
+          insights:
+            - key: landline-phone
+              display: Numéro fixe
+              emoji:
+                props:
+                  name: warning
+                  emojiText: ":warning:"
+                  emojiHtml: "\u0026#9888;\u0026#65039;"
+        report:
+          qualificationForm:
+            - formQuestion:
+                id: reasonNoEngagement
+                question: Raison de non engagement
+                type: choice
+              formResponse:
+                value: Numéro fixe
+              note:
+              state: add
 
   x-examplesImport:
     simpleOnlyMandatoryImportLead:
