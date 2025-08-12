@@ -190,11 +190,13 @@ components:
           description: Report informations
           $ref: "#/components/schemas/Report"
         lastActivity:
-          type: date-time
+          type: string
+          format: date-time
           description: Last lead activity date in Pinpo in date time format
           example: "2023-10-01T08:20:50.52Z"
         requestDate:
-          type: date-time
+          type: string
+          format: date-time
           description: Date when the lead entered in Pinpo in date time format
           example: "2023-10-01T08:20:50.52Z"
         trigger:
@@ -259,16 +261,14 @@ components:
           example: "engaged"
         value:
           oneOf:
-            - boolean:
-              type: boolean
+            - type: boolean
               example: true
-            - text:
-              type: string
+            - type: string
               example: Textual response
             - $ref: "#/components/schemas/Temperatures"
             - $ref: "#/components/schemas/NonEngagementReason"
             - $ref: "#/components/schemas/DelayReason"
-            - array:
+            - type: array
               items:
                 $ref: "#/components/schemas/DelayReason"
         display:
@@ -298,11 +298,11 @@ components:
         providerName:
           type: string
           example: "'Facebook leads' or 'Réseaux sociaux' or 'Google Ads' or 'Site internet' or 'Portails/Comparateurs' ..."
-          decription: Source of your leads
+          description: Source of your leads
         scenarioSelection:
           type: string
           example: kopij876f
-          decription: Technical Id of your Pinpo scenario. See with your CX Manager.
+          description: Technical Id of your Pinpo scenario. See with your CX Manager.
         product:
           description: Product informations
           $ref: "#/components/schemas/Product"
@@ -496,20 +496,16 @@ components:
       properties:
         value:
           oneOf:
-            - boolean:
-              type: boolean
+            - type: boolean
               example: true
-            - textOrChoice:
-              type: string
+            - type: string
               example: Textual response
-            - number:
-              type: number
+            - type: number
               example: 3
-            - date:
-              type: date-time
+            - type: string
+              format: date-time
               example: "2023-10-01T10:00:00.52Z"
-            - multiChoice:
-              type: array
+            - type: array
               items:
                 type: string
           discriminator:
@@ -517,7 +513,7 @@ components:
     Event:
       type: string
       enum:
-        - lead:change
+        - "lead:change"
     Insight:
       type: object
       required:
@@ -757,7 +753,7 @@ components:
         typeLead: hot-immediate-contact
         url: https://test.fr
         hasEmoji: false
-        typeDisplay: test
+        typeDisplay: text
     rgpdHtml:
       value:
         typeLead: rgpd
@@ -797,7 +793,7 @@ components:
                   props:
                     name: fire
                     emojiText: ":fire:"
-                    emojiHtml: &#128293;
+                    emojiHtml: "&#128293;"
             - key: endedConversation
               title: Conversation terminée
               value: true
@@ -812,7 +808,7 @@ components:
                 props:
                   name: fire
                   emojiText: ":fire:"
-                  emojiHtml: &#128293;
+                  emojiHtml: "&#128293;"
           report:
             qualificationForm:
               - formQuestion:
@@ -856,7 +852,7 @@ components:
             conversationUrl: https://pinpo.app.link/e/ezSMLbOx4Bb
           lastActivity: 2023-08-07T14:55:05.195Z
           requestDate: 2023-08-07T12:54:12.425Z
-          trigger: lead:change
+          trigger: "lead:change"
           idScenario: idAssistant
     hotImmediateContactText:
       value:
@@ -890,7 +886,7 @@ components:
                   props:
                     name: fire
                     emojiText: ":fire:"
-                    emojiHtml: &#128293;
+                    emojiHtml: "&#128293;"
             - key: endedConversation
               title: Conversation terminée
               value: true
@@ -905,7 +901,7 @@ components:
                 props:
                   name: fire
                   emojiText: ":fire:"
-                  emojiHtml: &#128293;
+                  emojiHtml: "&#128293;"
         report:
           qualificationForm:
             - formQuestion:
@@ -949,7 +945,7 @@ components:
           conversationUrl: https://pinpo.app.link/e/ezSMLbOx4Bb
         lastActivity: 2023-08-07T14:55:05.195Z
         requestDate: 2023-08-07T12:54:12.425Z
-        trigger: lead:change
+        trigger: "lead:change"
         idScenario: idAssistant
     warm:
       value:
@@ -982,7 +978,7 @@ components:
                   props:
                     name: sun
                     emojiText: ":white_sun_small_cloud:"
-                    emojiHtml: &#127780;&#65039;
+                    emojiHtml: "&#127780;&#65039;"
             - key: endedConversation
               title: Conversation terminée
               value: true
@@ -997,7 +993,7 @@ components:
                 props:
                   name: sun
                   emojiText: ":white_sun_small_cloud:"
-                  emojiHtml: &#127780;&#65039;
+                  emojiHtml: "&#127780;&#65039;"
         report:
           qualificationForm:
             - formQuestion:
@@ -1033,7 +1029,7 @@ components:
           conversationUrl: https://pinpo.app.link/e/aaaaaaa
         lastActivity: 2023-08-07T13:19:20.717Z
         requestDate: 2023-08-07T13:04:11.098Z
-        trigger: lead:change
+        trigger: "lead:change"
         idScenario: idAssistant
     rgpd:
       value:
@@ -1066,7 +1062,7 @@ components:
                   props:
                     name: snowflake
                     emojiText: ":snowflake:"
-                    emojiHtml: &#10052;&#65039;
+                    emojiHtml: "&#10052;&#65039;"
             - key: delayReason
               title: Motif de contre temps
               value:
@@ -1077,7 +1073,7 @@ components:
                     props:
                       name: warning
                       emojiText: ":warning:"
-                      emojiHtml: &#9888;&#65039;
+                      emojiHtml: "&#9888;&#65039;"
             - key: endedConversation
               title: Conversation terminée
               value: true
@@ -1092,14 +1088,14 @@ components:
                 props:
                   name: snowflake
                   emojiText: ":snowflake:"
-                  emojiHtml: &#10052;&#65039;
+                  emojiHtml: "&#10052;&#65039;"
             - key: rgpd
               display: STOP - Demande RGPD
               emoji:
                 props:
                   name: warning
                   emojiText: ":warning:"
-                  emojiHtml: &#9888;&#65039;
+                  emojiHtml: "&#9888;&#65039;"
         report:
           qualificationForm:
             - formQuestion:
@@ -1126,7 +1122,7 @@ components:
           conversationUrl: https://pinpo.app.link/e/pwjYOOtp4Bb
         lastActivity: 2023-08-07T12:58:32.652Z
         requestDate: 2023-08-07T12:56:13.689Z
-        trigger: lead:change
+        trigger: "lead:change"
         idScenario: idAssistant
     landlinePhone:
       value:
@@ -1156,7 +1152,7 @@ components:
                   props:
                     name: warning
                     emojiText: ":warning:"
-                    emojiHtml: &#9888;&#65039;
+                    emojiHtml: "&#9888;&#65039;"
             - key: opportunity,
               title: Opportunité
           display: "<ul><li>Engagé : <b>Non</b></li><li>Raison de non engagement : <b>Numéro fixe</b></li><li>Opportunité : <b>A déterminer</b></li></ul>"
@@ -1167,14 +1163,14 @@ components:
                 props:
                   name: warning
                   emojiText: ":warning:"
-                  emojiHtml: &#9888;&#65039;
+                  emojiHtml: "\u0026#9888;\u0026#65039;"
         report:
           qualificationForm:
           qualificationFormDisplay:
           conversationDisplay:
         lastActivity: 2023-08-07T13:01:21.962Z
         requestDate: 2023-08-07T13:01:19.691Z
-        trigger: lead:change
+        trigger: "lead:change"
         idScenario: idAssistant
 
   securitySchemes:
