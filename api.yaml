@@ -47,11 +47,11 @@ paths:
               $ref: "#/components/schemas/ImportLead"
             examples:
               Usual example:
-                $ref: "#/components/examplesImport/usualImportLead"
+                $ref: "#/components/examples/usualImportLead"
               Only Mandatory:
-                $ref: "#/components/examplesImport/simpleOnlyMandatoryImportLead"
+                $ref: "#/components/examples/simpleOnlyMandatoryImportLead"
               Complete:
-                $ref: "#/components/examplesImport/complexeImportLead"
+                $ref: "#/components/examples/complexeImportLead"
         required: true
       responses:
         201:
@@ -108,11 +108,11 @@ paths:
               $ref: "#/components/schemas/MockWebhook"
             examples:
               Hot lead with meeting in html:
-                $ref: "#/components/examplesMock/hotWithMeetingHtml"
+                $ref: "#/components/examples/mockHotWithMeetingHtml"
               Hot lead asking immediate contact in text:
-                $ref: "#/components/examplesMock/hotImmediateContactText"
+                $ref: "#/components/examples/mockHotImmediateContactText"
               RGPD lead in html:
-                $ref: "#/components/examplesMock/rgpdHtml"
+                $ref: "#/components/examples/mockRgpdHtml"
         required: true
       responses:
         "200":
@@ -137,15 +137,15 @@ paths:
               $ref: "#/components/schemas/Lead"
             examples:
               Hot lead with meeting in html:
-                $ref: "#/components/examplesLead/hotWithMeetingHtml"
+                $ref: "#/components/examples/hotWithMeetingHtml"
               Hot lead asking immediate contact in text:
-                $ref: "#/components/examplesLead/hotImmediateContactText"
+                $ref: "#/components/examples/hotImmediateContactText"
               Warm lead in text:
-                $ref: "#/components/examplesLead/warm"
+                $ref: "#/components/examples/warm"
               RGPD lead in text:
-                $ref: "#/components/examplesLead/rgpd"
+                $ref: "#/components/examples/rgpd"
               LandlinePhone text:
-                $ref: "#/components/examplesLead/landlinePhone"
+                $ref: "#/components/examples/landlinePhone"
       responses:
         "200":
           description: Return a 200 status to indicate that the data was received successfully
@@ -674,7 +674,31 @@ components:
             - html
             - text
 
-  examplesImport:
+  examples:
+    usualImportLead:
+      $ref: "#/components/x-examplesImport/usualImportLead"
+    simpleOnlyMandatoryImportLead:
+      $ref: "#/components/x-examplesImport/simpleOnlyMandatoryImportLead"
+    complexeImportLead:
+      $ref: "#/components/x-examplesImport/complexeImportLead"
+    mockHotWithMeetingHtml:
+      $ref: "#/components/x-examplesMock/hotWithMeetingHtml"
+    mockHotImmediateContactText:
+      $ref: "#/components/x-examplesMock/hotImmediateContactText"
+    mockRgpdHtml:
+      $ref: "#/components/x-examplesMock/rgpdHtml"
+    hotWithMeetingHtml:
+      $ref: "#/components/x-examplesLead/hotWithMeetingHtml"
+    hotImmediateContactText:
+      $ref: "#/components/x-examplesLead/hotImmediateContactText"
+    warm:
+      $ref: "#/components/x-examplesLead/warm"
+    rgpd:
+      $ref: "#/components/x-examplesLead/rgpd"
+    landlinePhone:
+      $ref: "#/components/x-examplesLead/landlinePhone"
+
+  x-examplesImport:
     simpleOnlyMandatoryImportLead:
       value:
         contact:
@@ -741,7 +765,7 @@ components:
         outputData:
           - name: "civility"
             value: Mr
-  examplesMock:
+  x-examplesMock:
     hotWithMeetingHtml:
       value:
         typeLead: hot-with-meeting
@@ -760,7 +784,7 @@ components:
         url: https://test.fr
         hasEmoji: false
         typeDisplay: html
-  examplesLead:
+  x-examplesLead:
     hotWithMeetingHtml:
       value:
         id: SNkSwfNMIV
