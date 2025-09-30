@@ -219,15 +219,22 @@ components:
           type: string
           description: Main lead Information display
           enum:
-            - Chaud avec RDV
-            - Chaud sans RDV
             - Chaud non recontacté par l'entreprise
             - Chaud demande de contact immédiat
+            - Chaud avec RDV
+            - Chaud sans RDV
             - Lead tiède
             - Lead froid
+            - Faux destinataire
+            - Injoignable
+            - Rendez-vous à planifier
+            - STOP - Optout
+            - STOP - Demande RGPD
+            - Intérêts multiples
             - Numéro fixe
             - Numéro étranger
-            - ...
+            - Numéro invalide
+            - Erreur Technique lors de l'engagement
     InsightPinpo:
       required:
         - insights
@@ -573,25 +580,26 @@ components:
       type: string
       description: Main lead Information Key
       enum:
-        - hot-with-meeting
-        - hot-without-meeting
         - hot-not-contacted
         - hot-immediate-contact
+        - hot-with-meeting
+        - hot-without-meeting
         - warm
         - cold
+        - wrong-phone
+        - not-responding
+        - meeting-pending
+        - opt-out-sms
+        - rgpd
+        - already-engaged
         - landline-phone
         - foreign-phone
         - invalid-phone
-        - already-engaged
+        - technical-error
         - not-pinpo-targeting
         - reach-limit
         - duplicate
         - inconsistent-data
-        - not-responding
-        - wrong-phone
-        - opt-out-sms
-        - rgpd
-        - meeting-pending
     Temperatures:
       description: Possible temperatures
       allOf:
