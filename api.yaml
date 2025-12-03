@@ -140,12 +140,21 @@ paths:
                 $ref: "#/components/examples/hotWithMeetingHtml"
               Hot lead asking immediate contact in text:
                 $ref: "#/components/examples/hotImmediateContactText"
-              Warm lead in text:
+              Warm lead:
                 $ref: "#/components/examples/warm"
-              RGPD lead in text:
+              Cold lead:
+                $ref: "#/components/examples/cold"
+              RGPD lead:
                 $ref: "#/components/examples/rgpd"
-              LandlinePhone text:
+              Optout lead:
+                $ref: "#/components/examples/optOut"
+              Not responding lead:
+                $ref: "#/components/examples/notResponding"
+              LandlinePhone:
                 $ref: "#/components/examples/landlinePhone"
+              ForeignPhone:
+                $ref: "#/components/examples/foreignPhone"
+
       responses:
         "200":
           description: Return a 200 status to indicate that the data was received successfully
